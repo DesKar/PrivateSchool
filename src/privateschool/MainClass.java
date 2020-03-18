@@ -17,46 +17,47 @@ public class MainClass {
         listOfStudents.add(createStudent());
         listOfTrainers.add(createTrainer());
         listOfAssignments.add(createAssignment());
-        
 
     }
 
     public static Student createStudent() {
 
-        String firstName = getName("Student first name: ");
-        String lastName = getName("Student last name: ");
-        LocalDate dateOfBirth = getDateOfBirth();
-        double tuitionFees = getTuitionFees();
+        String firstName = getStringWithMessage("Student first name: ");
+        String lastName = getStringWithMessage("Student last name: ");
+        LocalDate dateOfBirth = getDate("Student date of birth(YYYY-MM-DD): ");
+        double tuitionFees = getTuitionFees("Tuition fees: ");
         Student student = new Student(firstName, lastName, dateOfBirth, tuitionFees);
         return student;
     }
 
     public static Trainer createTrainer() {
-        String firstName = getName("Trainer first name: ");
-        String lastName = getName("Trainer last name: ");
+        String firstName = getStringWithMessage("Trainer first name: ");
+        String lastName = getStringWithMessage("Trainer last name: ");
         Trainer trainer = new Trainer(firstName, lastName);
         return trainer;
     }
-    
-    public static Assignment createAssignment(){
-//            private String title;
-//    private String description;
-//    private LocalDate subDateTime;
-//    private int oralMark;
-//    private int localMark;
+
+    public static Assignment createAssignment() {
+        String title = getStringWithMessage("Assignment title: ");
+        String description = getStringWithMessage("Assignment description: ");
+        LocalDate subDateTime = getDate("Assignment submission date (YYYY-MM-DD): ");
+        int oranMark = getIntNumber("Oral Mark: ", "Please provide a number between 1-10");
+        int localMark = getIntNumber("Local mark: ", "Please provide a number between 1-10");
+        Assignment assignment = new Assignment(title, description, subDateTime, oranMark, localMark);
+        return assignment;
     }
 
-    public static String getName(String message) {
+    public static String getStringWithMessage(String message) {
         System.out.print(message);
         return input.next();
     }
 
-    private static LocalDate getDateOfBirth() {
+    private static LocalDate getDate(String message) {
 
-        System.out.print("Student date of birth(YYYY-MM-DD)?");
+        System.out.print(message);
         String date = input.next();
         while (date.charAt(4) != '-' || date.charAt(7) != '-') {
-            System.out.print("Please provide the date in the format YYYY-MM-DD");
+            System.out.print("Please provide the date in the format YYYY-MM-DD: ");
             date = input.next();
         }
         String[] dateArray = date.split("-");
@@ -68,17 +69,30 @@ public class MainClass {
         return localDate;
     }
 
-    private static double getTuitionFees() {
-        double tuitionFees;
+    private static double getTuitionFees(String message) {
+        double number;
         do {
-            System.out.print("Tuition fees: ");
+            System.out.print(message);
             while (!input.hasNextDouble()) {
-                System.out.print("Tuition fees: ");
+                System.out.print(message);
                 input.next();
             }
-            tuitionFees = input.nextDouble();
-        } while (tuitionFees < 0);
-        return tuitionFees;
+            number = input.nextDouble();
+        } while (number < 0);
+        return number;
+    }
+
+    private static int getIntNumber(String message1, String message2) {
+        int number;
+        do {
+            System.out.print(message1);
+            while (!input.hasNextInt()) {
+                System.out.print(message2);
+                input.next();
+            }
+            number = input.nextInt();
+        } while (number < 0);
+        return number;
     }
 
 }
