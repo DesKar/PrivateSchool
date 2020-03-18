@@ -4,12 +4,10 @@ public class Trainer {
 
     private String firstName;
     private String lastName;
-    private String subject;
 
-    public Trainer(String firstName, String lastName, String subject) {
+    public Trainer(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.subject = subject;
     }
 
     public String getFirstName() {
