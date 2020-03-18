@@ -12,9 +12,12 @@ public class MainClass {
 
         ArrayList<Student> listOfStudents = new ArrayList();
         ArrayList<Trainer> listOfTrainers = new ArrayList();
+        ArrayList<Assignment> listOfAssignments = new ArrayList();
 
         listOfStudents.add(createStudent());
         listOfTrainers.add(createTrainer());
+        listOfAssignments.add(createAssignment());
+        
 
     }
 
@@ -33,6 +36,14 @@ public class MainClass {
         String lastName = getName("Trainer last name: ");
         Trainer trainer = new Trainer(firstName, lastName);
         return trainer;
+    }
+    
+    public static Assignment createAssignment(){
+//            private String title;
+//    private String description;
+//    private LocalDate subDateTime;
+//    private int oralMark;
+//    private int localMark;
     }
 
     public static String getName(String message) {
@@ -69,5 +80,5 @@ public class MainClass {
         } while (tuitionFees < 0);
         return tuitionFees;
     }
-    
+
 }

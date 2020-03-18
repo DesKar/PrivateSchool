@@ -3,19 +3,19 @@ package privateschool;
 
 import java.time.LocalDate;
 
-public class Assignement {
+public class Assignment {
     private String title;
     private String description;
     private LocalDate subDateTime;
     private int oralMark;
-    private int LocalMark;
+    private int localMark;
 
-    public Assignement(String title, String description, LocalDate subDateTime, int oralMark, int LocalMark) {
+    public Assignment(String title, String description, LocalDate subDateTime, int oralMark, int localMark) {
         this.title = title;
         this.description = description;
         this.subDateTime = subDateTime;
         this.oralMark = oralMark;
-        this.LocalMark = LocalMark;
+        this.localMark = localMark;
     }
 
     public String getTitle() {
@@ -35,7 +35,7 @@ public class Assignement {
     }
 
     public int getLocalMark() {
-        return LocalMark;
+        return localMark;
     }
 
     public void setTitle(String title) {
@@ -55,7 +55,7 @@ public class Assignement {
     }
 
     public void setLocalMark(int LocalMark) {
-        this.LocalMark = LocalMark;
+        this.localMark = LocalMark;
     }
     
 }
