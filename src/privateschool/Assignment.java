@@ -54,8 +54,8 @@ public class Assignment {
         this.oralMark = oralMark;
     }
 
-    public void setLocalMark(int LocalMark) {
-        this.localMark = LocalMark;
+    public void setLocalMark(int localMark) {
+        this.localMark = localMark;
     }
     
 }

@@ -31,7 +31,7 @@ public class MainClass {
         String firstName = getStringWithMessage("Student first name: ");
         String lastName = getStringWithMessage("Student last name: ");
         LocalDate dateOfBirth = getDate("Student date of birth(YYYY-MM-DD): ");
-        int tuitionFees = getIntNumber("Tuition fees: ", "Tuition fees: ");
+        int tuitionFees = getIntNumber("Tuition fees: ", "Please provide a number bigger than 0: ", 0, Integer.MAX_VALUE);
         Student student = new Student(firstName, lastName, dateOfBirth, tuitionFees);
         return student;
     }
@@ -48,8 +48,8 @@ public class MainClass {
         String title = getStringWithMessage("Assignment title: ");
         String description = getStringWithMessage("Assignment description: ");
         LocalDate subDateTime = getDate("Assignment submission date (YYYY-MM-DD): ");
-        int oranMark = getIntNumber("Oral Mark: ", "Please provide a number between 1-10: ");
-        int localMark = getIntNumber("Local mark: ", "Please provide a number between 1-10: ");
+        int oranMark = getIntNumber("Oral Mark: ", "Please provide a number between 0-10: ", 0, 10);
+        int localMark = getIntNumber("Local mark: ", "Please provide a number between 0-10: ", 0, 10);
         Assignment assignment = new Assignment(title, description, subDateTime, oranMark, localMark);
         return assignment;
     }
@@ -88,7 +88,7 @@ public class MainClass {
         return localDate;
     }
 
-    private static int getIntNumber(String message1, String message2) {
+    private static int getIntNumber(String message1, String message2, int lowerBound, int upperBound) {
         int number;
         do {
             System.out.print(message1);
@@ -97,7 +97,7 @@ public class MainClass {
                 input.next();
             }
             number = input.nextInt();
-        } while (number < 0);
+        } while (number <= lowerBound || number >= upperBound);
         return number;
     }
 
