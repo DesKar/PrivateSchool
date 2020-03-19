@@ -7,9 +7,9 @@ public class Student {
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
-    private double tuitionFees;
+    private int tuitionFees;
 
-    public Student(String firstName, String lastName, LocalDate dateOfBirth, double tuitionFees) {
+    public Student(String firstName, String lastName, LocalDate dateOfBirth, int tuitionFees) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -44,7 +44,7 @@ public class Student {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public void setTuitionFees(double tuitionFees) {
+    public void setTuitionFees(int tuitionFees) {
         this.tuitionFees = tuitionFees;
     }
     

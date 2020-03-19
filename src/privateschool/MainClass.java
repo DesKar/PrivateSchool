@@ -9,6 +9,10 @@ public class MainClass {
     static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
+        
+        
+        
+        
 
         ArrayList<Student> listOfStudents = new ArrayList();
         ArrayList<Trainer> listOfTrainers = new ArrayList();
@@ -27,7 +31,7 @@ public class MainClass {
         String firstName = getStringWithMessage("Student first name: ");
         String lastName = getStringWithMessage("Student last name: ");
         LocalDate dateOfBirth = getDate("Student date of birth(YYYY-MM-DD): ");
-        double tuitionFees = getTuitionFees("Tuition fees: ");
+        int tuitionFees = getIntNumber("Tuition fees: ", "Tuition fees: ");
         Student student = new Student(firstName, lastName, dateOfBirth, tuitionFees);
         return student;
     }
@@ -35,7 +39,8 @@ public class MainClass {
     public static Trainer createTrainer() {
         String firstName = getStringWithMessage("Trainer first name: ");
         String lastName = getStringWithMessage("Trainer last name: ");
-        Trainer trainer = new Trainer(firstName, lastName);
+        String subject = getStringWithMessage("Trainer subject: ");
+        Trainer trainer = new Trainer(firstName, lastName, subject);
         return trainer;
     }
 
@@ -81,19 +86,6 @@ public class MainClass {
 
         LocalDate localDate = LocalDate.of(year, month, day);
         return localDate;
-    }
-
-    private static double getTuitionFees(String message) {
-        double number;
-        do {
-            System.out.print(message);
-            while (!input.hasNextDouble()) {
-                System.out.print(message);
-                input.next();
-            }
-            number = input.nextDouble();
-        } while (number < 0);
-        return number;
     }
 
     private static int getIntNumber(String message1, String message2) {
