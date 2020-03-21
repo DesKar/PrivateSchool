@@ -1,11 +1,17 @@
 package privateschool;
 
 import java.time.LocalDate;
-import java.time.Month;
 
 public class SyntheticSchool extends School {
+    
+    SyntheticSchool(){
+        addStudentsInSchool();
+        addTrainersInSchool();
+        addAssignmentsInSchool();
+        addCoursesInSchool();
+    }
 
-    public void addStudentsInSchool() {
+    private void addStudentsInSchool() {
 
         Student student = new Student("John", "Doe", LocalDate.ofEpochDay(0), 2000);
         super.setListOfStudents(student);
@@ -20,7 +26,7 @@ public class SyntheticSchool extends School {
 
     }
 
-    public void addTrainersInSchool() {
+    private void addTrainersInSchool() {
         Trainer trainer = new Trainer("Jane", "Doe", "Java");
         super.setListOfTrainers(trainer);
         trainer = new Trainer("Juan", "Perez", "C#");
@@ -29,7 +35,7 @@ public class SyntheticSchool extends School {
         super.setListOfTrainers(trainer);
     }
 
-    public void addAssignmentsInSchool() {
+    private void addAssignmentsInSchool() {
 
         Assignment assignment = new Assignment("Individual Project", "The individual project of the students", LocalDate.of(2020, 4, 8), 10, 10);
         super.setListOfAssignments(assignment);
@@ -37,7 +43,7 @@ public class SyntheticSchool extends School {
         super.setListOfAssignments(assignment);
     }
 
-    public void addCoursesInSchool() {
+    private void addCoursesInSchool() {
         Course course = new Course("Coding Bootcamp", "Java Full Stack Development", "Full-time", LocalDate.of(2020, 3, 4), LocalDate.of(2020, 6, 5));
         super.setListOfCourses(course);
         course = new Course("Coding Bootcamp", "Java Full Stack Development", "Part-time", LocalDate.of(2020, 3, 4), LocalDate.of(2020, 8, 5));

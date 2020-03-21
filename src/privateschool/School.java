@@ -42,18 +42,18 @@ public class School {
     }
 
     public void printListOfStudents() {
-        System.out.println("--------------------------------Students--------------------------------\n");
+        System.out.println("--------------------------------Students-------------------------------");
         String header = String.format("|%-5s|%-15s|%-15s|%-15s|%-15s|", "ID", "First name", "Last name", "Date of Birth", "Tuition Fees(€)");
         System.out.println(header);
         for (Student student : listOfStudents) {
             String content = String.format("|%-5s|%-15s|%-15s|%-15s|%-15s|", listOfStudents.indexOf(student) + 1, student.getFirstName(), student.getLastName(), student.getDateOfBirth(), student.getTuitionFees());
             System.out.println(content);
         }
-        System.out.println("------------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------");
     }
 
     public void printListOfTrainers() {
-        System.out.println("----------------Trainers---------------\n");
+        System.out.println("----------------Trainers---------------");
         String header = String.format("|%-5s|%-15s|%-15s|", "ID", "First Name", "Last Name");
         System.out.println(header);
         for (Trainer trainer : listOfTrainers) {
@@ -64,7 +64,7 @@ public class School {
     }
 
     public void printListOfAssignments() {
-        System.out.println("-------------------------------------------------------Assignments-------------------------------------------------------\n");
+        System.out.println("-------------------------------------------------------Assignments-------------------------------------------------------");
         String header = String.format("|%-5s|%-25s|%-40s|%-18s|%-13s|%-13s|", "ID", "Title", "Description", "Submission Date", "Oral Mark", "Local Mark");
         System.out.println(header);
         for (Assignment assignment : listOfAssignments) {
