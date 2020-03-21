@@ -3,73 +3,44 @@ package privateschool;
 import java.time.LocalDate;
 import static privateschool.MainClass.input;
 
-public class CodingSchool extends School {
+public class RealSchool extends School {
 
-    private Student student = createStudent();
-    private Trainer trainer = createTrainer();
-    private Assignment assignment = createAssignment();
-    private Course course = createCourse();
-
-    public CodingSchool() {
-        super();
-        super.setListOfStudents(student);
-        super.setListOfTrainers(trainer);
-        super.setListOfCourses(course);
-        super.setListOfAssignments(assignment);
-    }
-
-    public CodingSchool(Student student) {
-        super.setListOfStudents(student);
-    }
-
-    public CodingSchool(Trainer trainer) {
-        super.setListOfTrainers(trainer);
-    }
-
-    public CodingSchool(Course course) {
-        super.setListOfCourses(course);
-    }
-
-    public CodingSchool(Assignment assignment) {
-        super.setListOfAssignments(assignment);
-    }
-
-    private Student createStudent() {
+    public void addStudentInSchool() {
 
         String firstName = getStringWithMessage("Student first name: ");
         String lastName = getStringWithMessage("Student last name: ");
         LocalDate dateOfBirth = getDate("Student date of birth(YYYY-MM-DD): ");
         int tuitionFees = getIntNumber("Tuition fees: ", "Please provide a number bigger than 0: ", 0, Integer.MAX_VALUE);
-        student = new Student(firstName, lastName, dateOfBirth, tuitionFees);
-        return student;
+        Student student = new Student(firstName, lastName, dateOfBirth, tuitionFees);
+        super.setListOfStudents(student);
     }
 
-    private Trainer createTrainer() {
+    public void addTrainerInSchool() {
         String firstName = getStringWithMessage("Trainer first name: ");
         String lastName = getStringWithMessage("Trainer last name: ");
         String subject = getStringWithMessage("Trainer subject: ");
-        trainer = new Trainer(firstName, lastName, subject);
-        return trainer;
+        Trainer trainer = new Trainer(firstName, lastName, subject);
+        super.setListOfTrainers(trainer);
     }
 
-    private Assignment createAssignment() {
+    public void addAssignmentInSchool() {
         String title = getStringWithMessage("Assignment title: ");
         String description = getStringWithMessage("Assignment description: ");
         LocalDate subDateTime = getDate("Assignment submission date (YYYY-MM-DD): ");
         int oralMark = getIntNumber("Oral Mark: ", "Please provide a number between 0-10: ", 0, 10);
         int localMark = getIntNumber("Local mark: ", "Please provide a number between 0-10: ", 0, 10);
-        assignment = new Assignment(title, description, subDateTime, oralMark, localMark);
-        return assignment;
+        Assignment assignment = new Assignment(title, description, subDateTime, oralMark, localMark);
+        super.setListOfAssignments(assignment);
     }
 
-    private Course createCourse() {
+    public void addCourseInSchool() {
         String title = getStringWithMessage("Course title: ");
         String stream = getStringWithMessage("Course stream title: ");
         String type = getStringWithMessage("Course type: ");
         LocalDate startDate = getDate("Course starting date (YYYY-MM-DD): ");
         LocalDate endDate = getDate("Course ending date (YYYY-MM-DD): ");
-        course = new Course(title, stream, type, startDate, endDate);
-        return course;
+        Course course = new Course(title, stream, type, startDate, endDate);
+        super.setListOfCourses(course);
     }
 
     private String getStringWithMessage(String message) {
