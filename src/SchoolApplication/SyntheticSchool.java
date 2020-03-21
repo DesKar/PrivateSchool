@@ -49,5 +49,5 @@ public class SyntheticSchool extends School {
         course = new Course("Coding Bootcamp", "Java Full Stack Development", "Part-time", LocalDate.of(2020, 3, 4), LocalDate.of(2020, 8, 5));
         super.setListOfCourses(course);
     }
-
+    
 }

@@ -59,9 +59,9 @@ public class MainClass {
 
     public static void printStudents() {
         ArrayList<Student> listOfStudentsInRealSchool = realSchool.getListOfStudents();
-        if (listOfStudentsInRealSchool.isEmpty()){
+        if (listOfStudentsInRealSchool.isEmpty()) {
             syntheticSchool.printListOfStudents();
-        }else{
+        } else {
             realSchool.printListOfStudents();
         }
 
@@ -69,7 +69,7 @@ public class MainClass {
 
     public static void printTrainers() {
         ArrayList<Trainer> listOfTrainersInRealSchool = realSchool.getListOfTrainers();
-        if (listOfTrainersInRealSchool.isEmpty() ) {
+        if (listOfTrainersInRealSchool.isEmpty()) {
             syntheticSchool.printListOfTrainers();
         } else {
             realSchool.printListOfTrainers();
@@ -96,12 +96,65 @@ public class MainClass {
 
     }
 
-    public static void addStudentToCourse() {
-        System.out.println("Please choose a course to add students to: ");
-        printCourses();
-        int courseChosen = input.nextInt();
-        printStudents();
+    public static StudentsInCourse addStudentToCourse() {
+//        if (realSchool.getListOfCourses().size() != 0 && realSchool.getListOfStudents().size() != 0) {
+            System.out.println("Please choose a course from the list below:");
+            printCourses();
 
+            Course selectedCourse = selectCourse();
+
+            System.out.printf("Selected course: %s.\n", (selectedCourse.toString()));
+            System.out.println("Please choose students to add to the selected course.\n");
+            printStudents();
+
+            ArrayList<Student> selectedStudents = selectStudents();
+
+            StudentsInCourse studentsInCourse = new StudentsInCourse(selectedCourse, selectedStudents);
+
+            return studentsInCourse;
+
+//        }
+//        else{
+//            return syntheticSchool;
+//        }
+
+    }
+
+    public static Course selectCourse() {
+
+        int lengthOfCourseList = realSchool.getListOfCourses().size();
+        int courseIndex = chooseElementFromPrintOut("You can choose the course using its ID.\nCourse ID: ", 0, lengthOfCourseList);
+        Course selectedCourse = realSchool.getListOfCourses().get(courseIndex);
+        return selectedCourse;
+
+    }
+
+    public static ArrayList selectStudents() {
+        ArrayList<Student> selectedStudents = new ArrayList();
+        do {
+            int lengthOfStudentList = realSchool.getListOfStudents().size();
+            int studentIndex = chooseElementFromPrintOut("You can choose a student using his/her ID.\nStudent ID: ", 0, lengthOfStudentList);
+            Student selectedStudent = realSchool.getListOfStudents().get(studentIndex);
+
+            selectedStudents.add(selectedStudent);
+
+            System.out.println("Would you like to add another student? Y: Yes");
+        } while ("Y".equals(input.next()));
+
+        return selectedStudents;
+    }
+
+    public static int chooseElementFromPrintOut(String message, int lowerBound, int upperBound) {
+        int number;
+        do {
+            System.out.print(message);
+            while (!input.hasNextInt()) {
+                System.out.print(message);
+                input.next();
+            }
+            number = input.nextInt();
+        } while (number <= lowerBound || number > upperBound);
+        return number - 1;
     }
 
     public static void printUserOptions() {
