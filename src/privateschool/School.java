@@ -42,40 +42,40 @@ public class School {
     }
 
     public void printListOfStudents() {
-        String header = String.format("|%-15s|%-15s|%-15s|%-15s|", "First name", "Last name", "Date of Birth", "Tuition Fees(€)");
+        String header = String.format("|%-5s|%-15s|%-15s|%-15s|%-15s|", "ID", "First name", "Last name", "Date of Birth", "Tuition Fees(€)");
         System.out.println(header);
         for (Student student : listOfStudents) {
-            String content = String.format("|%-15s|%-15s|%-15s|%-15s|", student.getFirstName(), student.getLastName(), student.getDateOfBirth(), student.getTuitionFees());
+            String content = String.format("|%-5s|%-15s|%-15s|%-15s|%-15s|", listOfStudents.indexOf(student) + 1, student.getFirstName(), student.getLastName(), student.getDateOfBirth(), student.getTuitionFees());
             System.out.println(content);
         }
         System.out.println("");
     }
 
     public void printListOfTrainers() {
-        String header = String.format("|%-15s|%-15s|", "First Name", "Last Name");
+        String header = String.format("|%-5s|%-15s|%-15s|", "ID", "First Name", "Last Name");
         System.out.println(header);
         for (Trainer trainer : listOfTrainers) {
-            String content = String.format("|%-15s|%-15s|", trainer.getFirstName(), trainer.getLastName());
+            String content = String.format("|%-5s|%-15s|%-15s|", listOfTrainers.indexOf(trainer) + 1,  trainer.getFirstName(), trainer.getLastName());
             System.out.println(content);
         }
         System.out.println("");
     }
 
     public void printListOfAssignments() {
-        String header = String.format("|%-25s|%-40s|%-18s|%-13s|%-13s|", "Title", "Description", "Submission Date", "Oral Mark", "Local Mark");
+        String header = String.format("|%-5s|%-25s|%-40s|%-18s|%-13s|%-13s|", "ID", "Title", "Description", "Submission Date", "Oral Mark", "Local Mark");
         System.out.println(header);
         for (Assignment assignment : listOfAssignments) {
-            String content = String.format("|%-25s|%-40s|%-18s|%-13d|%-13d|", assignment.getTitle(), assignment.getDescription(), assignment.getSubDateTime(), assignment.getOralMark(), assignment.getLocalMark());
+            String content = String.format("|%-5s|%-25s|%-40s|%-18s|%-13d|%-13d|", listOfAssignments.indexOf(assignment) + 1, assignment.getTitle(), assignment.getDescription(), assignment.getSubDateTime(), assignment.getOralMark(), assignment.getLocalMark());
             System.out.println(content);
         }
         System.out.println("");
     }
 
     public void printListOfCourses() {
-        String header = String.format("|%-25s|%-30s|%-13s|%-13s|%-13s|", "Title", "Stream", "Type", "Start Date", "End Date");
+        String header = String.format("|%-5s|%-25s|%-30s|%-13s|%-13s|%-13s|", "ID", "Title", "Stream", "Type", "Start Date", "End Date");
         System.out.println(header);
         for (Course course : listOfCourses) {
-            String content = String.format("|%-25s|%-30s|%-13s|%-13s|%-13s|", course.getTitle(), course.getStream(), course.getType(), course.getStartDate(), course.getEndDate());
+            String content = String.format("|%-5s|%-25s|%-30s|%-13s|%-13s|%-13s|", listOfCourses.indexOf(course) + 1, course.getTitle(), course.getStream(), course.getType(), course.getStartDate(), course.getEndDate());
             System.out.println(content);
         }
         System.out.println("");
