@@ -28,7 +28,7 @@ public class Student {
         return dateOfBirth;
     }
 
-    public double getTuitionFees() {
+    public int getTuitionFees() {
         return tuitionFees;
     }
 

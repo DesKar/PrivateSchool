@@ -42,12 +42,13 @@ public class School {
     }
 
     public void printListOfStudents() {
-        String header = String.format("|%-15s|%-15s|%-15s|%-15s|", "First name", "Last name", "Date of Birth", "Tuition Fees");
+        String header = String.format("|%-15s|%-15s|%-15s|%-15s|", "First name", "Last name", "Date of Birth", "Tuition Fees(€)");
         System.out.println(header);
         for (Student student : listOfStudents) {
             String content = String.format("|%-15s|%-15s|%-15s|%-15s|", student.getFirstName(), student.getLastName(), student.getDateOfBirth(), student.getTuitionFees());
             System.out.println(content);
         }
+        System.out.println("");
     }
 
     public void printListOfTrainers() {
@@ -57,6 +58,7 @@ public class School {
             String content = String.format("|%-15s|%-15s|", trainer.getFirstName(), trainer.getLastName());
             System.out.println(content);
         }
+        System.out.println("");
     }
 
     public void printListOfAssignments() {
@@ -66,6 +68,7 @@ public class School {
             String content = String.format("|%-25s|%-40s|%-18s|%-13d|%-13d|", assignment.getTitle(), assignment.getDescription(), assignment.getSubDateTime(), assignment.getOralMark(), assignment.getLocalMark());
             System.out.println(content);
         }
+        System.out.println("");
     }
 
     public void printListOfCourses() {
@@ -75,6 +78,7 @@ public class School {
             String content = String.format("|%-25s|%-30s|%-13s|%-13s|%-13s|", course.getTitle(), course.getStream(), course.getType(), course.getStartDate(), course.getEndDate());
             System.out.println(content);
         }
+        System.out.println("");
 
     }
 }
