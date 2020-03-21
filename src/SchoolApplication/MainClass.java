@@ -1,4 +1,4 @@
-package privateschool;
+package SchoolApplication;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -100,7 +100,6 @@ public class MainClass {
         System.out.println("Please choose a course to add students to: ");
         printCourses();
         int courseChosen = input.nextInt();
-        System.out.println(courseChosen);
         printStudents();
 
     }

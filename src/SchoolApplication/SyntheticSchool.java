@@ -1,4 +1,4 @@
-package privateschool;
+package SchoolApplication;
 
 import java.time.LocalDate;
 

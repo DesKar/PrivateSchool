@@ -1,7 +1,7 @@
-package privateschool;
+package SchoolApplication;
 
 import java.time.LocalDate;
-import static privateschool.MainClass.input;
+import static SchoolApplication.MainClass.input;
 
 public class RealSchool extends School {
 
