@@ -1,9 +1,9 @@
-
 package SchoolApplication;
 
 import java.time.LocalDate;
 
 public class Assignment {
+
     private String title;
     private String description;
     private LocalDate subDateTime;
@@ -57,5 +57,10 @@ public class Assignment {
     public void setLocalMark(int localMark) {
         this.localMark = localMark;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Assignment{" + "title=" + title + ", description=" + description + ", subDateTime=" + subDateTime + ", oralMark=" + oralMark + ", localMark=" + localMark + '}';
+    }
+
 }

@@ -28,4 +28,11 @@ public class Trainer {
         this.lastName = lastName;
     }
 
+    @Override
+    public String toString() {
+        return "Trainer{" + "firstName=" + firstName + ", lastName=" + lastName + ", subject=" + subject + '}';
+    }
+    
+    
+
 }
