@@ -51,18 +51,28 @@ public class RealSchool extends School {
     private LocalDate getDate(String message) {
 
         System.out.print(message);
-        String date = input.next();
-        while (date.charAt(4) != '-' || date.charAt(7) != '-' || date.length() != 10) {
-            System.out.print("Please provide the date in the format YYYY-MM-DD: ");
-            date = input.next();
-        }
-        String[] dateArray = date.split("-");
-        int year = Integer.parseInt(dateArray[0]);
-        int month = Integer.parseInt(dateArray[1]);
-        int day = Integer.parseInt(dateArray[2]);
+        LocalDate localDate = null;
+        while (localDate == null) {
+            try {
+                String date = input.next();
+                while (date.charAt(4) != '-' || date.charAt(7) != '-' || date.length() != 10) {
+                    System.out.print("Please provide the date in the format YYYY-MM-DD: ");
+                    date = input.next();
+                }
+                String[] dateArray = date.split("-");
 
-        //TODO check validity of date
-        LocalDate localDate = LocalDate.of(year, month, day);
+                int year = Integer.parseInt(dateArray[0]);
+                int month = Integer.parseInt(dateArray[1]);
+                int day = Integer.parseInt(dateArray[2]);
+
+                localDate = LocalDate.of(year, month, day);
+            } catch (java.lang.NumberFormatException e) {
+                System.out.print("Please provide the date in the format YYYY-MM-DD: ");
+
+            } catch(java.time.DateTimeException e){
+                System.out.print("Please make sure you add the correct date:");
+            }
+        }
         return localDate;
     }
 
