@@ -69,10 +69,9 @@ public class RealSchool extends School {
             } catch (java.lang.NumberFormatException e) {
                 System.out.print("Please provide the date in the format YYYY-MM-DD: ");
 
-            } catch(java.time.DateTimeException e){
+            } catch (java.time.DateTimeException e) {
                 System.out.print("Please make sure you add the correct date:");
-            }
-            catch(StringIndexOutOfBoundsException e){
+            } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("Please provide the date in the format YYYY-MM-DD: ");
             }
         }
