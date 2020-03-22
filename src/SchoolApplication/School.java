@@ -10,6 +10,8 @@ public class School {
     private ArrayList<Course> listOfCourses = new ArrayList();
 
     private ArrayList<StudentsInCourse> listOfStudentsInCourse = new ArrayList();
+    private ArrayList<TrainersInCourse> listOfTrainersInCourse = new ArrayList();
+    
 
     public void addStudentInListOfStudents(Student student) {
         this.listOfStudents.add(student);
@@ -27,8 +29,12 @@ public class School {
         this.listOfCourses.add(course);
     }
 
-    public void addStudentsInCourseInListOfStudentsInCourse(StudentsInCourse studentsInCourse) {
+    public void addStudentsInCourseToListOfStudentsInCourse(StudentsInCourse studentsInCourse) {
         this.listOfStudentsInCourse.add(studentsInCourse);
+    }
+    
+        public void addTrainersInCourseToListOfTrainersInCourse(TrainersInCourse trainersInCourse) {
+        this.listOfTrainersInCourse.add(trainersInCourse);
     }
 
     public ArrayList<Student> getListOfStudents() {
@@ -49,6 +55,10 @@ public class School {
 
     public ArrayList<StudentsInCourse> getListOfStudentsInCourse() {
         return listOfStudentsInCourse;
+    }
+
+    public ArrayList<TrainersInCourse> getListOfTrainersInCourse() {
+        return listOfTrainersInCourse;
     }
     
 //TODO convert to printable interface maybe

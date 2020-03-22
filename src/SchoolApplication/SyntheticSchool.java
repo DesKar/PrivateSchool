@@ -75,10 +75,10 @@ public class SyntheticSchool extends School {
         selectedStudentsForSecondCourse.add(fifthStudent);
 
         StudentsInCourse studentsInFirstCourse = new StudentsInCourse(firstCourse, selectedStudentsForFirstCourse);
-        super.addStudentsInCourseInListOfStudentsInCourse(studentsInFirstCourse);
+        super.addStudentsInCourseToListOfStudentsInCourse(studentsInFirstCourse);
 
         StudentsInCourse studentsInSecondCourse = new StudentsInCourse(secondCourse, selectedStudentsForSecondCourse);
-        super.addStudentsInCourseInListOfStudentsInCourse(studentsInSecondCourse);
+        super.addStudentsInCourseToListOfStudentsInCourse(studentsInSecondCourse);
 
     }
 }

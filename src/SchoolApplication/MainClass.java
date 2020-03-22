@@ -42,14 +42,17 @@ public class MainClass {
                 case "-pc":
                     printCourses();
                     break;
-                case "-q":
-                    System.out.println("Thank you for using the School Application!");
-                    break;
                 case "-asc":
                     addStudentToCourse();
                     break;
+                case "-atc":
+                    addTrainerToCourse();
+                    break;
                 case "-psc":
                     printStudentsInCourse();
+                case "-q":
+                    System.out.println("Thank you for using the School Application!");
+                    break;
                 default:
                     break;
             }
@@ -112,13 +115,37 @@ public class MainClass {
 
             StudentsInCourse studentsInCourse = new StudentsInCourse(selectedCourse, selectedStudents);
 
-            realSchool.addStudentsInCourseInListOfStudentsInCourse(studentsInCourse);
+            realSchool.addStudentsInCourseToListOfStudentsInCourse(studentsInCourse);
         } else if (realSchool.getListOfCourses().isEmpty()) {
             System.out.println("There are no courses added. Please add a course to continue.");
         } else if (realSchool.getListOfStudents().isEmpty()) {
-            System.out.println("There are no students added. Please add a course to continue.");
+            System.out.println("There are no students added. Please add a student to continue.");
         }
 
+    }
+    
+    public static void addTrainerToCourse(){
+        if (!realSchool.getListOfCourses().isEmpty() && !realSchool.getListOfTrainers().isEmpty()) {
+            System.out.println("Please choose a course from the list below:");
+            printCourses();
+
+            Course selectedCourse = selectCourse();
+
+            System.out.printf("Selected course: %s.\n", (selectedCourse.toString()));
+            System.out.println("Please choose trainers to add to the selected course.\n");
+            printTrainers();
+
+            ArrayList<Trainer> selectedTrainers = selectTrainers();
+
+            TrainersInCourse trainersInCourse = new TrainersInCourse(selectedCourse, selectedTrainers);
+
+            realSchool.addTrainersInCourseToListOfTrainersInCourse(trainersInCourse);
+        } else if (realSchool.getListOfCourses().isEmpty()) {
+            System.out.println("There are no courses added. Please add a course to continue.");
+        } else if (realSchool.getListOfTrainers().isEmpty()) {
+            System.out.println("There are no trainers added. Please add a trainer to continue.");
+        }
+        
     }
 
     public static void printStudentsInCourse() {
@@ -158,12 +185,12 @@ public class MainClass {
         System.out.println("--------------------------------Students-------------------------------");
         header = String.format("|%-5s|%-15s|%-15s|%-15s|%-15s|", "ID", "First name", "Last name", "Date of Birth", "Tuition Fees(€)");
         System.out.println(header);
-        
+
         ArrayList<Student> listOfStudents = coursesThatHaveAssignedStudents.get(selectedCourseIndex).getListOfStudents();
         index = 1;
         for (Student student : listOfStudents) {
             System.out.println(student.print(index));
-            index ++;
+            index++;
         }
         System.out.println("-----------------------------------------------------------------------");
     }
@@ -191,6 +218,22 @@ public class MainClass {
 
         return selectedStudents;
     }
+    
+    public static ArrayList selectTrainers(){
+         ArrayList<Trainer> selectedTrainers = new ArrayList();
+        do {
+            int lengthOfTrainerList = realSchool.getListOfTrainers().size();
+            int trainerIndex = chooseElementFromList("You can choose a student using his/her ID.\nStudent ID: ", 0, lengthOfTrainerList);
+            Trainer selectedTrainer = realSchool.getListOfTrainers().get(trainerIndex);
+
+            selectedTrainers.add(selectedTrainer);
+
+            System.out.println("Would you like to add another student? Y: Yes");
+        } while ("Y".equals(input.next()));
+
+        return selectedTrainers;
+    }
+   
 
     public static int chooseElementFromList(String message, int lowerBound, int upperBound) {
         int number;
@@ -208,24 +251,24 @@ public class MainClass {
     public static void printUserOptions() {
         System.out.println("");
         System.out.println("Please type: ");
-        System.out.println("-as to add a student");
-        System.out.println("-at to add a trainer");
-        System.out.println("-aa to add an assignment");
-        System.out.println("-ac to add a course");
+        System.out.println("-as to add a student"); //Done
+        System.out.println("-at to add a trainer"); //Done
+        System.out.println("-aa to add an assignment"); //Done
+        System.out.println("-ac to add a course"); //Done
         System.out.println("");
 
-        System.out.println("-ps to print all students");
-        System.out.println("-pt to print all trainers");
-        System.out.println("-pa to print all assignments");
-        System.out.println("-pc to print all courses");
+        System.out.println("-ps to print all students"); //Done
+        System.out.println("-pt to print all trainers"); //Done
+        System.out.println("-pa to print all assignments"); //Done
+        System.out.println("-pc to print all courses"); //Done
         System.out.println("");
 
-        System.out.println("-asc to add a student in a course");
+        System.out.println("-asc to add a student in a course"); //Done
         System.out.println("-atc to add a trainer in a course");
         System.out.println("-aac to add an assignment in a course");
         System.out.println("");
 
-        System.out.println("-psc to print all students in a course");
+        System.out.println("-psc to print all students in a course"); //Done
         System.out.println("-ptc to print all trainers in a course");
         System.out.println("-pac to print all assignments in a course");
         System.out.println("");
