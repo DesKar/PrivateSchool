@@ -57,6 +57,9 @@ public class MainClass {
                 case "-ptc":
                     printTrainersInCourse();
                     break;
+                case "-pac":
+                    printAssignmentsInCourse();
+                    break;
                 case "-q":
                     System.out.println("Thank you for using the School Application!");
                     break;
@@ -218,7 +221,7 @@ public class MainClass {
         ArrayList<Course> coursesToBePrinted = new ArrayList();
 
         if (realSchool.getListOfCourses().isEmpty() || realSchool.getListOfTrainers().isEmpty() || realSchool.getListOfTrainersInCourse().isEmpty()) {
-            System.out.println("There are no courses or students in the school or there are no trainers assigned in the courses.");
+            System.out.println("There are no courses or trainers in the school or there are no trainers assigned in the courses.");
             System.out.println("The synthetic data is going to be printed below:");
             coursesThatHaveAssignedTrainers = syntheticSchool.getListOfTrainersInCourse();
         } else {
@@ -245,6 +248,41 @@ public class MainClass {
         System.out.println("The trainers of this course are: ");
         ArrayList<Trainer> listOfTrainers = coursesThatHaveAssignedTrainers.get(selectedCourseIndex).getListOfTrainers();
         Printing.printListOfTrainers(listOfTrainers);
+
+    }
+
+    public static void printAssignmentsInCourse() {
+        ArrayList<AssignmentsInCourse> coursesThatHaveAssignedAssignments;
+        ArrayList<Course> coursesToBePrinted = new ArrayList();
+
+        if (realSchool.getListOfCourses().isEmpty() || realSchool.getListOfAssignments().isEmpty() || realSchool.getListOfAssignmentsInCourse().isEmpty()) {
+            System.out.println("There are no courses or assignments in the school or there are no assignments assigned in the courses.");
+            System.out.println("The synthetic data is going to be printed below:");
+            coursesThatHaveAssignedAssignments = syntheticSchool.getListOfAssignmentsInCourse();
+        } else {
+            coursesThatHaveAssignedAssignments = realSchool.getListOfAssignmentsInCourse();
+        }
+
+        for (AssignmentsInCourse assignments : coursesThatHaveAssignedAssignments) {
+            Course course = assignments.getCourse();
+            coursesToBePrinted.add(course);
+        }
+
+        Printing.printListOfCourses(coursesToBePrinted);
+
+        int lengthOfCourseList = coursesThatHaveAssignedAssignments.size();
+        int selectedCourseIndex = chooseElementFromList("Choose a course to print its assignments:", 0, lengthOfCourseList);
+
+        Course selectedCourse = coursesThatHaveAssignedAssignments.get(selectedCourseIndex).getCourse();
+
+        System.out.println("");
+        System.out.println("The course you have selected is ");
+        System.out.println(selectedCourse.toString());
+        System.out.println("");
+
+        System.out.println("The assignments of this course are: ");
+        ArrayList<Assignment> listOfAssignments = coursesThatHaveAssignedAssignments.get(selectedCourseIndex).getListOfAssignments();
+        Printing.printListOfAssignments(listOfAssignments);
 
     }
 
@@ -286,9 +324,9 @@ public class MainClass {
 
         return selectedTrainers;
     }
-    
-    public static ArrayList selectAssignments(){
-         ArrayList<Assignment> selectedAssignments = new ArrayList();
+
+    public static ArrayList selectAssignments() {
+        ArrayList<Assignment> selectedAssignments = new ArrayList();
         do {
             int lengthOfAssignmentsList = realSchool.getListOfAssignments().size();
             int asignmentIndex = chooseElementFromList("You can choose an assignment using its ID.\nAssignment ID: ", 0, lengthOfAssignmentsList);
@@ -332,7 +370,7 @@ public class MainClass {
 
         System.out.println("-asc to add a student to a course"); //Done
         System.out.println("-atc to add a trainer to a course"); //Doone
-        System.out.println("-aac to add an assignment to a course");
+        System.out.println("-aac to add an assignment to a course"); //Done
         System.out.println("");
 
         System.out.println("-psc to print all students in a course"); //Done

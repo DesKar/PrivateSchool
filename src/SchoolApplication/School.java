@@ -65,4 +65,8 @@ public class School {
         return listOfTrainersInCourse;
     }
 
+    public ArrayList<AssignmentsInCourse> getListOfAssignmentsInCourse() {
+        return listOfAssignmentsInCourse;
+    }
+
 }
