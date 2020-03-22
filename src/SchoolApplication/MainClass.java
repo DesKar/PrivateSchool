@@ -50,8 +50,10 @@ public class MainClass {
                     break;
                 case "-psc":
                     printStudentsInCourse();
+                    break;
                 case "-ptc":
                     printTrainersInCourse();
+                    break;
                 case "-q":
                     System.out.println("Thank you for using the School Application!");
                     break;
@@ -66,9 +68,9 @@ public class MainClass {
     public static void printStudents() {
         ArrayList<Student> listOfStudentsInRealSchool = realSchool.getListOfStudents();
         if (listOfStudentsInRealSchool.isEmpty()) {
-            syntheticSchool.printListOfStudents();
+            Printing.printListOfStudents(syntheticSchool.getListOfStudents());
         } else {
-            realSchool.printListOfStudents();
+            Printing.printListOfStudents(realSchool.getListOfStudents());
         }
 
     }
@@ -76,9 +78,9 @@ public class MainClass {
     public static void printTrainers() {
         ArrayList<Trainer> listOfTrainersInRealSchool = realSchool.getListOfTrainers();
         if (listOfTrainersInRealSchool.isEmpty()) {
-            syntheticSchool.printListOfTrainers();
+            Printing.printListOfTrainers(syntheticSchool.getListOfTrainers());
         } else {
-            realSchool.printListOfTrainers();
+            Printing.printListOfTrainers(realSchool.getListOfTrainers());
         }
 
     }
@@ -86,18 +88,19 @@ public class MainClass {
     public static void printAssignments() {
         ArrayList<Assignment> listOfAssignmentsInRealSchool = realSchool.getListOfAssignments();
         if (listOfAssignmentsInRealSchool.isEmpty()) {
-            syntheticSchool.printListOfAssignments();
+            Printing.printListOfAssignments(syntheticSchool.getListOfAssignments());
         } else {
-            realSchool.printListOfAssignments();
+            Printing.printListOfAssignments(realSchool.getListOfAssignments());
         }
     }
 
     public static void printCourses() {
         ArrayList<Course> listOfCoursesInRealSchool = realSchool.getListOfCourses();
         if (listOfCoursesInRealSchool.isEmpty()) {
-            syntheticSchool.printListOfCourses();
+            Printing.printListOfCourses(syntheticSchool.getListOfCourses());
         } else {
-            realSchool.printListOfCourses();
+            Printing.printListOfCourses(realSchool.getListOfCourses());
+
         }
 
     }
@@ -152,26 +155,22 @@ public class MainClass {
 
     public static void printStudentsInCourse() {
         ArrayList<StudentsInCourse> coursesThatHaveAssignedStudents;
+        ArrayList<Course> coursesToBePrinted = new ArrayList();
 
         if (realSchool.getListOfCourses().isEmpty() || realSchool.getListOfStudents().isEmpty() || realSchool.getListOfStudentsInCourse().isEmpty()) {
             System.out.println("There are no courses or students in the school or there are no students assigned in the courses.");
-            System.out.println("The synthetic date is going to be printed below:");
+            System.out.println("The synthetic data is going to be printed below:");
             coursesThatHaveAssignedStudents = syntheticSchool.getListOfStudentsInCourse();
         } else {
             coursesThatHaveAssignedStudents = realSchool.getListOfStudentsInCourse();
         }
-
-        System.out.println("Courses with assgined students:");
-        System.out.println("--------------------------------------------------Courses-------------------------------------------------");
-        String header = String.format("|%-5s|%-25s|%-30s|%-13s|%-13s|%-13s|", "ID", "Title", "Stream", "Type", "Start Date", "End Date");
-        System.out.println(header);
-
-        int index = 1;
-        for (StudentsInCourse courseThatHasAssignedStudents : coursesThatHaveAssignedStudents) {
-            System.out.println(courseThatHasAssignedStudents.getCourse().print(index));
-            index++;
+        
+        for(StudentsInCourse studentsInCourse:coursesThatHaveAssignedStudents ){
+            Course course = studentsInCourse.getCourse();
+            coursesToBePrinted.add(course);
         }
-        System.out.println("----------------------------------------------------------------------------------------------------------");
+        
+        Printing.printListOfCourses(coursesToBePrinted);
 
         int lengthOfCourseList = coursesThatHaveAssignedStudents.size();
         int selectedCourseIndex = chooseElementFromList("Choose a course to print its students:", 0, lengthOfCourseList);
@@ -183,18 +182,9 @@ public class MainClass {
         System.out.println(selectedCourse.toString());
         System.out.println("");
 
-        System.out.println("The students of this course are: ");
-        System.out.println("--------------------------------Students-------------------------------");
-        header = String.format("|%-5s|%-15s|%-15s|%-15s|%-15s|", "ID", "First name", "Last name", "Date of Birth", "Tuition Fees(€)");
-        System.out.println(header);
-
         ArrayList<Student> listOfStudents = coursesThatHaveAssignedStudents.get(selectedCourseIndex).getListOfStudents();
-        index = 1;
-        for (Student student : listOfStudents) {
-            System.out.println(student.print(index));
-            index++;
-        }
-        System.out.println("-----------------------------------------------------------------------");
+        System.out.println("The students of this course are: ");
+        Printing.printListOfStudents(listOfStudents);
     }
 
     public static void printTrainersInCourse() {
@@ -202,7 +192,7 @@ public class MainClass {
 
         if (realSchool.getListOfCourses().isEmpty() || realSchool.getListOfTrainers().isEmpty() || realSchool.getListOfTrainersInCourse().isEmpty()) {
             System.out.println("There are no courses or students in the school or there are no trainers assigned in the courses.");
-            System.out.println("The synthetic date is going to be printed below:");
+            System.out.println("The synthetic data is going to be printed below:");
             coursesThatHaveAssignedTrainers = syntheticSchool.getListOfTrainersInCourse();
         } else {
             coursesThatHaveAssignedTrainers = realSchool.getListOfTrainersInCourse();
@@ -229,19 +219,10 @@ public class MainClass {
         System.out.println("The course you have selected is ");
         System.out.println(selectedCourse.toString());
         System.out.println("");
-
+        
         System.out.println("The trainers of this course are: ");
-        System.out.println("----------------Trainers---------------");
-        header = String.format("|%-5s|%-15s|%-15s|", "ID", "First Name", "Last Name");
-        System.out.println(header);
-
         ArrayList<Trainer> listOfTrainers = coursesThatHaveAssignedTrainers.get(selectedCourseIndex).getListOfTrainers();
-        index = 1;
-        for (Trainer trainer : listOfTrainers) {
-            System.out.println(trainer.print(index));
-            index++;
-        }
-        System.out.println("---------------------------------------");
+        Printing.printListOfTrainers(listOfTrainers);
 
     }
 
@@ -273,12 +254,12 @@ public class MainClass {
         ArrayList<Trainer> selectedTrainers = new ArrayList();
         do {
             int lengthOfTrainerList = realSchool.getListOfTrainers().size();
-            int trainerIndex = chooseElementFromList("You can choose a student using his/her ID.\nStudent ID: ", 0, lengthOfTrainerList);
+            int trainerIndex = chooseElementFromList("You can choose a trainer using his/her ID.\nTrainer ID: ", 0, lengthOfTrainerList);
             Trainer selectedTrainer = realSchool.getListOfTrainers().get(trainerIndex);
 
             selectedTrainers.add(selectedTrainer);
 
-            System.out.println("Would you like to add another student? Y: Yes");
+            System.out.println("Would you like to add another trainer? Y: Yes");
         } while ("Y".equals(input.next()));
 
         return selectedTrainers;
@@ -313,12 +294,12 @@ public class MainClass {
         System.out.println("");
 
         System.out.println("-asc to add a student in a course"); //Done
-        System.out.println("-atc to add a trainer in a course");
+        System.out.println("-atc to add a trainer in a course"); //Doone
         System.out.println("-aac to add an assignment in a course");
         System.out.println("");
 
         System.out.println("-psc to print all students in a course"); //Done
-        System.out.println("-ptc to print all trainers in a course");
+        System.out.println("-ptc to print all trainers in a course"); //Done
         System.out.println("-pac to print all assignments in a course");
         System.out.println("");
 

@@ -65,7 +65,7 @@ public class Course {
 
     @Override
     public String toString() {
-        return String.format("%s\n|%-25s|%-30s|%-13s|%-13s|%-13s|","Selected Course: " , title, stream, type, startDate, endDate);
+        return "Selected Course:" + "title=" + title + ", stream=" + stream + ", type=" + type + ", startDate=" + startDate + ", endDate=" + endDate;
     }
 
 }
