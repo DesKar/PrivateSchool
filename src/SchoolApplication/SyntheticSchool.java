@@ -13,6 +13,7 @@ public class SyntheticSchool extends School {
 
         addStudentsToCourse();
         addTrainersToCourse();
+        addAssignmentsToCourse();
     }
 
     private void addStudentsToSchool() {
@@ -105,5 +106,26 @@ public class SyntheticSchool extends School {
         TrainersInCourse trainersInSecondCourse = new TrainersInCourse(secondCourse, selectedTrainersForSecondCourse);
         super.addTrainersInCourseToListOfTrainersInCourse(trainersInSecondCourse);
 
+    }
+
+    private void addAssignmentsToCourse() {
+        Course firstCourse = super.getListOfCourses().get(0);
+        Course secondCourse = super.getListOfCourses().get(1);
+
+        Assignment firstAssignment = super.getListOfAssignments().get(0);
+        Assignment secondAssignment = super.getListOfAssignments().get(1);
+
+        ArrayList<Assignment> selectedAssignmentsForFirstCourse = new ArrayList();
+        selectedAssignmentsForFirstCourse.add(firstAssignment);
+        selectedAssignmentsForFirstCourse.add(secondAssignment);
+
+        ArrayList<Assignment> selectedAssignmentsForSecondCourse = new ArrayList();
+        selectedAssignmentsForSecondCourse.add(secondAssignment);
+
+        AssignmentsInCourse assignmentsInFirstCourse = new AssignmentsInCourse(firstCourse, selectedAssignmentsForFirstCourse);
+        super.addAssignmentsInCourseToListOfAssignmentsInCourse(assignmentsInFirstCourse);
+
+        AssignmentsInCourse assignmentsInSecondCourse = new AssignmentsInCourse(firstCourse, selectedAssignmentsForSecondCourse);
+        super.addAssignmentsInCourseToListOfAssignmentsInCourse(assignmentsInSecondCourse);
     }
 }

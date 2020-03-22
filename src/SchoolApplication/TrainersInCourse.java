@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class TrainersInCourse {
 
-    Course course;
-    ArrayList<Trainer> listOfTrainers;
+    private Course course;
+    private ArrayList<Trainer> listOfTrainers;
 
     public TrainersInCourse(Course course, ArrayList<Trainer> listOfTrainers) {
         this.course = course;

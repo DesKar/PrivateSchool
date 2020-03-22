@@ -11,7 +11,7 @@ public class School {
 
     private ArrayList<StudentsInCourse> listOfStudentsInCourse = new ArrayList();
     private ArrayList<TrainersInCourse> listOfTrainersInCourse = new ArrayList();
-    
+    private ArrayList<AssignmentsInCourse> listOfAssignmentsInCourse = new ArrayList();
 
     public void addStudentInListOfStudents(Student student) {
         this.listOfStudents.add(student);
@@ -32,9 +32,13 @@ public class School {
     public void addStudentsInCourseToListOfStudentsInCourse(StudentsInCourse studentsInCourse) {
         this.listOfStudentsInCourse.add(studentsInCourse);
     }
-    
-        public void addTrainersInCourseToListOfTrainersInCourse(TrainersInCourse trainersInCourse) {
+
+    public void addTrainersInCourseToListOfTrainersInCourse(TrainersInCourse trainersInCourse) {
         this.listOfTrainersInCourse.add(trainersInCourse);
+    }
+    
+        public void addAssignmentsInCourseToListOfAssignmentsInCourse(AssignmentsInCourse listOfAssignments) {
+        this.listOfAssignmentsInCourse.add(listOfAssignments);
     }
 
     public ArrayList<Student> getListOfStudents() {
@@ -60,6 +64,5 @@ public class School {
     public ArrayList<TrainersInCourse> getListOfTrainersInCourse() {
         return listOfTrainersInCourse;
     }
-    
-    
+
 }
