@@ -19,16 +19,16 @@ public class MainClass {
             option = input.next();
             switch (option) {
                 case "-as":
-                    realSchool.addStudentInSchool();
+                    realSchool.addStudentToSchool();
                     break;
                 case "-at":
-                    realSchool.addTrainerInSchool();
+                    realSchool.addTrainerToSchool();
                     break;
                 case "-aa":
-                    realSchool.addAssignmentInSchool();
+                    realSchool.addAssignmentToSchool();
                     break;
                 case "-ac":
-                    realSchool.addCourseInSchool();
+                    realSchool.addCourseToSchool();
                     break;
                 case "-ps":
                     printStudents();
@@ -47,7 +47,6 @@ public class MainClass {
                     break;
                 case "-asc":
                     addStudentToCourse();
-
                     break;
                 default:
                     break;
@@ -111,7 +110,7 @@ public class MainClass {
 
             StudentsInCourse studentsInCourse = new StudentsInCourse(selectedCourse, selectedStudents);
 
-            realSchool.addStudentsInCourse(studentsInCourse);
+            realSchool.addStudentsInCourseInListOfStudentsInCourse(studentsInCourse);
         } else if (realSchool.getListOfCourses().isEmpty()) {
             System.out.println("There are no courses added. Please add a course to continue.");
         } else if (realSchool.getListOfStudents().isEmpty()) {
@@ -123,7 +122,7 @@ public class MainClass {
     public static Course selectCourse() {
 
         int lengthOfCourseList = realSchool.getListOfCourses().size();
-        int courseIndex = chooseElementFromPrintOut("You can choose the course using its ID.\nCourse ID: ", 0, lengthOfCourseList);
+        int courseIndex = chooseElementFromList("You can choose the course using its ID.\nCourse ID: ", 0, lengthOfCourseList);
         Course selectedCourse = realSchool.getListOfCourses().get(courseIndex);
         return selectedCourse;
 
@@ -133,7 +132,7 @@ public class MainClass {
         ArrayList<Student> selectedStudents = new ArrayList();
         do {
             int lengthOfStudentList = realSchool.getListOfStudents().size();
-            int studentIndex = chooseElementFromPrintOut("You can choose a student using his/her ID.\nStudent ID: ", 0, lengthOfStudentList);
+            int studentIndex = chooseElementFromList("You can choose a student using his/her ID.\nStudent ID: ", 0, lengthOfStudentList);
             Student selectedStudent = realSchool.getListOfStudents().get(studentIndex);
 
             selectedStudents.add(selectedStudent);
@@ -144,7 +143,7 @@ public class MainClass {
         return selectedStudents;
     }
 
-    public static int chooseElementFromPrintOut(String message, int lowerBound, int upperBound) {
+    public static int chooseElementFromList(String message, int lowerBound, int upperBound) {
         int number;
         do {
             System.out.print(message);

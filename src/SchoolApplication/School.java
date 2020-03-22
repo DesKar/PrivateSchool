@@ -11,23 +11,23 @@ public class School {
     
     private ArrayList<StudentsInCourse> listOfStudentsInCourse = new ArrayList();
 
-    public void setListOfStudents(Student student) {
+    public void addStudentInListOfStudents(Student student) {
         this.listOfStudents.add(student);
     }
 
-    public void setListOfTrainers(Trainer trainer) {
+    public void addTrainerInListOfTrainers(Trainer trainer) {
         this.listOfTrainers.add(trainer);
     }
 
-    public void setListOfAssignments(Assignment assignment) {
+    public void addAssignmentInListOfAssignments(Assignment assignment) {
         this.listOfAssignments.add(assignment);
     }
 
-    public void setListOfCourses(Course course) {
+    public void addSCourseInListOfCourses(Course course) {
         this.listOfCourses.add(course);
     }
    
-    public void addStudentsInCourse(StudentsInCourse studentsInCourse){
+    public void addStudentsInCourseInListOfStudentsInCourse(StudentsInCourse studentsInCourse){
         this.listOfStudentsInCourse.add(studentsInCourse);
     }
 

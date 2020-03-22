@@ -6,57 +6,55 @@ import java.util.ArrayList;
 public class SyntheticSchool extends School {
 
     SyntheticSchool() {
-        addStudentsInSchool();
-        addTrainersInSchool();
-        addAssignmentsInSchool();
-        addCoursesInSchool();
-        
-        addStudentsInCourse();
+        addStudentsToSchool();
+        addTrainersToSchool();
+        addAssignmentsToSchool();
+        addCoursesToSchool();
+
+        addStudentsToCourse();
     }
 
-    private void addStudentsInSchool() {
+    private void addStudentsToSchool() {
 
         Student student = new Student("John", "Doe", LocalDate.ofEpochDay(0), 2000);
-        super.setListOfStudents(student);
+        super.addStudentInListOfStudents(student);
         student = new Student("Joe", "Bloggs", LocalDate.of(1988, 03, 05), 1500);
-        super.setListOfStudents(student);
+        super.addStudentInListOfStudents(student);
         student = new Student("Max", "Muster", LocalDate.ofEpochDay(0), 1850);
-        super.setListOfStudents(student);
+        super.addStudentInListOfStudents(student);
         student = new Student("Ada", "Lovelace", LocalDate.of(1815, 12, 10), 1500);
-        super.setListOfStudents(student);
+        super.addStudentInListOfStudents(student);
         student = new Student("Grace", "Hopper", LocalDate.of(1906, 01, 01), 2000);
-        super.setListOfStudents(student);
-        
-        
+        super.addStudentInListOfStudents(student);
 
     }
 
-    private void addTrainersInSchool() {
+    private void addTrainersToSchool() {
         Trainer trainer = new Trainer("Jane", "Doe", "Java");
-        super.setListOfTrainers(trainer);
+        super.addTrainerInListOfTrainers(trainer);
         trainer = new Trainer("Juan", "Perez", "C#");
-        super.setListOfTrainers(trainer);
+        super.addTrainerInListOfTrainers(trainer);
         trainer = new Trainer("Helen", "Doe", "");
-        super.setListOfTrainers(trainer);
+        super.addTrainerInListOfTrainers(trainer);
     }
 
-    private void addAssignmentsInSchool() {
+    private void addAssignmentsToSchool() {
 
         Assignment assignment = new Assignment("Individual Project", "The individual project of the students", LocalDate.of(2020, 4, 8), 10, 10);
-        super.setListOfAssignments(assignment);
+        super.addAssignmentInListOfAssignments(assignment);
         assignment = new Assignment("Team Project", "The team project of the students", LocalDate.of(2020, 5, 28), 9, 9);
-        super.setListOfAssignments(assignment);
+        super.addAssignmentInListOfAssignments(assignment);
     }
 
-    private void addCoursesInSchool() {
+    private void addCoursesToSchool() {
         Course course = new Course("Coding Bootcamp", "Java Full Stack Development", "Full-time", LocalDate.of(2020, 3, 4), LocalDate.of(2020, 6, 5));
-        super.setListOfCourses(course);
+        super.addSCourseInListOfCourses(course);
         course = new Course("Coding Bootcamp", "Java Full Stack Development", "Part-time", LocalDate.of(2020, 3, 4), LocalDate.of(2020, 8, 5));
-        super.setListOfCourses(course);
+        super.addSCourseInListOfCourses(course);
 
     }
 
-    private void addStudentsInCourse() {
+    private void addStudentsToCourse() {
         Course firstCourse = super.getListOfCourses().get(0);
         Course secondCourse = super.getListOfCourses().get(1);
 
@@ -77,10 +75,10 @@ public class SyntheticSchool extends School {
         selectedStudentsForSecondCourse.add(fifthStudent);
 
         StudentsInCourse studentsInFirstCourse = new StudentsInCourse(firstCourse, selectedStudentsForFirstCourse);
-        super.addStudentsInCourse(studentsInFirstCourse);
+        super.addStudentsInCourseInListOfStudentsInCourse(studentsInFirstCourse);
 
         StudentsInCourse studentsInSecondCourse = new StudentsInCourse(secondCourse, selectedStudentsForSecondCourse);
-        super.addStudentsInCourse(studentsInSecondCourse);
+        super.addStudentsInCourseInListOfStudentsInCourse(studentsInSecondCourse);
 
     }
 }

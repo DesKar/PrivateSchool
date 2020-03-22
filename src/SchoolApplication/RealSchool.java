@@ -5,42 +5,42 @@ import static SchoolApplication.MainClass.input;
 
 public class RealSchool extends School {
 
-    public void addStudentInSchool() {
+    public void addStudentToSchool() {
 
         String firstName = getStringWithMessage("Student first name: ");
         String lastName = getStringWithMessage("Student last name: ");
         LocalDate dateOfBirth = getDate("Student date of birth(YYYY-MM-DD): ");
         int tuitionFees = getIntNumber("Tuition fees: ", "Please provide a number bigger than 0: ", 0, Integer.MAX_VALUE);
         Student student = new Student(firstName, lastName, dateOfBirth, tuitionFees);
-        super.setListOfStudents(student);
+        super.addStudentInListOfStudents(student);
     }
 
-    public void addTrainerInSchool() {
+    public void addTrainerToSchool() {
         String firstName = getStringWithMessage("Trainer first name: ");
         String lastName = getStringWithMessage("Trainer last name: ");
         String subject = getStringWithMessage("Trainer subject: ");
         Trainer trainer = new Trainer(firstName, lastName, subject);
-        super.setListOfTrainers(trainer);
+        super.addTrainerInListOfTrainers(trainer);
     }
 
-    public void addAssignmentInSchool() {
+    public void addAssignmentToSchool() {
         String title = getStringWithMessage("Assignment title: ");
         String description = getStringWithMessage("Assignment description: ");
         LocalDate subDateTime = getDate("Assignment submission date (YYYY-MM-DD): ");
         int oralMark = getIntNumber("Oral Mark: ", "Please provide a number between 0-10: ", 0, 10);
         int localMark = getIntNumber("Local mark: ", "Please provide a number between 0-10: ", 0, 10);
         Assignment assignment = new Assignment(title, description, subDateTime, oralMark, localMark);
-        super.setListOfAssignments(assignment);
+        super.addAssignmentInListOfAssignments(assignment);
     }
 
-    public void addCourseInSchool() {
+    public void addCourseToSchool() {
         String title = getStringWithMessage("Course title: ");
         String stream = getStringWithMessage("Course stream title: ");
         String type = getStringWithMessage("Course type: ");
         LocalDate startDate = getDate("Course starting date (YYYY-MM-DD): ");
         LocalDate endDate = getDate("Course ending date (YYYY-MM-DD): ");
         Course course = new Course(title, stream, type, startDate, endDate);
-        super.setListOfCourses(course);
+        super.addSCourseInListOfCourses(course);
     }
 
     private String getStringWithMessage(String message) {
