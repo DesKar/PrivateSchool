@@ -1,9 +1,9 @@
-
 package SchoolApplication;
 
 import java.time.LocalDate;
 
 public class Student {
+
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
@@ -47,12 +47,9 @@ public class Student {
     public void setTuitionFees(int tuitionFees) {
         this.tuitionFees = tuitionFees;
     }
-//TODO improve printing of individual students
-    @Override
-    public String toString() {
-        return "Student{" + "firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", tuitionFees=" + tuitionFees + '}';
+
+    public String print(int index) {
+        return String.format("|%-5s|%-15s|%-15s|%-15s|%-15s|", index, firstName, lastName, dateOfBirth, tuitionFees);
     }
-    
-    
-    
+
 }

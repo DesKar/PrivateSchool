@@ -11,7 +11,7 @@ public class MainClass {
 
     public static void main(String[] args) {
 
-        System.out.println("Welcome to the School Application!\n");
+        System.out.println("Welcome to the School Application!");
         String option = null;
 
         do {
@@ -123,9 +123,8 @@ public class MainClass {
 
     public static void printStudentsInCourse() {
         ArrayList<StudentsInCourse> coursesThatHaveAssignedStudents;
-        
+
         if (realSchool.getListOfCourses().isEmpty() || realSchool.getListOfStudents().isEmpty() || realSchool.getListOfStudentsInCourse().isEmpty()) {
-            System.out.println("It is not possible to select a coure to print the students for.");
             System.out.println("There are no courses or students in the school or there are no students assigned in the courses.");
             System.out.println("The synthetic date is going to be printed below:");
             coursesThatHaveAssignedStudents = syntheticSchool.getListOfStudentsInCourse();
@@ -133,9 +132,17 @@ public class MainClass {
             coursesThatHaveAssignedStudents = realSchool.getListOfStudentsInCourse();
         }
 
+        System.out.println("Courses with assgined students:");
+        System.out.println("--------------------------------------------------Courses-------------------------------------------------");
+        String header = String.format("|%-5s|%-25s|%-30s|%-13s|%-13s|%-13s|", "ID", "Title", "Stream", "Type", "Start Date", "End Date");
+        System.out.println(header);
+
+        int index = 1;
         for (StudentsInCourse courseThatHasAssignedStudents : coursesThatHaveAssignedStudents) {
-            System.out.println(courseThatHasAssignedStudents.getCourse().toString());
+            System.out.println(courseThatHasAssignedStudents.getCourse().print(index));
+            index++;
         }
+        System.out.println("----------------------------------------------------------------------------------------------------------");
 
         int lengthOfCourseList = coursesThatHaveAssignedStudents.size();
         int selectedCourseIndex = chooseElementFromList("Choose a course to print its students:", 0, lengthOfCourseList);
@@ -145,14 +152,20 @@ public class MainClass {
         System.out.println("");
         System.out.println("The course you have selected is ");
         System.out.println(selectedCourse.toString());
+        System.out.println("");
 
         System.out.println("The students of this course are: ");
-
+        System.out.println("--------------------------------Students-------------------------------");
+        header = String.format("|%-5s|%-15s|%-15s|%-15s|%-15s|", "ID", "First name", "Last name", "Date of Birth", "Tuition Fees(€)");
+        System.out.println(header);
+        
         ArrayList<Student> listOfStudents = coursesThatHaveAssignedStudents.get(selectedCourseIndex).getListOfStudents();
+        index = 1;
         for (Student student : listOfStudents) {
-            System.out.println(student.toString());
+            System.out.println(student.print(index));
+            index ++;
         }
-
+        System.out.println("-----------------------------------------------------------------------");
     }
 
     public static Course selectCourse() {
@@ -193,6 +206,7 @@ public class MainClass {
     }
 
     public static void printUserOptions() {
+        System.out.println("");
         System.out.println("Please type: ");
         System.out.println("-as to add a student");
         System.out.println("-at to add a trainer");

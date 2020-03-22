@@ -1,9 +1,9 @@
-
 package SchoolApplication;
 
 import java.time.LocalDate;
 
 public class Course {
+
     private String title;
     private String stream;
     private String type;
@@ -57,10 +57,15 @@ public class Course {
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
-//TODO refactor the printing to beautify and add ID.
+
+    public String print(int index) {
+        return String.format("|%-5s|%-25s|%-30s|%-13s|%-13s|%-13s|", index, title, stream, type, startDate, endDate);
+
+    }
+
     @Override
     public String toString() {
-        return "Course{" + "title=" + title + ", stream=" + stream + ", type=" + type + ", startDate=" + startDate + ", endDate=" + endDate + '}';
+        return String.format("%s\n|%-25s|%-30s|%-13s|%-13s|%-13s|","Selected Course: " , title, stream, type, startDate, endDate);
     }
-    
+
 }
