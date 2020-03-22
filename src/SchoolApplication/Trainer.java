@@ -28,11 +28,8 @@ public class Trainer {
         this.lastName = lastName;
     }
 
-    @Override
-    public String toString() {
-        return "Trainer{" + "firstName=" + firstName + ", lastName=" + lastName + ", subject=" + subject + '}';
+    public String print(int index) {
+            return String.format("|%-5s|%-15s|%-15s|", index, firstName, lastName, subject);
     }
-    
-    
 
 }

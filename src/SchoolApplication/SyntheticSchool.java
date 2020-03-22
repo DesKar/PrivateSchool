@@ -12,6 +12,7 @@ public class SyntheticSchool extends School {
         addCoursesToSchool();
 
         addStudentsToCourse();
+        addTrainersToCourse();
     }
 
     private void addStudentsToSchool() {
@@ -95,8 +96,8 @@ public class SyntheticSchool extends School {
         selectedTrainersForFirstCourse.add(thirdTrainert);
 
         ArrayList<Trainer> selectedTrainersForSecondCourse = new ArrayList();
-        selectedTrainersForFirstCourse.add(firstTrainer);
-        selectedTrainersForFirstCourse.add(secondTrainer);
+        selectedTrainersForSecondCourse.add(firstTrainer);
+        selectedTrainersForSecondCourse.add(secondTrainer);
 
         TrainersInCourse trainersInFirstCourse = new TrainersInCourse(firstCourse, selectedTrainersForFirstCourse);
         super.addTrainersInCourseToListOfTrainersInCourse(trainersInFirstCourse);

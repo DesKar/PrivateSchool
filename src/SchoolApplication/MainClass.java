@@ -50,6 +50,8 @@ public class MainClass {
                     break;
                 case "-psc":
                     printStudentsInCourse();
+                case "-ptc":
+                    printTrainersInCourse();
                 case "-q":
                     System.out.println("Thank you for using the School Application!");
                     break;
@@ -123,8 +125,8 @@ public class MainClass {
         }
 
     }
-    
-    public static void addTrainerToCourse(){
+
+    public static void addTrainerToCourse() {
         if (!realSchool.getListOfCourses().isEmpty() && !realSchool.getListOfTrainers().isEmpty()) {
             System.out.println("Please choose a course from the list below:");
             printCourses();
@@ -145,7 +147,7 @@ public class MainClass {
         } else if (realSchool.getListOfTrainers().isEmpty()) {
             System.out.println("There are no trainers added. Please add a trainer to continue.");
         }
-        
+
     }
 
     public static void printStudentsInCourse() {
@@ -195,6 +197,54 @@ public class MainClass {
         System.out.println("-----------------------------------------------------------------------");
     }
 
+    public static void printTrainersInCourse() {
+        ArrayList<TrainersInCourse> coursesThatHaveAssignedTrainers;
+
+        if (realSchool.getListOfCourses().isEmpty() || realSchool.getListOfTrainers().isEmpty() || realSchool.getListOfTrainersInCourse().isEmpty()) {
+            System.out.println("There are no courses or students in the school or there are no trainers assigned in the courses.");
+            System.out.println("The synthetic date is going to be printed below:");
+            coursesThatHaveAssignedTrainers = syntheticSchool.getListOfTrainersInCourse();
+        } else {
+            coursesThatHaveAssignedTrainers = realSchool.getListOfTrainersInCourse();
+        }
+
+        System.out.println("Courses with assgined trainers:");
+        System.out.println("--------------------------------------------------Courses-------------------------------------------------");
+        String header = String.format("|%-5s|%-25s|%-30s|%-13s|%-13s|%-13s|", "ID", "Title", "Stream", "Type", "Start Date", "End Date");
+        System.out.println(header);
+
+        int index = 1;
+        for (TrainersInCourse courseThatHasAssignedTrainers : coursesThatHaveAssignedTrainers) {
+            System.out.println(courseThatHasAssignedTrainers.getCourse().print(index));
+            index++;
+        }
+        System.out.println("----------------------------------------------------------------------------------------------------------");
+
+        int lengthOfCourseList = coursesThatHaveAssignedTrainers.size();
+        int selectedCourseIndex = chooseElementFromList("Choose a course to print its trainers:", 0, lengthOfCourseList);
+
+        Course selectedCourse = coursesThatHaveAssignedTrainers.get(selectedCourseIndex).getCourse();
+
+        System.out.println("");
+        System.out.println("The course you have selected is ");
+        System.out.println(selectedCourse.toString());
+        System.out.println("");
+
+        System.out.println("The trainers of this course are: ");
+        System.out.println("----------------Trainers---------------");
+        header = String.format("|%-5s|%-15s|%-15s|", "ID", "First Name", "Last Name");
+        System.out.println(header);
+
+        ArrayList<Trainer> listOfTrainers = coursesThatHaveAssignedTrainers.get(selectedCourseIndex).getListOfTrainers();
+        index = 1;
+        for (Trainer trainer : listOfTrainers) {
+            System.out.println(trainer.print(index));
+            index++;
+        }
+        System.out.println("---------------------------------------");
+
+    }
+
     public static Course selectCourse() {
 
         int lengthOfCourseList = realSchool.getListOfCourses().size();
@@ -218,9 +268,9 @@ public class MainClass {
 
         return selectedStudents;
     }
-    
-    public static ArrayList selectTrainers(){
-         ArrayList<Trainer> selectedTrainers = new ArrayList();
+
+    public static ArrayList selectTrainers() {
+        ArrayList<Trainer> selectedTrainers = new ArrayList();
         do {
             int lengthOfTrainerList = realSchool.getListOfTrainers().size();
             int trainerIndex = chooseElementFromList("You can choose a student using his/her ID.\nStudent ID: ", 0, lengthOfTrainerList);
@@ -233,7 +283,6 @@ public class MainClass {
 
         return selectedTrainers;
     }
-   
 
     public static int chooseElementFromList(String message, int lowerBound, int upperBound) {
         int number;
