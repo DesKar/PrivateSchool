@@ -81,4 +81,28 @@ public class SyntheticSchool extends School {
         super.addStudentsInCourseToListOfStudentsInCourse(studentsInSecondCourse);
 
     }
+
+    private void addTrainersToCourse() {
+        Course firstCourse = super.getListOfCourses().get(0);
+        Course secondCourse = super.getListOfCourses().get(1);
+
+        Trainer firstTrainer = super.getListOfTrainers().get(0);
+        Trainer secondTrainer = super.getListOfTrainers().get(1);
+        Trainer thirdTrainert = super.getListOfTrainers().get(2);
+
+        ArrayList<Trainer> selectedTrainersForFirstCourse = new ArrayList();
+        selectedTrainersForFirstCourse.add(firstTrainer);
+        selectedTrainersForFirstCourse.add(thirdTrainert);
+
+        ArrayList<Trainer> selectedTrainersForSecondCourse = new ArrayList();
+        selectedTrainersForFirstCourse.add(firstTrainer);
+        selectedTrainersForFirstCourse.add(secondTrainer);
+
+        TrainersInCourse trainersInFirstCourse = new TrainersInCourse(firstCourse, selectedTrainersForFirstCourse);
+        super.addTrainersInCourseToListOfTrainersInCourse(trainersInFirstCourse);
+
+        TrainersInCourse trainersInSecondCourse = new TrainersInCourse(secondCourse, selectedTrainersForSecondCourse);
+        super.addTrainersInCourseToListOfTrainersInCourse(trainersInSecondCourse);
+
+    }
 }
