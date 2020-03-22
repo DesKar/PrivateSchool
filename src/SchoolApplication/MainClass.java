@@ -96,8 +96,8 @@ public class MainClass {
 
     }
 
-    public static StudentsInCourse addStudentToCourse() {
-//        if (realSchool.getListOfCourses().size() != 0 && realSchool.getListOfStudents().size() != 0) {
+    public static void addStudentToCourse() {
+        if (!realSchool.getListOfCourses().isEmpty() && !realSchool.getListOfStudents().isEmpty()) {
             System.out.println("Please choose a course from the list below:");
             printCourses();
 
@@ -111,12 +111,12 @@ public class MainClass {
 
             StudentsInCourse studentsInCourse = new StudentsInCourse(selectedCourse, selectedStudents);
 
-            return studentsInCourse;
-
-//        }
-//        else{
-//            return syntheticSchool;
-//        }
+            realSchool.addStudentsInCourse(studentsInCourse);
+        } else if (realSchool.getListOfCourses().isEmpty()) {
+            System.out.println("There are no courses added. Please add a course to continue.");
+        } else if (realSchool.getListOfStudents().isEmpty()) {
+            System.out.println("There are no students added. Please add a course to continue.");
+        }
 
     }
 

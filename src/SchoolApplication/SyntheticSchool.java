@@ -1,14 +1,17 @@
 package SchoolApplication;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class SyntheticSchool extends School {
-    
-    SyntheticSchool(){
+
+    SyntheticSchool() {
         addStudentsInSchool();
         addTrainersInSchool();
         addAssignmentsInSchool();
         addCoursesInSchool();
+        
+        addStudentsInCourse();
     }
 
     private void addStudentsInSchool() {
@@ -23,6 +26,8 @@ public class SyntheticSchool extends School {
         super.setListOfStudents(student);
         student = new Student("Grace", "Hopper", LocalDate.of(1906, 01, 01), 2000);
         super.setListOfStudents(student);
+        
+        
 
     }
 
@@ -48,6 +53,34 @@ public class SyntheticSchool extends School {
         super.setListOfCourses(course);
         course = new Course("Coding Bootcamp", "Java Full Stack Development", "Part-time", LocalDate.of(2020, 3, 4), LocalDate.of(2020, 8, 5));
         super.setListOfCourses(course);
+
     }
-    
+
+    private void addStudentsInCourse() {
+        Course firstCourse = super.getListOfCourses().get(0);
+        Course secondCourse = super.getListOfCourses().get(1);
+
+        Student firstStudent = super.getListOfStudents().get(0);
+        Student secondStudent = super.getListOfStudents().get(1);
+        Student thirdStudent = super.getListOfStudents().get(2);
+        Student fourthStudent = super.getListOfStudents().get(3);
+        Student fifthStudent = super.getListOfStudents().get(4);
+
+        ArrayList<Student> selectedStudentsForFirstCourse = new ArrayList();
+        selectedStudentsForFirstCourse.add(firstStudent);
+        selectedStudentsForFirstCourse.add(thirdStudent);
+        selectedStudentsForFirstCourse.add(fourthStudent);
+
+        ArrayList<Student> selectedStudentsForSecondCourse = new ArrayList();
+        selectedStudentsForSecondCourse.add(secondStudent);
+        selectedStudentsForSecondCourse.add(thirdStudent);
+        selectedStudentsForSecondCourse.add(fifthStudent);
+
+        StudentsInCourse studentsInFirstCourse = new StudentsInCourse(firstCourse, selectedStudentsForFirstCourse);
+        super.addStudentsInCourse(studentsInFirstCourse);
+
+        StudentsInCourse studentsInSecondCourse = new StudentsInCourse(secondCourse, selectedStudentsForSecondCourse);
+        super.addStudentsInCourse(studentsInSecondCourse);
+
+    }
 }

@@ -8,6 +8,8 @@ public class School {
     private ArrayList<Trainer> listOfTrainers = new ArrayList();
     private ArrayList<Assignment> listOfAssignments = new ArrayList();
     private ArrayList<Course> listOfCourses = new ArrayList();
+    
+    private ArrayList<StudentsInCourse> listOfStudentsInCourse = new ArrayList();
 
     public void setListOfStudents(Student student) {
         this.listOfStudents.add(student);
@@ -23,6 +25,10 @@ public class School {
 
     public void setListOfCourses(Course course) {
         this.listOfCourses.add(course);
+    }
+   
+    public void addStudentsInCourse(StudentsInCourse studentsInCourse){
+        this.listOfStudentsInCourse.add(studentsInCourse);
     }
 
     public ArrayList<Student> getListOfStudents() {
@@ -40,6 +46,11 @@ public class School {
     public ArrayList<Course> getListOfCourses() {
         return listOfCourses;
     }
+
+    public ArrayList<StudentsInCourse> getListOfStudentsInCourse() {
+        return listOfStudentsInCourse;
+    }
+    
 
     public void printListOfStudents() {
         System.out.println("--------------------------------Students-------------------------------");
