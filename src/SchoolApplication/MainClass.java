@@ -48,6 +48,8 @@ public class MainClass {
                 case "-asc":
                     addStudentToCourse();
                     break;
+                case "-psc":
+                    printStudentsInCourse();
                 default:
                     break;
             }
@@ -115,6 +117,40 @@ public class MainClass {
             System.out.println("There are no courses added. Please add a course to continue.");
         } else if (realSchool.getListOfStudents().isEmpty()) {
             System.out.println("There are no students added. Please add a course to continue.");
+        }
+
+    }
+
+    public static void printStudentsInCourse() {
+        ArrayList<StudentsInCourse> coursesThatHaveAssignedStudents;
+        
+        if (realSchool.getListOfCourses().isEmpty() || realSchool.getListOfStudents().isEmpty() || realSchool.getListOfStudentsInCourse().isEmpty()) {
+            System.out.println("It is not possible to select a coure to print the students for.");
+            System.out.println("There are no courses or students in the school or there are no students assigned in the courses.");
+            System.out.println("The synthetic date is going to be printed below:");
+            coursesThatHaveAssignedStudents = syntheticSchool.getListOfStudentsInCourse();
+        } else {
+            coursesThatHaveAssignedStudents = realSchool.getListOfStudentsInCourse();
+        }
+
+        for (StudentsInCourse courseThatHasAssignedStudents : coursesThatHaveAssignedStudents) {
+            System.out.println(courseThatHasAssignedStudents.getCourse().toString());
+        }
+
+        int lengthOfCourseList = coursesThatHaveAssignedStudents.size();
+        int selectedCourseIndex = chooseElementFromList("Choose a course to print its students:", 0, lengthOfCourseList);
+
+        Course selectedCourse = coursesThatHaveAssignedStudents.get(selectedCourseIndex).getCourse();
+
+        System.out.println("");
+        System.out.println("The course you have selected is ");
+        System.out.println(selectedCourse.toString());
+
+        System.out.println("The students of this course are: ");
+
+        ArrayList<Student> listOfStudents = coursesThatHaveAssignedStudents.get(selectedCourseIndex).getListOfStudents();
+        for (Student student : listOfStudents) {
+            System.out.println(student.toString());
         }
 
     }

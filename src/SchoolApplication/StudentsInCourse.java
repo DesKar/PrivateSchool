@@ -11,6 +11,15 @@ public class StudentsInCourse {
         this.course = course;
         this.listOfStudents = listOfStudents;
     }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public ArrayList<Student> getListOfStudents() {
+        return listOfStudents;
+    }
+    
     
     
 }

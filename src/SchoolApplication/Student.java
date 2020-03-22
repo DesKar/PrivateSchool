@@ -47,7 +47,7 @@ public class Student {
     public void setTuitionFees(int tuitionFees) {
         this.tuitionFees = tuitionFees;
     }
-
+//TODO improve printing of individual students
     @Override
     public String toString() {
         return "Student{" + "firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", tuitionFees=" + tuitionFees + '}';

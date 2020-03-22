@@ -57,7 +57,7 @@ public class Course {
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
-
+//TODO refactor the printing to beautify and add ID.
     @Override
     public String toString() {
         return "Course{" + "title=" + title + ", stream=" + stream + ", type=" + type + ", startDate=" + startDate + ", endDate=" + endDate + '}';
