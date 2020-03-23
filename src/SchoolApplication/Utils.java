@@ -3,6 +3,10 @@ package SchoolApplication;
 import java.util.ArrayList;
 
 public class Utils {
+    
+    public static boolean realSchoolIsEmpty(School s){
+        return s.getListOfAssignments().isEmpty() && s.getListOfCourses().isEmpty() && s.getListOfStudents().isEmpty() && s.getListOfTrainers().isEmpty();
+    }
 
     public static int chooseElementFromPrintout(String message, int lowerBound, int upperBound) {
         int number;

@@ -44,6 +44,10 @@ public class SyntheticSchool extends School {
 
         Assignment assignment = new Assignment("Java Individual Project", "The individual project of the students", LocalDate.of(2020, 4, 8), 10, 10);
         super.addAssignmentInListOfAssignments(assignment);
+        assignment = new Assignment("Java Team Project", "The team project of the students", LocalDate.of(2020, 5, 28), 9, 9);
+        super.addAssignmentInListOfAssignments(assignment);
+        assignment = new Assignment("C# Individual Project", "The individual project of the students", LocalDate.of(2020, 4, 8), 10, 10);
+        super.addAssignmentInListOfAssignments(assignment);
         assignment = new Assignment("C# Team Project", "The team project of the students", LocalDate.of(2020, 5, 28), 9, 9);
         super.addAssignmentInListOfAssignments(assignment);
     }
@@ -114,18 +118,21 @@ public class SyntheticSchool extends School {
 
         Assignment firstAssignment = super.getListOfAssignments().get(0);
         Assignment secondAssignment = super.getListOfAssignments().get(1);
+        Assignment thirdAssignment = super.getListOfAssignments().get(2);
+        Assignment forthAssignment = super.getListOfAssignments().get(3);
 
         ArrayList<Assignment> selectedAssignmentsForFirstCourse = new ArrayList();
         selectedAssignmentsForFirstCourse.add(firstAssignment);
         selectedAssignmentsForFirstCourse.add(secondAssignment);
 
         ArrayList<Assignment> selectedAssignmentsForSecondCourse = new ArrayList();
-        selectedAssignmentsForSecondCourse.add(secondAssignment);
+        selectedAssignmentsForSecondCourse.add(thirdAssignment);
+        selectedAssignmentsForSecondCourse.add(forthAssignment);
 
         AssignmentsInCourse assignmentsInFirstCourse = new AssignmentsInCourse(firstCourse, selectedAssignmentsForFirstCourse);
         super.addAssignmentsInCourseToListOfAssignmentsInCourse(assignmentsInFirstCourse);
 
-        AssignmentsInCourse assignmentsInSecondCourse = new AssignmentsInCourse(firstCourse, selectedAssignmentsForSecondCourse);
+        AssignmentsInCourse assignmentsInSecondCourse = new AssignmentsInCourse(secondCourse, selectedAssignmentsForSecondCourse);
         super.addAssignmentsInCourseToListOfAssignmentsInCourse(assignmentsInSecondCourse);
     }
 }

@@ -1,6 +1,7 @@
 package SchoolApplication;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Student {
 
@@ -51,5 +52,45 @@ public class Student {
     public String print(int index) {
         return String.format("|%-5s|%-15s|%-15s|%-15s|%-15s|", index, firstName, lastName, dateOfBirth, tuitionFees);
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Student other = (Student) obj;
+        if (this.tuitionFees != other.tuitionFees) {
+            return false;
+        }
+        if (!Objects.equals(this.firstName, other.firstName)) {
+            return false;
+        }
+        if (!Objects.equals(this.lastName, other.lastName)) {
+            return false;
+        }
+        if (!Objects.equals(this.dateOfBirth, other.dateOfBirth)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.firstName);
+        hash = 89 * hash + Objects.hashCode(this.lastName);
+        hash = 89 * hash + Objects.hashCode(this.dateOfBirth);
+        hash = 89 * hash + this.tuitionFees;
+        return hash;
+    }
+    
+    
 
 }
