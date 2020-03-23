@@ -42,16 +42,16 @@ public class SyntheticSchool extends School {
 
     private void addAssignmentsToSchool() {
 
-        Assignment assignment = new Assignment("Individual Project", "The individual project of the students", LocalDate.of(2020, 4, 8), 10, 10);
+        Assignment assignment = new Assignment("Java Individual Project", "The individual project of the students", LocalDate.of(2020, 4, 8), 10, 10);
         super.addAssignmentInListOfAssignments(assignment);
-        assignment = new Assignment("Team Project", "The team project of the students", LocalDate.of(2020, 5, 28), 9, 9);
+        assignment = new Assignment("C# Team Project", "The team project of the students", LocalDate.of(2020, 5, 28), 9, 9);
         super.addAssignmentInListOfAssignments(assignment);
     }
 
     private void addCoursesToSchool() {
         Course course = new Course("Coding Bootcamp", "Java Full Stack Development", "Full-time", LocalDate.of(2020, 3, 4), LocalDate.of(2020, 6, 5));
         super.addSCourseInListOfCourses(course);
-        course = new Course("Coding Bootcamp", "Java Full Stack Development", "Part-time", LocalDate.of(2020, 3, 4), LocalDate.of(2020, 8, 5));
+        course = new Course("Coding Bootcamp", "C# Full Stack Development", "Part-time", LocalDate.of(2020, 3, 4), LocalDate.of(2020, 8, 5));
         super.addSCourseInListOfCourses(course);
 
     }

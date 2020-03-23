@@ -3,6 +3,7 @@ package SchoolApplication;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class MainClass {
 
     static Scanner input = new Scanner(System.in);
@@ -11,11 +12,12 @@ public class MainClass {
 
     public static void main(String[] args) {
 
-        System.out.println("Welcome to the School Application!");
+        Printing.printWelcomeMessage();
+
         String option = null;
 
         do {
-            printUserOptions();
+            Printing.printUserOptions();
             option = input.next();
             switch (option) {
                 case "-as":
@@ -59,6 +61,9 @@ public class MainClass {
                     break;
                 case "-pac":
                     printAssignmentsInCourse();
+                    break;
+                case "-paps":
+                    printAsignemntsPerStudent();
                     break;
                 case "-q":
                     System.out.println("Thank you for using the School Application!");
@@ -286,6 +291,48 @@ public class MainClass {
 
     }
 
+    public static void printAsignemntsPerStudent() {
+
+        ArrayList<Student> listOfStudents = syntheticSchool.getListOfStudents(); //to be extended to realSchool
+
+        System.out.println("Please choose a student to see his/her assignments: ");
+        Printing.printListOfStudents(listOfStudents);
+
+        int lengthOfStudentList = syntheticSchool.getListOfStudents().size();
+        int studentIndex = chooseElementFromList("You can choose a student using his/her ID.\nStudent ID: ", 0, lengthOfStudentList);
+
+        Student selectedStudent = syntheticSchool.getListOfStudents().get(studentIndex);
+
+        ArrayList<Course> listOfCoursesTheStudentIsAssignedTo = new ArrayList();
+        
+
+        for (StudentsInCourse studentsInCourse : syntheticSchool.getListOfStudentsInCourse()) {
+            ArrayList<Student> listOfStudentsInCourse = studentsInCourse.getListOfStudents();
+            for (Student student : listOfStudentsInCourse) {
+                if (student == selectedStudent) {
+                    listOfCoursesTheStudentIsAssignedTo.add(studentsInCourse.getCourse());
+                }
+
+            }
+        }
+       Printing.printListOfCourses(listOfCoursesTheStudentIsAssignedTo);
+
+        ArrayList<Assignment> listOfAssignmentsToPrint = new ArrayList();
+        for (Course course : listOfCoursesTheStudentIsAssignedTo) {
+            for (AssignmentsInCourse assignmentInCourse : syntheticSchool.getListOfAssignmentsInCourse()) {
+                if (course == assignmentInCourse.getCourse()) {
+                    ArrayList<Assignment> listOfAssigments = assignmentInCourse.getListOfAssignments();
+                    for (Assignment assignment : listOfAssigments) {
+                        listOfAssignmentsToPrint.add(assignment);
+                    }
+                }
+
+            }
+        }
+
+        Printing.printListOfAssignments(listOfAssignmentsToPrint);
+    }
+
     public static Course selectCourse() {
 
         int lengthOfCourseList = realSchool.getListOfCourses().size();
@@ -353,35 +400,4 @@ public class MainClass {
         return number - 1;
     }
 
-    public static void printUserOptions() {
-        System.out.println("");
-        System.out.println("Please type: ");
-        System.out.println("-as to add a student"); //Done
-        System.out.println("-at to add a trainer"); //Done
-        System.out.println("-aa to add an assignment"); //Done
-        System.out.println("-ac to add a course"); //Done
-        System.out.println("");
-
-        System.out.println("-ps to print all students"); //Done
-        System.out.println("-pt to print all trainers"); //Done
-        System.out.println("-pa to print all assignments"); //Done
-        System.out.println("-pc to print all courses"); //Done
-        System.out.println("");
-
-        System.out.println("-asc to add a student to a course"); //Done
-        System.out.println("-atc to add a trainer to a course"); //Doone
-        System.out.println("-aac to add an assignment to a course"); //Done
-        System.out.println("");
-
-        System.out.println("-psc to print all students in a course"); //Done
-        System.out.println("-ptc to print all trainers in a course"); //Done
-        System.out.println("-pac to print all assignments in a course");
-        System.out.println("");
-
-        System.out.println("-paps to print all assignents per student");
-        System.out.println("-pscs to print all students that belong to more than one course");
-        System.out.println("");
-
-        System.out.println("-q to exit\n");
-    }
 }
