@@ -3,10 +3,16 @@ package SchoolApplication;
 import java.util.ArrayList;
 
 public class Printing {
+//TODO improve welcome message with a banner
 
     public static void printWelcomeMessage() {
-        System.out.println("Welcome to the Private School Application!\n");
-        System.out.println("");
+        System.out.println(" _    _        _                               \n"
+                + "| |  | |      | |                              \n"
+                + "| |  | |  ___ | |  ___   ___   _ __ ___    ___ \n"
+                + "| |/\\| | / _ \\| | / __| / _ \\ | '_ ` _ \\  / _ \\\n"
+                + "\\  /\\  /|  __/| || (__ | (_) || | | | | ||  __/\n"
+                + " \\/  \\/  \\___||_| \\___| \\___/ |_| |_| |_| \\___|\n"
+                + "                                               ");
     }
 
     public static void printUserOptions() {
