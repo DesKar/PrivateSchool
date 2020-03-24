@@ -1,6 +1,8 @@
 package SchoolApplication;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class School {
 
@@ -283,8 +285,6 @@ public class School {
 
             }
 
-            Printing.printListOfCourses(coursesOfSelectedStudent);
-
             ArrayList<Assignment> assignmentsOfCourses = new ArrayList();
             for (Course course : coursesOfSelectedStudent) {
                 for (AssignmentsInCourse assignmentsInCourse : listOfAssignmentsInCourse) {
@@ -299,4 +299,36 @@ public class School {
         }
     }
 
+    public void printStudentsInManyCourses() {
+        if (listOfStudentsInCourse.isEmpty()) {
+            System.out.println("There are no students registered to courses. Please register students to a course first.");
+        } else {
+
+            ArrayList listOfAllStudentsRegisteredToCourses = new ArrayList();
+            ArrayList listOfStudentsRegisteredInManyCourses = new ArrayList();
+
+            for (StudentsInCourse studentInCourse : listOfStudentsInCourse) {
+                ArrayList<Student> students = studentInCourse.getListOfStudents();
+                for (Student student : students) {
+                    listOfAllStudentsRegisteredToCourses.add(student);
+                }
+            }
+
+            for (int i = 0; i < listOfAllStudentsRegisteredToCourses.size(); i++) {
+                for (int j = i + 1; j < listOfAllStudentsRegisteredToCourses.size(); j++) {
+                    if (listOfAllStudentsRegisteredToCourses.get(i).equals(listOfAllStudentsRegisteredToCourses.get(j))) {
+                        listOfStudentsRegisteredInManyCourses.add(listOfAllStudentsRegisteredToCourses.get(i));
+                    }
+                }
+
+            }
+            if (listOfAllStudentsRegisteredToCourses.isEmpty()) {
+                System.out.println("All students are registered in only one course.");
+            } else {
+                Printing.printListOfStudents(listOfStudentsRegisteredInManyCourses);
+            }
+
+        }
+
+    }
 }

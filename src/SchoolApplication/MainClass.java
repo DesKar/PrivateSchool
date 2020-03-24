@@ -2,7 +2,6 @@ package SchoolApplication;
 
 import java.util.Scanner;
 
-
 public class MainClass {
 //    TODO consider cases when I add more same elements like students, trainers, courses, etc
 //    TODO consider cases when I add more than once elements to course, for example many times students to course
@@ -21,9 +20,9 @@ public class MainClass {
             Printing.printUserOptions();
             option = input.next();
             School school;
-            if(Utils.realSchoolIsEmpty(realSchool)){
+            if (Utils.realSchoolIsEmpty(realSchool)) {
                 school = syntheticSchool;
-            }else{
+            } else {
                 school = realSchool;
             }
             switch (option) {
@@ -72,8 +71,12 @@ public class MainClass {
                 case "-paps":
                     school.printAsignemntsPerStudent();
                     break;
+                case "-psmc":
+                    school.printStudentsInManyCourses();
+                    break;
                 case "-q":
                     System.out.println("Thank you for using the School Application!");
+                    input.close();
                     break;
                 default:
                     break;

@@ -12,7 +12,10 @@ public class Printing {
                 + "| |/\\| | / _ \\| | / __| / _ \\ | '_ ` _ \\  / _ \\\n"
                 + "\\  /\\  /|  __/| || (__ | (_) || | | | | ||  __/\n"
                 + " \\/  \\/  \\___||_| \\___| \\___/ |_| |_| |_| \\___|\n"
-                + "                                               ");
+                + "                                               "
+                + "\nThis is the Private School Application!\n\n"
+                + "You can manage the students, trainers, courses and assingments of your school.\n"
+                + "If no data is entered, the demo data is available to allow you to explore the application.");
     }
 
     public static void printUserOptions() {
@@ -40,8 +43,8 @@ public class Printing {
         System.out.println("-pac to print all assignments in a course"); //Done
         System.out.println("");
 
-        System.out.println("-paps to print all assignents per student");
-        System.out.println("-pscs to print all students that belong to more than one course");
+        System.out.println("-paps to print all assignents per student");//Done
+        System.out.println("-psmc to print all students that belong to more than one courses");
         System.out.println("");
 
         System.out.println("-q to exit\n");
