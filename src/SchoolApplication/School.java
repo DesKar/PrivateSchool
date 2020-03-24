@@ -121,8 +121,7 @@ public class School {
             System.out.printf("Selected course: %s.\n", (selectedCourse.toString()));
 
             System.out.println("Please choose trainers to add to the selected course.\n");
-            PrintTrainers()
-                    ;
+            PrintTrainers();
             ArrayList<Trainer> selectedTrainers = Utils.selectTrainers(this);
 
             TrainersInCourse trainersInCourse = new TrainersInCourse(selectedCourse, selectedTrainers);
@@ -174,14 +173,14 @@ public class School {
             System.out.println("\nThe course you have selected is: \n");
             System.out.println(selectedCourse.toString());
 
-            ArrayList<Student> listOfStudents = new ArrayList();
+            ArrayList<Student> listOfStudentsRegisteredToCourse = new ArrayList();
             for (StudentsInCourse studentsInCourse : listOfStudentsInCourse) {
                 if (studentsInCourse.getCourse().equals(selectedCourse)) {
-                    listOfStudents = studentsInCourse.getListOfStudents();
+                    listOfStudentsRegisteredToCourse = studentsInCourse.getListOfStudents();
                 }
             }
             System.out.println("The students of this course are: ");
-            Printing.printListOfStudents(listOfStudents);
+            Printing.printListOfStudents(listOfStudentsRegisteredToCourse);
 
         }
 
@@ -207,15 +206,15 @@ public class School {
             System.out.println("\nThe course you have selected is: \n");
             System.out.println(selectedCourse.toString());
 
-            ArrayList<Trainer> listOfTrainers = new ArrayList();
+            ArrayList<Trainer> listOfTrainersRegisteredToCourse = new ArrayList();
             for (TrainersInCourse trainersInCourse : listOfTrainersInCourse) {
                 if (trainersInCourse.getCourse().equals(selectedCourse)) {
-                    listOfTrainers = trainersInCourse.getListOfTrainers();
+                    listOfTrainersRegisteredToCourse = trainersInCourse.getListOfTrainers();
                 }
             }
 
             System.out.println("The trainers of this course are: ");
-            Printing.printListOfTrainers(listOfTrainers);
+            Printing.printListOfTrainers(listOfTrainersRegisteredToCourse);
 
         }
     }
@@ -240,15 +239,15 @@ public class School {
             System.out.println("\nThe course you have selected is: \n");
             System.out.println(selectedCourse.toString());
 
-            ArrayList<Assignment> listOfAssignments = new ArrayList();
+            ArrayList<Assignment> listOfAssignmentsRegistereToCourse = new ArrayList();
             for (AssignmentsInCourse assignmentInCourse : listOfAssignmentsInCourse) {
                 if (assignmentInCourse.getCourse().equals(selectedCourse)) {
-                    listOfAssignments = assignmentInCourse.getListOfAssignments();
+                    listOfAssignmentsRegistereToCourse = assignmentInCourse.getListOfAssignments();
                 }
             }
 
             System.out.println("The assignments of this course are: ");
-            Printing.printListOfAssignments(listOfAssignments);
+            Printing.printListOfAssignments(listOfAssignmentsRegistereToCourse);
 
         }
 
@@ -271,23 +270,26 @@ public class School {
 
             Student selectedStudent = listOfStudents.get(studentIndex);
 
-
             ArrayList<Course> coursesOfSelectedStudent = new ArrayList();
+
             for (StudentsInCourse studentsInCourse : listOfStudentsInCourse) {
-                for (Student student : listOfStudents) {
-                    if (student.equals(selectedStudent)) {
+                ArrayList<Student> students = studentsInCourse.getListOfStudents();
+                for (Student student : students) {
+                    if (student == selectedStudent) {
                         Course course = studentsInCourse.getCourse();
                         coursesOfSelectedStudent.add(course);
                     }
                 }
+
             }
+
             Printing.printListOfCourses(coursesOfSelectedStudent);
 
             ArrayList<Assignment> assignmentsOfCourses = new ArrayList();
-            for (AssignmentsInCourse assignmentsInCourse : listOfAssignmentsInCourse) {
-                for (Course course : coursesOfSelectedStudent) {
+            for (Course course : coursesOfSelectedStudent) {
+                for (AssignmentsInCourse assignmentsInCourse : listOfAssignmentsInCourse) {
                     if (course.equals(assignmentsInCourse.getCourse())) {
-                        assignmentsInCourse.getListOfAssignments().addAll(assignmentsOfCourses);
+                        assignmentsOfCourses.addAll(assignmentsInCourse.getListOfAssignments());
                     }
                 }
             }
