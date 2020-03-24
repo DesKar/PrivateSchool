@@ -1,8 +1,9 @@
 package SchoolApplication;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 
 public class School {
 
@@ -328,6 +329,44 @@ public class School {
                 Printing.printListOfStudents(listOfStudentsRegisteredInManyCourses);
             }
 
+        }
+
+    }
+
+    public void printStudentsToBeDeliveredWithinTheWeek() {
+        //        Lastly, the program should ask from the user a date and it should output a list of
+//students who need to submit one or more assignments on the same calendar week
+//as the given date [15 marks].
+        LocalDate date = Utils.getDate("Please provide a date to print the students that need to submit assignments on the same calendar week.");
+
+        DayOfWeek selectedDayOfWeek = date.getDayOfWeek();
+        LocalDate firstDayOfWeek = date;
+        while (firstDayOfWeek.getDayOfWeek() != DayOfWeek.MONDAY) {
+            firstDayOfWeek = firstDayOfWeek.minusDays(1);
+        }
+
+        LocalDate lastDayOfWeek = firstDayOfWeek.plusDays(4);
+        System.out.println("week starts on " + firstDayOfWeek + " ends on " + lastDayOfWeek);
+
+        HashSet<Student> studentsToSubmitAssignments = new HashSet();
+
+        for (Assignment assignment : listOfAssignments) {
+            LocalDate submissionDate = assignment.getSubDateTime();
+            boolean isit = isSubmissionDateInCW(firstDayOfWeek, lastDayOfWeek, submissionDate);
+            System.out.println(isit);
+        }
+
+    }
+
+    private boolean isSubmissionDateInCW(LocalDate firstDayOfWeek, LocalDate lastDayOfWeek, LocalDate submissionDate) {
+        int compareWithLastDate = submissionDate.compareTo(lastDayOfWeek);
+        int compareWithFirstDate = submissionDate.compareTo(firstDayOfWeek);
+        if((Math.abs(compareWithLastDate) + Math.abs(compareWithFirstDate)) == 4){
+            System.out.println("compareWithLastDate" + compareWithLastDate);
+            System.out.println("compareWithFirstDate" + compareWithFirstDate);
+            return true;
+        }else{
+            return false;
         }
 
     }

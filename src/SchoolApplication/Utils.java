@@ -1,5 +1,7 @@
 package SchoolApplication;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Utils {
@@ -64,4 +66,47 @@ public class Utils {
         return selectedStudents;
     }
 
+    public static String getStringWithMessage(String message) {
+        System.out.print(message);
+        return MainClass.input.next();
+    }
+
+    public static LocalDate getDate(String message) {
+        System.out.print(message);
+        LocalDate localDate = null;
+        while (localDate == null) {
+            try {
+                String date = MainClass.input.next();
+                while (date.charAt(4) != '-' || date.charAt(7) != '-' || date.length() != 10) {
+                    System.out.print("Please provide the date in the format YYYY-MM-DD: ");
+                    date = MainClass.input.next();
+                }
+                String[] dateArray = date.split("-");
+                int year = Integer.parseInt(dateArray[0]);
+                int month = Integer.parseInt(dateArray[1]);
+                int day = Integer.parseInt(dateArray[2]);
+                localDate = LocalDate.of(year, month, day);
+            } catch (NumberFormatException e) {
+                System.out.print("Please provide the date in the format YYYY-MM-DD: ");
+            } catch (DateTimeException e) {
+                System.out.print("Please make sure you add the correct date:");
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("Please provide the date in the format YYYY-MM-DD: ");
+            }
+        }
+        return localDate;
+    }
+
+    public static int getIntNumber(String message1, String message2, int lowerBound, int upperBound) {
+        int number;
+        do {
+            System.out.print(message1);
+            while (!MainClass.input.hasNextInt()) {
+                System.out.print(message2);
+                MainClass.input.next();
+            }
+            number = MainClass.input.nextInt();
+        } while (number <= lowerBound || number >= upperBound);
+        return number;
+    }
 }

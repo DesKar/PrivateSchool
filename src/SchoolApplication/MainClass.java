@@ -74,6 +74,9 @@ public class MainClass {
                 case "-psmc":
                     school.printStudentsInManyCourses();
                     break;
+                case "-pscw":
+                    school.printStudentsToBeDeliveredWithinTheWeek();
+                    break;
                 case "-q":
                     System.out.println("Thank you for using the School Application!");
                     input.close();

@@ -21,30 +21,32 @@ public class Printing {
     public static void printUserOptions() {
         System.out.println("");
         System.out.println("Please type: ");
-        System.out.println("-as to add a student"); //Done
-        System.out.println("-at to add a trainer"); //Done
-        System.out.println("-aa to add an assignment"); //Done
-        System.out.println("-ac to add a course"); //Done
+        System.out.println("-as to add a student");
+        System.out.println("-at to add a trainer");
+        System.out.println("-aa to add an assignment");
+        System.out.println("-ac to add a course");
         System.out.println("");
 
-        System.out.println("-ps to print all students"); //Done
-        System.out.println("-pt to print all trainers"); //Done
-        System.out.println("-pa to print all assignments"); //Done
-        System.out.println("-pc to print all courses"); //Done
+        System.out.println("-ps to print all students");
+        System.out.println("-pt to print all trainers");
+        System.out.println("-pa to print all assignments");
+        System.out.println("-pc to print all courses");
         System.out.println("");
 
-        System.out.println("-asc to add a student to a course"); //Done
-        System.out.println("-atc to add a trainer to a course"); //Doone
-        System.out.println("-aac to add an assignment to a course"); //Done
+        System.out.println("-asc to add a student to a course");
+        System.out.println("-atc to add a trainer to a course");
+        System.out.println("-aac to add an assignment to a course");
         System.out.println("");
 
-        System.out.println("-psc to print all students in a course"); //Done
-        System.out.println("-ptc to print all trainers in a course"); //Done
-        System.out.println("-pac to print all assignments in a course"); //Done
+        System.out.println("-psc to print all students in a course");
+        System.out.println("-ptc to print all trainers in a course");
+        System.out.println("-pac to print all assignments in a course");
         System.out.println("");
 
-        System.out.println("-paps to print all assignents per student");//Done
+        System.out.println("-paps to print all assignents per student");
+//        TODO redesign with different data structures
         System.out.println("-psmc to print all students that belong to more than one courses");
+        System.out.println("-pscw to print students that need to submit assignments on the calendar week of a diven date");
         System.out.println("");
 
         System.out.println("-q to exit\n");
