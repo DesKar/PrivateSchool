@@ -142,6 +142,19 @@ public class Utils {
         return localDate;
     }
 
+    public static LocalDate getDate(String message, LocalDate startDate) {
+        LocalDate endDate;
+        boolean isEndDateAfterStartDate;
+        do {
+            endDate = getDate(message);
+            isEndDateAfterStartDate = endDate.isAfter(startDate);
+            if(!isEndDateAfterStartDate){
+                System.out.println("The ending date should be after the starting date.");
+            }
+        }while(!isEndDateAfterStartDate);
+        return endDate;
+    }
+
     public static int getIntNumber(String message1, String message2, int lowerBound, int upperBound) {
         int number;
         System.out.print(message1);

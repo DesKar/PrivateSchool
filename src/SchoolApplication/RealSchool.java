@@ -51,7 +51,7 @@ public class RealSchool extends School {
         String stream = Utils.getStringWithMessage("Course stream title: ");
         String type = Utils.getStringWithMessage("Course type: ");
         LocalDate startDate = Utils.getDate("Course starting date (YYYY-MM-DD): ");
-        LocalDate endDate = Utils.getDate("Course ending date (YYYY-MM-DD): ");
+        LocalDate endDate = Utils.getDate("Course ending date (YYYY-MM-DD): ", startDate);
         Course course = new Course(title, stream, type, startDate, endDate);
         if (!courseExists(course)) {
             super.addCourseToCourses(course);
