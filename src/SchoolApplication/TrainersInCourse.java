@@ -6,26 +6,26 @@ import java.util.Objects;
 public class TrainersInCourse {
 
     private Course course;
-    private ArrayList<Trainer> listOfTrainers;
+    private ArrayList<Trainer> trainersInCourse;
 
     public TrainersInCourse(Course course, ArrayList<Trainer> listOfTrainers) {
         this.course = course;
-        this.listOfTrainers = listOfTrainers;
+        this.trainersInCourse = listOfTrainers;
     }
 
     public Course getCourse() {
         return course;
     }
 
-    public ArrayList<Trainer> getListOfTrainers() {
-        return listOfTrainers;
+    public ArrayList<Trainer> getTrainersInCourse() {
+        return trainersInCourse;
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 59 * hash + Objects.hashCode(this.course);
-        hash = 59 * hash + Objects.hashCode(this.listOfTrainers);
+        hash = 59 * hash + Objects.hashCode(this.trainersInCourse);
         return hash;
     }
 
@@ -44,7 +44,7 @@ public class TrainersInCourse {
         if (!Objects.equals(this.course, other.course)) {
             return false;
         }
-        if (!Objects.equals(this.listOfTrainers, other.listOfTrainers)) {
+        if (!Objects.equals(this.trainersInCourse, other.trainersInCourse)) {
             return false;
         }
         return true;

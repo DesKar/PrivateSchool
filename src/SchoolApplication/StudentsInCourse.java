@@ -1,31 +1,31 @@
 
 package SchoolApplication;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class StudentsInCourse {
     private Course course;
-    private HashSet<Student> listOfStudents;
+    private ArrayList<Student> studentsInCourse;
 
-    public StudentsInCourse(Course course, HashSet<Student> listOfStudents) {
+    public StudentsInCourse(Course course, ArrayList<Student> listOfStudents) {
         this.course = course;
-        this.listOfStudents = listOfStudents;
+        this.studentsInCourse = listOfStudents;
     }
 
     public Course getCourse() {
         return course;
     }
 
-    public HashSet<Student> getListOfStudents() {
-        return listOfStudents;
+    public ArrayList<Student> getStudentsInCourse() {
+        return studentsInCourse;
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 67 * hash + Objects.hashCode(this.course);
-        hash = 67 * hash + Objects.hashCode(this.listOfStudents);
+        hash = 67 * hash + Objects.hashCode(this.studentsInCourse);
         return hash;
     }
 
@@ -44,7 +44,7 @@ public class StudentsInCourse {
         if (!Objects.equals(this.course, other.course)) {
             return false;
         }
-        if (!Objects.equals(this.listOfStudents, other.listOfStudents)) {
+        if (!Objects.equals(this.studentsInCourse, other.studentsInCourse)) {
             return false;
         }
         return true;

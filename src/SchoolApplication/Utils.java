@@ -3,12 +3,11 @@ package SchoolApplication;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class Utils {
 
     public static boolean realSchoolIsEmpty(School s) {
-        return s.getListOfAssignments().isEmpty() && s.getListOfCourses().isEmpty() && s.getListOfStudents().isEmpty() && s.getListOfTrainers().isEmpty();
+        return s.getAssignments().isEmpty() && s.getCourses().isEmpty() && s.getStudents().isEmpty() && s.getTrainers().isEmpty();
     }
 
     public static int chooseElementFromPrintout(String message, int lowerBound, int upperBound) {
@@ -25,11 +24,11 @@ public class Utils {
     }
 
     public static Course selectCourse(School school) {
-        System.out.println("Please choose a course from the list below:");
+        System.out.println("Please choose a course from the list below: ");
         school.printCourses();
-        int lengthOfCourseList = school.getListOfCourses().size();
+        int lengthOfCourseList = school.getCourses().size();
         int courseIndex = Utils.chooseElementFromPrintout("You can choose the course using its ID.\nCourse ID: ", 0, lengthOfCourseList);
-        Course selectedCourse = school.getListOfCourses().get(courseIndex);
+        Course selectedCourse = school.getCourses().get(courseIndex);
         System.out.printf("Selected course: %s.\n", (selectedCourse.toString()));
         return selectedCourse;
     }
@@ -50,14 +49,15 @@ public class Utils {
     }
 
     public static ArrayList selectAssignmentsForCourse(School school) {
+//        TODO check if selection has already assignment
         ArrayList<Assignment> selectedAssignments = new ArrayList();
         System.out.println("Please choose assignments to add to the selected course.\n");
         school.printAssignments();
 
         do {
-            int lengthOfAssignmentsList = school.getListOfAssignments().size();
+            int lengthOfAssignmentsList = school.getAssignments().size();
             int asignmentIndex = Utils.chooseElementFromPrintout("You can choose an assignment using its ID.\nAssignment ID: ", 0, lengthOfAssignmentsList);
-            Assignment selectedAssignment = school.getListOfAssignments().get(asignmentIndex);
+            Assignment selectedAssignment = school.getAssignments().get(asignmentIndex);
             selectedAssignments.add(selectedAssignment);
             System.out.println("Would you like to add another assignment? Y: Yes");
         } while ("Y".equals(MainClass.input.next()));
@@ -65,28 +65,29 @@ public class Utils {
     }
 
     public static ArrayList selectTrainersForCourse(School school) {
+//        TODO check if selection has already trainer
         ArrayList<Trainer> selectedTrainers = new ArrayList();
         System.out.println("Please choose trainers to add to the selected course.\n");
         school.printTrainers();
         do {
-            int lengthOfTrainerList = school.getListOfTrainers().size();
+            int lengthOfTrainerList = school.getTrainers().size();
             int trainerIndex = Utils.chooseElementFromPrintout("You can choose a trainer using his/her ID.\nTrainer ID: ", 0, lengthOfTrainerList);
-            Trainer selectedTrainer = school.getListOfTrainers().get(trainerIndex);
+            Trainer selectedTrainer = school.getTrainers().get(trainerIndex);
             selectedTrainers.add(selectedTrainer);
             System.out.println("Would you like to add another trainer? Y: Yes");
         } while ("Y".equals(MainClass.input.next()));
         return selectedTrainers;
     }
 
-    public static HashSet<Student> selectStudentsForCourse(School school) {
-        HashSet<Student> selectedStudents = new HashSet();
+    public static ArrayList<Student> selectStudentsForCourse(School school) {
+        ArrayList<Student> selectedStudents = new ArrayList();
         System.out.println("Please choose students to add to the selected course.\n");
         school.printStudents();
         boolean addAnotherStudent = true;
         do {
-            int lengthOfStudentList = school.getListOfStudents().size();
+            int lengthOfStudentList = school.getStudents().size();
             int studentIndex = Utils.chooseElementFromPrintout("You can choose a student using his/her ID.\nStudent ID: ", 0, lengthOfStudentList);
-            Student selectedStudent = school.getListOfStudents().get(studentIndex);
+            Student selectedStudent = school.getStudents().get(studentIndex);
             if (selectedStudents.contains(selectedStudent)) {
                 System.out.println("Student is already selected. Please choose another student.");
                 addAnotherStudent = true;

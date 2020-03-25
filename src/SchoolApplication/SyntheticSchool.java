@@ -2,7 +2,6 @@ package SchoolApplication;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class SyntheticSchool extends School {
 
@@ -20,82 +19,82 @@ public class SyntheticSchool extends School {
     private void addStudentsToSchool() {
 
         Student student = new Student("John", "Doe", LocalDate.ofEpochDay(0), 2000);
-        super.addStudentInListOfStudents(student);
+        super.addStudenToStudents(student);
         student = new Student("Joe", "Bloggs", LocalDate.of(1988, 03, 05), 1500);
-        super.addStudentInListOfStudents(student);
+        super.addStudenToStudents(student);
         student = new Student("Max", "Muster", LocalDate.ofEpochDay(0), 1850);
-        super.addStudentInListOfStudents(student);
+        super.addStudenToStudents(student);
         student = new Student("Ada", "Lovelace", LocalDate.of(1815, 12, 10), 1500);
-        super.addStudentInListOfStudents(student);
+        super.addStudenToStudents(student);
         student = new Student("Grace", "Hopper", LocalDate.of(1906, 01, 01), 2000);
-        super.addStudentInListOfStudents(student);
+        super.addStudenToStudents(student);
 
     }
 
     private void addTrainersToSchool() {
         Trainer trainer = new Trainer("Jane", "Doe", "Java");
-        super.addTrainerInListOfTrainers(trainer);
+        super.addTrainerToTrainers(trainer);
         trainer = new Trainer("Juan", "Perez", "C#");
-        super.addTrainerInListOfTrainers(trainer);
+        super.addTrainerToTrainers(trainer);
         trainer = new Trainer("Helen", "Doe", "");
-        super.addTrainerInListOfTrainers(trainer);
+        super.addTrainerToTrainers(trainer);
     }
 
     private void addAssignmentsToSchool() {
 
         Assignment assignment = new Assignment("Java Individual Project", "The individual project of the students", LocalDate.of(2020, 4, 8), 10, 10);
-        super.addAssignmentInListOfAssignments(assignment);
+        super.addAssignmentToAssignments(assignment);
         assignment = new Assignment("Java Team Project", "The team project of the students", LocalDate.of(2020, 5, 28), 9, 9);
-        super.addAssignmentInListOfAssignments(assignment);
+        super.addAssignmentToAssignments(assignment);
         assignment = new Assignment("C# Individual Project", "The individual project of the students", LocalDate.of(2020, 4, 8), 10, 10);
-        super.addAssignmentInListOfAssignments(assignment);
+        super.addAssignmentToAssignments(assignment);
         assignment = new Assignment("C# Team Project", "The team project of the students", LocalDate.of(2020, 5, 28), 9, 9);
-        super.addAssignmentInListOfAssignments(assignment);
+        super.addAssignmentToAssignments(assignment);
     }
 
     private void addCoursesToSchool() {
         Course course = new Course("Coding Bootcamp", "Java Full Stack Development", "Full-time", LocalDate.of(2020, 3, 4), LocalDate.of(2020, 6, 5));
-        super.addSCourseInListOfCourses(course);
+        super.addCourseToCourses(course);
         course = new Course("Coding Bootcamp", "C# Full Stack Development", "Part-time", LocalDate.of(2020, 3, 4), LocalDate.of(2020, 8, 5));
-        super.addSCourseInListOfCourses(course);
+        super.addCourseToCourses(course);
 
     }
 
     private void addStudentsToCourse() {
-        Course firstCourse = super.getListOfCourses().get(0);
-        Course secondCourse = super.getListOfCourses().get(1);
+        Course firstCourse = super.getCourses().get(0);
+        Course secondCourse = super.getCourses().get(1);
 
-        Student firstStudent = super.getListOfStudents().get(0);
-        Student secondStudent = super.getListOfStudents().get(1);
-        Student thirdStudent = super.getListOfStudents().get(2);
-        Student fourthStudent = super.getListOfStudents().get(3);
-        Student fifthStudent = super.getListOfStudents().get(4);
+        Student firstStudent = super.getStudents().get(0);
+        Student secondStudent = super.getStudents().get(1);
+        Student thirdStudent = super.getStudents().get(2);
+        Student fourthStudent = super.getStudents().get(3);
+        Student fifthStudent = super.getStudents().get(4);
 
-        HashSet<Student> selectedStudentsForFirstCourse = new HashSet();
+        ArrayList<Student> selectedStudentsForFirstCourse = new ArrayList();
         selectedStudentsForFirstCourse.add(firstStudent);
         selectedStudentsForFirstCourse.add(thirdStudent);
         selectedStudentsForFirstCourse.add(fourthStudent);
 
-        HashSet<Student> selectedStudentsForSecondCourse = new HashSet();
+        ArrayList<Student> selectedStudentsForSecondCourse = new ArrayList();
         selectedStudentsForSecondCourse.add(secondStudent);
         selectedStudentsForSecondCourse.add(thirdStudent);
         selectedStudentsForSecondCourse.add(fifthStudent);
 
         StudentsInCourse studentsInFirstCourse = new StudentsInCourse(firstCourse, selectedStudentsForFirstCourse);
-        super.addStudentsInCourseToListOfStudentsInCourse(studentsInFirstCourse);
+        super.addStudentsInCourseToStudentsInCourses(studentsInFirstCourse);
 
         StudentsInCourse studentsInSecondCourse = new StudentsInCourse(secondCourse, selectedStudentsForSecondCourse);
-        super.addStudentsInCourseToListOfStudentsInCourse(studentsInSecondCourse);
+        super.addStudentsInCourseToStudentsInCourses(studentsInSecondCourse);
 
     }
 
     private void addTrainersToCourse() {
-        Course firstCourse = super.getListOfCourses().get(0);
-        Course secondCourse = super.getListOfCourses().get(1);
+        Course firstCourse = super.getCourses().get(0);
+        Course secondCourse = super.getCourses().get(1);
 
-        Trainer firstTrainer = super.getListOfTrainers().get(0);
-        Trainer secondTrainer = super.getListOfTrainers().get(1);
-        Trainer thirdTrainert = super.getListOfTrainers().get(2);
+        Trainer firstTrainer = super.getTrainers().get(0);
+        Trainer secondTrainer = super.getTrainers().get(1);
+        Trainer thirdTrainert = super.getTrainers().get(2);
 
         ArrayList<Trainer> selectedTrainersForFirstCourse = new ArrayList();
         selectedTrainersForFirstCourse.add(firstTrainer);
@@ -106,21 +105,21 @@ public class SyntheticSchool extends School {
         selectedTrainersForSecondCourse.add(secondTrainer);
 
         TrainersInCourse trainersInFirstCourse = new TrainersInCourse(firstCourse, selectedTrainersForFirstCourse);
-        super.addTrainersInCourseToListOfTrainersInCourse(trainersInFirstCourse);
+        super.addTrainersInCourseToTrainersInCourses(trainersInFirstCourse);
 
         TrainersInCourse trainersInSecondCourse = new TrainersInCourse(secondCourse, selectedTrainersForSecondCourse);
-        super.addTrainersInCourseToListOfTrainersInCourse(trainersInSecondCourse);
+        super.addTrainersInCourseToTrainersInCourses(trainersInSecondCourse);
 
     }
 
     private void addAssignmentsToCourse() {
-        Course firstCourse = super.getListOfCourses().get(0);
-        Course secondCourse = super.getListOfCourses().get(1);
+        Course firstCourse = super.getCourses().get(0);
+        Course secondCourse = super.getCourses().get(1);
 
-        Assignment firstAssignment = super.getListOfAssignments().get(0);
-        Assignment secondAssignment = super.getListOfAssignments().get(1);
-        Assignment thirdAssignment = super.getListOfAssignments().get(2);
-        Assignment forthAssignment = super.getListOfAssignments().get(3);
+        Assignment firstAssignment = super.getAssignments().get(0);
+        Assignment secondAssignment = super.getAssignments().get(1);
+        Assignment thirdAssignment = super.getAssignments().get(2);
+        Assignment forthAssignment = super.getAssignments().get(3);
 
         ArrayList<Assignment> selectedAssignmentsForFirstCourse = new ArrayList();
         selectedAssignmentsForFirstCourse.add(firstAssignment);
@@ -131,9 +130,9 @@ public class SyntheticSchool extends School {
         selectedAssignmentsForSecondCourse.add(forthAssignment);
 
         AssignmentsInCourse assignmentsInFirstCourse = new AssignmentsInCourse(firstCourse, selectedAssignmentsForFirstCourse);
-        super.addAssignmentsInCourseToListOfAssignmentsInCourse(assignmentsInFirstCourse);
+        super.addAssignmentsInCourseToAssignemntsInCourses(assignmentsInFirstCourse);
 
         AssignmentsInCourse assignmentsInSecondCourse = new AssignmentsInCourse(secondCourse, selectedAssignmentsForSecondCourse);
-        super.addAssignmentsInCourseToListOfAssignmentsInCourse(assignmentsInSecondCourse);
+        super.addAssignmentsInCourseToAssignemntsInCourses(assignmentsInSecondCourse);
     }
 }

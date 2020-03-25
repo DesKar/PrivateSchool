@@ -3,8 +3,8 @@ package SchoolApplication;
 import java.util.Scanner;
 
 public class MainClass {
-//    TODO consider cases when I add more same elements like students, trainers, courses, etc
 //    TODO consider cases when I add more than once elements to course, for example many times students to course
+//    TODO check if I select more than once the same student, assignment, etc..
 
     static Scanner input = new Scanner(System.in);
     private static final RealSchool realSchool = new RealSchool();

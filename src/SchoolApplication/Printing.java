@@ -1,7 +1,6 @@
 package SchoolApplication;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class Printing {
 //TODO improve welcome message with a banner
@@ -45,7 +44,6 @@ public class Printing {
         System.out.println("");
 
         System.out.println("-paps to print all assignents per student");
-//        TODO redesign with different data structures
         System.out.println("-psmc to print all students that belong to more than one courses");
         System.out.println("-pscw to print students that need to submit assignments on the calendar week of a diven date");
         System.out.println("");
@@ -53,15 +51,15 @@ public class Printing {
         System.out.println("-q to exit\n");
     }
 
-    public static void printListOfStudents(Collection<Student> listOfStudents) {
-        if (listOfStudents.isEmpty()) {
+    public static void printListOfStudents(ArrayList<Student> students) {
+        if (students.isEmpty()) {
             System.out.println("There are no students in the School.");
         } else {
             System.out.println("--------------------------------Students-------------------------------");
             String header = String.format("|%-5s|%-15s|%-15s|%-15s|%-15s|", "ID", "First name", "Last name", "Date of Birth", "Tuition Fees(€)");
             System.out.println(header);
             int index = 1;
-            for (Student student : listOfStudents) {
+            for (Student student : students) {
                 String content = String.format("|%-5s|%-15s|%-15s|%-15s|%-15s|", index, student.getFirstName(), student.getLastName(), student.getDateOfBirth(), student.getTuitionFees());
                 System.out.println(content);
                 index++;
@@ -71,15 +69,15 @@ public class Printing {
 
     }
 
-    public static void printListOfTrainers(ArrayList<Trainer> listOfTrainers) {
-        if (listOfTrainers.isEmpty()) {
+    public static void printListOfTrainers(ArrayList<Trainer> trainers) {
+        if (trainers.isEmpty()) {
             System.out.println("There are no trainers in the School.");
         } else {
             System.out.println("----------------Trainers---------------");
             String header = String.format("|%-5s|%-15s|%-15s|", "ID", "First Name", "Last Name");
             System.out.println(header);
             int index = 1;
-            for (Trainer trainer : listOfTrainers) {
+            for (Trainer trainer : trainers) {
                 String content = String.format("|%-5s|%-15s|%-15s|", index, trainer.getFirstName(), trainer.getLastName());
                 System.out.println(content);
                 index++;
@@ -88,15 +86,15 @@ public class Printing {
         }
     }
 
-    public static void printListOfAssignments(ArrayList<Assignment> listOfAssignments) {
-        if (listOfAssignments.isEmpty()) {
+    public static void printListOfAssignments(ArrayList<Assignment> assignments) {
+        if (assignments.isEmpty()) {
             System.out.println("There are no assignments in the School.");
         } else {
             System.out.println("-------------------------------------------------------Assignments-------------------------------------------------------");
             String header = String.format("|%-5s|%-25s|%-40s|%-18s|%-13s|%-13s|", "ID", "Title", "Description", "Submission Date", "Oral Mark", "Local Mark");
             System.out.println(header);
             int index = 1;
-            for (Assignment assignment : listOfAssignments) {
+            for (Assignment assignment : assignments) {
                 String content = String.format("|%-5s|%-25s|%-40s|%-18s|%-13d|%-13d|", index, assignment.getTitle(), assignment.getDescription(), assignment.getSubDateTime(), assignment.getOralMark(), assignment.getLocalMark());
                 System.out.println(content);
                 index++;
@@ -105,15 +103,15 @@ public class Printing {
         }
     }
 
-    public static void printListOfCourses(ArrayList<Course> listOfCourses) {
-        if (listOfCourses.isEmpty()) {
+    public static void printListOfCourses(ArrayList<Course> courses) {
+        if (courses.isEmpty()) {
             System.out.println("There are no courses in the School.");
         } else {
             System.out.println("--------------------------------------------------Courses-------------------------------------------------");
             String header = String.format("|%-5s|%-25s|%-30s|%-13s|%-13s|%-13s|", "ID", "Title", "Stream", "Type", "Start Date", "End Date");
             System.out.println(header);
             int index = 1;
-            for (Course course : listOfCourses) {
+            for (Course course : courses) {
                 String content = String.format("|%-5s|%-25s|%-30s|%-13s|%-13s|%-13s|", index, course.getTitle(), course.getStream(), course.getType(), course.getStartDate(), course.getEndDate());
                 System.out.println(content);
                 index++;

@@ -7,248 +7,249 @@ import java.util.HashSet;
 
 public class School {
 
-    private ArrayList<Student> listOfStudents = new ArrayList();
-    private ArrayList<Trainer> listOfTrainers = new ArrayList();
-    private ArrayList<Assignment> listOfAssignments = new ArrayList();
-    private ArrayList<Course> listOfCourses = new ArrayList();
+    private ArrayList<Student> students = new ArrayList();
+    private ArrayList<Trainer> trainers = new ArrayList();
+    private ArrayList<Assignment> assignments = new ArrayList();
+    private ArrayList<Course> courses = new ArrayList();
 
-    private ArrayList<StudentsInCourse> listOfStudentsInCourse = new ArrayList();
-    private ArrayList<TrainersInCourse> listOfTrainersInCourse = new ArrayList();
-    private ArrayList<AssignmentsInCourse> listOfAssignmentsInCourse = new ArrayList();
+    private ArrayList<StudentsInCourse> studentsInCourses = new ArrayList();
+    private ArrayList<TrainersInCourse> trainersInCourses = new ArrayList();
+    private ArrayList<AssignmentsInCourse> assignmentsInCourses = new ArrayList();
 
-    public void addStudentInListOfStudents(Student student) {
-        this.listOfStudents.add(student);
+    public void addStudenToStudents(Student student) {
+        this.students.add(student);
     }
 
-    public void addTrainerInListOfTrainers(Trainer trainer) {
-        this.listOfTrainers.add(trainer);
+    public void addTrainerToTrainers(Trainer trainer) {
+        this.trainers.add(trainer);
     }
 
-    public void addAssignmentInListOfAssignments(Assignment assignment) {
-        this.listOfAssignments.add(assignment);
+    public void addAssignmentToAssignments(Assignment assignment) {
+        this.assignments.add(assignment);
     }
 
-    public void addSCourseInListOfCourses(Course course) {
-        this.listOfCourses.add(course);
+    public void addCourseToCourses(Course course) {
+        this.courses.add(course);
     }
 
-    public void addStudentsInCourseToListOfStudentsInCourse(StudentsInCourse studentsInCourse) {
-        this.listOfStudentsInCourse.add(studentsInCourse);
+    public void addStudentsInCourseToStudentsInCourses(StudentsInCourse studentsInCourse) {
+        this.studentsInCourses.add(studentsInCourse);
     }
 
-    public void addTrainersInCourseToListOfTrainersInCourse(TrainersInCourse trainersInCourse) {
-        this.listOfTrainersInCourse.add(trainersInCourse);
+    public void addTrainersInCourseToTrainersInCourses(TrainersInCourse trainersInCourse) {
+        this.trainersInCourses.add(trainersInCourse);
     }
 
-    public void addAssignmentsInCourseToListOfAssignmentsInCourse(AssignmentsInCourse listOfAssignments) {
-        this.listOfAssignmentsInCourse.add(listOfAssignments);
+    public void addAssignmentsInCourseToAssignemntsInCourses(AssignmentsInCourse listOfAssignments) {
+        this.assignmentsInCourses.add(listOfAssignments);
     }
 
-    public ArrayList<Student> getListOfStudents() {
-        return listOfStudents;
+    public ArrayList<Student> getStudents() {
+        return students;
     }
 
-    public ArrayList<Trainer> getListOfTrainers() {
-        return listOfTrainers;
+    public ArrayList<Trainer> getTrainers() {
+        return trainers;
     }
 
-    public ArrayList<Assignment> getListOfAssignments() {
-        return listOfAssignments;
+    public ArrayList<Assignment> getAssignments() {
+        return assignments;
     }
 
-    public ArrayList<Course> getListOfCourses() {
-        return listOfCourses;
+    public ArrayList<Course> getCourses() {
+        return courses;
     }
 
-    public ArrayList<StudentsInCourse> getListOfStudentsInCourse() {
-        return listOfStudentsInCourse;
+    public ArrayList<StudentsInCourse> getStudentsInCourse() {
+        return studentsInCourses;
     }
 
-    public ArrayList<TrainersInCourse> getListOfTrainersInCourse() {
-        return listOfTrainersInCourse;
+    public ArrayList<TrainersInCourse> getTrainersInCourse() {
+        return trainersInCourses;
     }
 
-    public ArrayList<AssignmentsInCourse> getListOfAssignmentsInCourse() {
-        return listOfAssignmentsInCourse;
+    public ArrayList<AssignmentsInCourse> getAssignmentsInCourse() {
+        return assignmentsInCourses;
     }
 
     public void printStudents() {
-        Printing.printListOfStudents(listOfStudents);
+        Printing.printListOfStudents(students);
     }
 
     public void printTrainers() {
-        Printing.printListOfTrainers(listOfTrainers);
+        Printing.printListOfTrainers(trainers);
     }
 
     public void printCourses() {
-        Printing.printListOfCourses(listOfCourses);
+        Printing.printListOfCourses(courses);
     }
 
     public void printAssignments() {
-        Printing.printListOfAssignments(listOfAssignments);
+        Printing.printListOfAssignments(assignments);
     }
 
     public void addStudentToCourse() {
-        if (listOfCourses.isEmpty()) {
+        if (courses.isEmpty()) {
             System.out.println("There are no courses. Please add a course to continue.");
-        } else if (listOfStudents.isEmpty()) {
+        } else if (students.isEmpty()) {
             System.out.println("There are no students. Please add a student to continue.");
         } else {
             Course selectedCourse = Utils.selectCourse(this);
-            HashSet<Student> selectedStudents = Utils.selectStudentsForCourse(this);
+            ArrayList<Student> selectedStudents = Utils.selectStudentsForCourse(this);
 
-            ArrayList<StudentsInCourse> exisitingStudentsInCourse = this.getListOfStudentsInCourse();
+            ArrayList<StudentsInCourse> existingStudentsInCourses = this.getStudentsInCourse();
             boolean courseExists = false;
-            for (StudentsInCourse studentInCourse : exisitingStudentsInCourse) {
-                Course course = studentInCourse.getCourse();
+            for (StudentsInCourse studentsInCourse : existingStudentsInCourses) {
+                Course course = studentsInCourse.getCourse();
                 if (course.equals(selectedCourse)) {
-                    studentInCourse.getListOfStudents().addAll(selectedStudents);
+                    studentsInCourse.getStudentsInCourse().addAll(selectedStudents);
                     courseExists = true;
                 }
             }
             if (!courseExists) {
                 StudentsInCourse studentsInCourse = new StudentsInCourse(selectedCourse, selectedStudents);
-                addStudentsInCourseToListOfStudentsInCourse(studentsInCourse);
+                addStudentsInCourseToStudentsInCourses(studentsInCourse);
             }
         }
     }
 
     public void addTrainerToCourse() {
-        if (listOfCourses.isEmpty()) {
+//        TODO add check if course has trainers
+        if (courses.isEmpty()) {
             System.out.println("There are no courses. Please add a course to continue.");
-        } else if (listOfTrainers.isEmpty()) {
+        } else if (trainers.isEmpty()) {
             System.out.println("There are no trainers. Please add a trainer to continue.");
         } else {
             Course selectedCourse = Utils.selectCourse(this);
             ArrayList<Trainer> selectedTrainers = Utils.selectTrainersForCourse(this);
 
             TrainersInCourse trainersInCourse = new TrainersInCourse(selectedCourse, selectedTrainers);
-            addTrainersInCourseToListOfTrainersInCourse(trainersInCourse);
+            addTrainersInCourseToTrainersInCourses(trainersInCourse);
         }
 
     }
 
     public void addAssignmentToCourse() {
-        if (listOfCourses.isEmpty()) {
+//        TODO add check if course has assignments
+        if (courses.isEmpty()) {
             System.out.println("There are no courses. Please add a course to continue.");
-        } else if (listOfAssignments.isEmpty()) {
+        } else if (assignments.isEmpty()) {
             System.out.println("There are no assignments. Please add a trainer to continue.");
         } else {
             Course selectedCourse = Utils.selectCourse(this);
             ArrayList<Assignment> selectedAssignments = Utils.selectAssignmentsForCourse(this);
 
             AssignmentsInCourse assignmentsInCourse = new AssignmentsInCourse(selectedCourse, selectedAssignments);
-            addAssignmentsInCourseToListOfAssignmentsInCourse(assignmentsInCourse);
+            addAssignmentsInCourseToAssignemntsInCourses(assignmentsInCourse);
         }
     }
 
     public void printStudentsInCourse() {
-        if (listOfStudentsInCourse.isEmpty()) {
+        if (studentsInCourses.isEmpty()) {
             System.out.println("There are no students registered to courses. Please register students to a course first.");
         } else {
             ArrayList<Course> coursesWithRegisteredStudents = new ArrayList();
-            for (StudentsInCourse studentsInCourse : listOfStudentsInCourse) {
+            for (StudentsInCourse studentsInCourse : studentsInCourses) {
                 Course course = studentsInCourse.getCourse();
                 coursesWithRegisteredStudents.add(course);
             }
 
             Course selectedCourse = Utils.selectCourseFromListOfCourses(coursesWithRegisteredStudents, "Choose a course to print its registered students: ");
 
-            HashSet<Student> setOfStudentsRegisteredToCourse = new HashSet();
-            for (StudentsInCourse studentsInCourse : listOfStudentsInCourse) {
+            ArrayList<Student> StudentsRegisteredToCourse = new ArrayList();
+            for (StudentsInCourse studentsInCourse : studentsInCourses) {
                 if (studentsInCourse.getCourse().equals(selectedCourse)) {
-                    setOfStudentsRegisteredToCourse = studentsInCourse.getListOfStudents();
+                    StudentsRegisteredToCourse = studentsInCourse.getStudentsInCourse();
                 }
             }
             System.out.println("The students of this course are: ");
-            Printing.printListOfStudents(setOfStudentsRegisteredToCourse);
+            Printing.printListOfStudents(StudentsRegisteredToCourse);
         }
 
     }
 
     public void printTrainersInCourse() {
-        if (listOfTrainersInCourse.isEmpty()) {
+        if (trainersInCourses.isEmpty()) {
             System.out.println("There are no trainers registered to courses. Please register trainers to a course first.");
         } else {
             ArrayList<Course> courseswithRegisteredTrainers = new ArrayList();
-            for (TrainersInCourse trainersInCourse : listOfTrainersInCourse) {
+            for (TrainersInCourse trainersInCourse : trainersInCourses) {
                 Course course = trainersInCourse.getCourse();
                 courseswithRegisteredTrainers.add(course);
             }
 
             Course selectedCourse = Utils.selectCourseFromListOfCourses(courseswithRegisteredTrainers, "Choose a course to print its registered trainers: ");
 
-            ArrayList<Trainer> listOfTrainersRegisteredToCourse = new ArrayList();
-            for (TrainersInCourse trainersInCourse : listOfTrainersInCourse) {
+            ArrayList<Trainer> trainersRegisteredToCourse = new ArrayList();
+            for (TrainersInCourse trainersInCourse : trainersInCourses) {
                 if (trainersInCourse.getCourse().equals(selectedCourse)) {
-                    listOfTrainersRegisteredToCourse = trainersInCourse.getListOfTrainers();
+                    trainersRegisteredToCourse = trainersInCourse.getTrainersInCourse();
                 }
             }
 
             System.out.println("The trainers of this course are: ");
-            Printing.printListOfTrainers(listOfTrainersRegisteredToCourse);
+            Printing.printListOfTrainers(trainersRegisteredToCourse);
 
         }
     }
 
     public void printAssignmentsInCourse() {
-        if (listOfAssignmentsInCourse.isEmpty()) {
+        if (assignmentsInCourses.isEmpty()) {
             System.out.println("There are no assignments registered to courses. Please register assignments to a course first.");
         } else {
             ArrayList<Course> courseswithRegisteredAssignments = new ArrayList();
-            for (AssignmentsInCourse assignmentInCourse : listOfAssignmentsInCourse) {
+            for (AssignmentsInCourse assignmentInCourse : assignmentsInCourses) {
                 Course course = assignmentInCourse.getCourse();
                 courseswithRegisteredAssignments.add(course);
             }
             Course selectedCourse = Utils.selectCourseFromListOfCourses(courseswithRegisteredAssignments, "Choose a course to print its registered assignments: ");
 
-            ArrayList<Assignment> listOfAssignmentsRegistereToCourse = new ArrayList();
-            for (AssignmentsInCourse assignmentInCourse : listOfAssignmentsInCourse) {
+            ArrayList<Assignment> assignmentsRegisteredToCourse = new ArrayList();
+            for (AssignmentsInCourse assignmentInCourse : assignmentsInCourses) {
                 if (assignmentInCourse.getCourse().equals(selectedCourse)) {
-                    listOfAssignmentsRegistereToCourse = assignmentInCourse.getListOfAssignments();
+                    assignmentsRegisteredToCourse = assignmentInCourse.getListOfAssignments();
                 }
             }
 
             System.out.println("The assignments of this course are: ");
-            Printing.printListOfAssignments(listOfAssignmentsRegistereToCourse);
+            Printing.printListOfAssignments(assignmentsRegisteredToCourse);
 
         }
 
     }
 
     public void printAsignemntsPerStudent() {
-        if (listOfStudentsInCourse.isEmpty() && listOfAssignmentsInCourse.isEmpty()) {
+        if (studentsInCourses.isEmpty() && assignmentsInCourses.isEmpty()) {
             System.out.println("There are no students and assignments registered to courses. Please register students and assignments to a course.");
-        } else if (listOfStudentsInCourse.isEmpty()) {
+        } else if (studentsInCourses.isEmpty()) {
             System.out.println("There are no students registered to courses. Please register students to a course first.");
-        } else if (listOfAssignmentsInCourse.isEmpty()) {
+        } else if (assignmentsInCourses.isEmpty()) {
             System.out.println("There are no assignments registered to courses. Please register assignments to a course first.");
         } else {
 
             System.out.println("Please choose a student to see his/her assignments: ");
-            Printing.printListOfStudents(listOfStudents);
+            Printing.printListOfStudents(students);
 
-            int lengthOfStudentList = listOfStudents.size();
+            int lengthOfStudentList = students.size();
             int studentIndex = Utils.chooseElementFromPrintout("Choose a students to print his/her assignments: ", 0, lengthOfStudentList);
 
-            Student selectedStudent = listOfStudents.get(studentIndex);
+            Student selectedStudent = students.get(studentIndex);
 
             ArrayList<Course> coursesOfSelectedStudent = new ArrayList();
 
-            for (StudentsInCourse studentsInCourse : listOfStudentsInCourse) {
-                HashSet<Student> students = studentsInCourse.getListOfStudents();
+            for (StudentsInCourse studentsInCourse : studentsInCourses) {
+                ArrayList<Student> students = studentsInCourse.getStudentsInCourse();
                 for (Student student : students) {
                     if (student == selectedStudent) {
                         Course course = studentsInCourse.getCourse();
                         coursesOfSelectedStudent.add(course);
                     }
                 }
-
             }
 
             ArrayList<Assignment> assignmentsOfCourses = new ArrayList();
             for (Course course : coursesOfSelectedStudent) {
-                for (AssignmentsInCourse assignmentsInCourse : listOfAssignmentsInCourse) {
+                for (AssignmentsInCourse assignmentsInCourse : assignmentsInCourses) {
                     if (course.equals(assignmentsInCourse.getCourse())) {
                         assignmentsOfCourses.addAll(assignmentsInCourse.getListOfAssignments());
                     }
@@ -261,32 +262,32 @@ public class School {
     }
 
     public void printStudentsInManyCourses() {
-        if (listOfStudentsInCourse.isEmpty()) {
+        if (studentsInCourses.isEmpty()) {
             System.out.println("There are no students registered to courses. Please register students to a course first.");
         } else {
 
-            ArrayList listOfAllStudentsRegisteredToCourses = new ArrayList();
-            ArrayList listOfStudentsRegisteredToManyCourses = new ArrayList();
+            ArrayList studentsRegisteredToCourses = new ArrayList();
+            ArrayList studentsRegisteredToManyCourses = new ArrayList();
 
-            for (StudentsInCourse studentInCourse : listOfStudentsInCourse) {
-                HashSet<Student> students = studentInCourse.getListOfStudents();
+            for (StudentsInCourse studentInCourse : studentsInCourses) {
+                ArrayList<Student> students = studentInCourse.getStudentsInCourse();
                 for (Student student : students) {
-                    listOfAllStudentsRegisteredToCourses.add(student);
+                    studentsRegisteredToCourses.add(student);
                 }
             }
 
-            for (int i = 0; i < listOfAllStudentsRegisteredToCourses.size(); i++) {
-                for (int j = i + 1; j < listOfAllStudentsRegisteredToCourses.size(); j++) {
-                    if (listOfAllStudentsRegisteredToCourses.get(i).equals(listOfAllStudentsRegisteredToCourses.get(j))) {
-                        listOfStudentsRegisteredToManyCourses.add(listOfAllStudentsRegisteredToCourses.get(i));
+            for (int i = 0; i < studentsRegisteredToCourses.size(); i++) {
+                for (int j = i + 1; j < studentsRegisteredToCourses.size(); j++) {
+                    if (studentsRegisteredToCourses.get(i).equals(studentsRegisteredToCourses.get(j))) {
+                        studentsRegisteredToManyCourses.add(studentsRegisteredToCourses.get(i));
                     }
                 }
-
             }
-            if (listOfAllStudentsRegisteredToCourses.isEmpty()) {
+            
+            if (studentsRegisteredToManyCourses.isEmpty()) {
                 System.out.println("All students are registered in only one course.");
             } else {
-                Printing.printListOfStudents(listOfStudentsRegisteredToManyCourses);
+                Printing.printListOfStudents(studentsRegisteredToManyCourses);
             }
 
         }
@@ -310,7 +311,7 @@ public class School {
 
         HashSet<Student> studentsToSubmitAssignments = new HashSet();
 
-        for (Assignment assignment : listOfAssignments) {
+        for (Assignment assignment : assignments) {
             LocalDate submissionDate = assignment.getSubDateTime();
             boolean isit = isSubmissionDateInCW(firstDayOfWeek, lastDayOfWeek, submissionDate);
             System.out.println(isit);
