@@ -49,33 +49,44 @@ public class Utils {
     }
 
     public static ArrayList selectAssignmentsForCourse(School school) {
-//        TODO check if selection has already assignment
         ArrayList<Assignment> selectedAssignments = new ArrayList();
         System.out.println("Please choose assignments to add to the selected course.\n");
         school.printAssignments();
-
+        boolean addAnotherAssignment;
         do {
             int lengthOfAssignmentsList = school.getAssignments().size();
             int asignmentIndex = Utils.chooseElementFromPrintout("You can choose an assignment using its ID.\nAssignment ID: ", 0, lengthOfAssignmentsList);
             Assignment selectedAssignment = school.getAssignments().get(asignmentIndex);
-            selectedAssignments.add(selectedAssignment);
-            System.out.println("Would you like to add another assignment? Y: Yes");
-        } while ("Y".equals(MainClass.input.next()));
+            if (selectedAssignments.contains(selectedAssignment)) {
+                System.out.println("Assignment is already selected. Please choose another assignment.");
+                addAnotherAssignment = true;
+            } else {
+                selectedAssignments.add(selectedAssignment);
+                System.out.println("Would you like to add another assignment? Y: Yes");
+                addAnotherAssignment = "Y".equals(MainClass.input.next());
+            }
+        } while (addAnotherAssignment);
         return selectedAssignments;
     }
 
     public static ArrayList selectTrainersForCourse(School school) {
-//        TODO check if selection has already trainer
         ArrayList<Trainer> selectedTrainers = new ArrayList();
         System.out.println("Please choose trainers to add to the selected course.\n");
         school.printTrainers();
+        boolean addAnotherTrainer;
         do {
             int lengthOfTrainerList = school.getTrainers().size();
             int trainerIndex = Utils.chooseElementFromPrintout("You can choose a trainer using his/her ID.\nTrainer ID: ", 0, lengthOfTrainerList);
             Trainer selectedTrainer = school.getTrainers().get(trainerIndex);
-            selectedTrainers.add(selectedTrainer);
-            System.out.println("Would you like to add another trainer? Y: Yes");
-        } while ("Y".equals(MainClass.input.next()));
+            if (selectedTrainers.contains(selectedTrainer)) {
+                System.out.println("Trainer is already selected. Please choose another trainer.");
+                addAnotherTrainer = true;
+            } else {
+                selectedTrainers.add(selectedTrainer);
+                System.out.println("Would you like to add another trainer? Y: Yes");
+                addAnotherTrainer = "Y".equals(MainClass.input.next());
+            }
+        } while (addAnotherTrainer);
         return selectedTrainers;
     }
 
@@ -83,7 +94,7 @@ public class Utils {
         ArrayList<Student> selectedStudents = new ArrayList();
         System.out.println("Please choose students to add to the selected course.\n");
         school.printStudents();
-        boolean addAnotherStudent = true;
+        boolean addAnotherStudent;
         do {
             int lengthOfStudentList = school.getStudents().size();
             int studentIndex = Utils.chooseElementFromPrintout("You can choose a student using his/her ID.\nStudent ID: ", 0, lengthOfStudentList);

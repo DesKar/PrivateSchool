@@ -3,7 +3,6 @@ package SchoolApplication;
 import java.util.ArrayList;
 
 public class Printing {
-//TODO improve welcome message with a banner
 
     public static void printWelcomeMessage() {
         System.out.println(" _    _        _                               \n"
