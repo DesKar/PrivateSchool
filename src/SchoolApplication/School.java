@@ -267,7 +267,7 @@ public class School {
                 }
             }
 
-            ArrayList<Assignment> assignmentsOfCourses = new ArrayList();
+            HashSet<Assignment> assignmentsOfCourses = new HashSet();
             for (Course course : coursesOfSelectedStudent) {
                 for (AssignmentsInCourse assignmentsInCourse : assignmentsInCourses) {
                     if (course.equals(assignmentsInCourse.getCourse())) {

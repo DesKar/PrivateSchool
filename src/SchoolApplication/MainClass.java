@@ -3,6 +3,7 @@ package SchoolApplication;
 import java.util.Scanner;
 
 public class MainClass {
+//    TODO check if student is assigned to many courses and assignment is also assigned to many courses that the assignment is printed only once for -paps
 
     static Scanner input = new Scanner(System.in);
     private static final RealSchool realSchool = new RealSchool();

@@ -1,6 +1,7 @@
 package SchoolApplication;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Printing {
 
@@ -85,7 +86,7 @@ public class Printing {
         }
     }
 
-    public static void printListOfAssignments(ArrayList<Assignment> assignments) {
+    public static void printListOfAssignments(Collection<Assignment> assignments) {
         if (assignments.isEmpty()) {
             System.out.println("There are no assignments in the School.");
         } else {
