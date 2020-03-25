@@ -3,6 +3,7 @@ package SchoolApplication;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Utils {
 
@@ -77,17 +78,24 @@ public class Utils {
         return selectedTrainers;
     }
 
-    public static ArrayList selectStudentsForCourse(School school) {
-        ArrayList<Student> selectedStudents = new ArrayList();
+    public static HashSet<Student> selectStudentsForCourse(School school) {
+        HashSet<Student> selectedStudents = new HashSet();
         System.out.println("Please choose students to add to the selected course.\n");
         school.printStudents();
+        boolean addAnotherStudent = true;
         do {
             int lengthOfStudentList = school.getListOfStudents().size();
             int studentIndex = Utils.chooseElementFromPrintout("You can choose a student using his/her ID.\nStudent ID: ", 0, lengthOfStudentList);
             Student selectedStudent = school.getListOfStudents().get(studentIndex);
-            selectedStudents.add(selectedStudent);
-            System.out.println("Would you like to add another student? Y: Yes");
-        } while ("Y".equals(MainClass.input.next()));
+            if (selectedStudents.contains(selectedStudent)) {
+                System.out.println("Student is already selected. Please choose another student.");
+                addAnotherStudent = true;
+            } else {
+                selectedStudents.add(selectedStudent);
+                System.out.println("Would you like to add another student? Y: Yes");
+                addAnotherStudent = "Y".equals(MainClass.input.next());
+            }
+        } while (addAnotherStudent);
         return selectedStudents;
     }
 

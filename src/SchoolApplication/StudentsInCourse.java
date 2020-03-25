@@ -1,14 +1,14 @@
 
 package SchoolApplication;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 
 public class StudentsInCourse {
     private Course course;
-    private ArrayList<Student> listOfStudents;
+    private HashSet<Student> listOfStudents;
 
-    public StudentsInCourse(Course course, ArrayList<Student> listOfStudents) {
+    public StudentsInCourse(Course course, HashSet<Student> listOfStudents) {
         this.course = course;
         this.listOfStudents = listOfStudents;
     }
@@ -17,13 +17,15 @@ public class StudentsInCourse {
         return course;
     }
 
-    public ArrayList<Student> getListOfStudents() {
+    public HashSet<Student> getListOfStudents() {
         return listOfStudents;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.course);
+        hash = 67 * hash + Objects.hashCode(this.listOfStudents);
         return hash;
     }
 

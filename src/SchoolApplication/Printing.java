@@ -1,6 +1,7 @@
 package SchoolApplication;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Printing {
 //TODO improve welcome message with a banner
@@ -52,7 +53,7 @@ public class Printing {
         System.out.println("-q to exit\n");
     }
 
-    public static void printListOfStudents(ArrayList<Student> listOfStudents) {
+    public static void printListOfStudents(Collection<Student> listOfStudents) {
         if (listOfStudents.isEmpty()) {
             System.out.println("There are no students in the School.");
         } else {

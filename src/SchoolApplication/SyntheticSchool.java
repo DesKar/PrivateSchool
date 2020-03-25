@@ -2,6 +2,7 @@ package SchoolApplication;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class SyntheticSchool extends School {
 
@@ -70,12 +71,12 @@ public class SyntheticSchool extends School {
         Student fourthStudent = super.getListOfStudents().get(3);
         Student fifthStudent = super.getListOfStudents().get(4);
 
-        ArrayList<Student> selectedStudentsForFirstCourse = new ArrayList();
+        HashSet<Student> selectedStudentsForFirstCourse = new HashSet();
         selectedStudentsForFirstCourse.add(firstStudent);
         selectedStudentsForFirstCourse.add(thirdStudent);
         selectedStudentsForFirstCourse.add(fourthStudent);
 
-        ArrayList<Student> selectedStudentsForSecondCourse = new ArrayList();
+        HashSet<Student> selectedStudentsForSecondCourse = new HashSet();
         selectedStudentsForSecondCourse.add(secondStudent);
         selectedStudentsForSecondCourse.add(thirdStudent);
         selectedStudentsForSecondCourse.add(fifthStudent);

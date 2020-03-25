@@ -95,12 +95,22 @@ public class School {
             System.out.println("There are no students. Please add a student to continue.");
         } else {
             Course selectedCourse = Utils.selectCourse(this);
-            ArrayList<Student> selectedStudents = Utils.selectStudentsForCourse(this);
+            HashSet<Student> selectedStudents = Utils.selectStudentsForCourse(this);
 
-            StudentsInCourse studentsInCourse = new StudentsInCourse(selectedCourse, selectedStudents);
-            addStudentsInCourseToListOfStudentsInCourse(studentsInCourse);
+            ArrayList<StudentsInCourse> exisitingStudentsInCourse = this.getListOfStudentsInCourse();
+            boolean courseExists = false;
+            for (StudentsInCourse studentInCourse : exisitingStudentsInCourse) {
+                Course course = studentInCourse.getCourse();
+                if (course.equals(selectedCourse)) {
+                    studentInCourse.getListOfStudents().addAll(selectedStudents);
+                    courseExists = true;
+                }
+            }
+            if (!courseExists) {
+                StudentsInCourse studentsInCourse = new StudentsInCourse(selectedCourse, selectedStudents);
+                addStudentsInCourseToListOfStudentsInCourse(studentsInCourse);
+            }
         }
-
     }
 
     public void addTrainerToCourse() {
@@ -144,14 +154,14 @@ public class School {
 
             Course selectedCourse = Utils.selectCourseFromListOfCourses(coursesWithRegisteredStudents, "Choose a course to print its registered students: ");
 
-            ArrayList<Student> listOfStudentsRegisteredToCourse = new ArrayList();
+            HashSet<Student> setOfStudentsRegisteredToCourse = new HashSet();
             for (StudentsInCourse studentsInCourse : listOfStudentsInCourse) {
                 if (studentsInCourse.getCourse().equals(selectedCourse)) {
-                    listOfStudentsRegisteredToCourse = studentsInCourse.getListOfStudents();
+                    setOfStudentsRegisteredToCourse = studentsInCourse.getListOfStudents();
                 }
             }
             System.out.println("The students of this course are: ");
-            Printing.printListOfStudents(listOfStudentsRegisteredToCourse);
+            Printing.printListOfStudents(setOfStudentsRegisteredToCourse);
         }
 
     }
@@ -226,7 +236,7 @@ public class School {
             ArrayList<Course> coursesOfSelectedStudent = new ArrayList();
 
             for (StudentsInCourse studentsInCourse : listOfStudentsInCourse) {
-                ArrayList<Student> students = studentsInCourse.getListOfStudents();
+                HashSet<Student> students = studentsInCourse.getListOfStudents();
                 for (Student student : students) {
                     if (student == selectedStudent) {
                         Course course = studentsInCourse.getCourse();
@@ -259,7 +269,7 @@ public class School {
             ArrayList listOfStudentsRegisteredToManyCourses = new ArrayList();
 
             for (StudentsInCourse studentInCourse : listOfStudentsInCourse) {
-                ArrayList<Student> students = studentInCourse.getListOfStudents();
+                HashSet<Student> students = studentInCourse.getListOfStudents();
                 for (Student student : students) {
                     listOfAllStudentsRegisteredToCourses.add(student);
                 }
@@ -320,4 +330,5 @@ public class School {
         }
 
     }
+
 }
