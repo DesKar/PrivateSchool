@@ -60,11 +60,6 @@ public class Assignment {
     }
 
     @Override
-    public String toString() {
-        return "Assignment{" + "title=" + title + ", description=" + description + ", subDateTime=" + subDateTime + ", oralMark=" + oralMark + ", localMark=" + localMark + '}';
-    }
-
-    @Override
     public int hashCode() {
         int hash = 3;
         hash = 29 * hash + Objects.hashCode(this.title);

@@ -7,8 +7,8 @@ public class MainClass {
 //    TODO consider cases when I add more than once elements to course, for example many times students to course
 
     static Scanner input = new Scanner(System.in);
-    private static RealSchool realSchool = new RealSchool();
-    private static SyntheticSchool syntheticSchool = new SyntheticSchool();
+    private static final RealSchool realSchool = new RealSchool();
+    private static final SyntheticSchool syntheticSchool = new SyntheticSchool();
 
     public static void main(String[] args) {
 
