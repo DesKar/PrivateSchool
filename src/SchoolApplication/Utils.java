@@ -5,8 +5,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Utils {
-    
-    public static boolean realSchoolIsEmpty(School s){
+
+    public static boolean realSchoolIsEmpty(School s) {
         return s.getListOfAssignments().isEmpty() && s.getListOfCourses().isEmpty() && s.getListOfStudents().isEmpty() && s.getListOfTrainers().isEmpty();
     }
 
@@ -24,14 +24,35 @@ public class Utils {
     }
 
     public static Course selectCourse(School school) {
+        System.out.println("Please choose a course from the list below:");
+        school.printCourses();
         int lengthOfCourseList = school.getListOfCourses().size();
         int courseIndex = Utils.chooseElementFromPrintout("You can choose the course using its ID.\nCourse ID: ", 0, lengthOfCourseList);
         Course selectedCourse = school.getListOfCourses().get(courseIndex);
+        System.out.printf("Selected course: %s.\n", (selectedCourse.toString()));
         return selectedCourse;
     }
 
-    public static ArrayList selectAssignments(School school) {
+    public static Course selectCourseFromListOfCourses(ArrayList<Course> listOfCourses, String message) {
+
+        Printing.printListOfCourses(listOfCourses);
+
+        int lengthOfCourseList = listOfCourses.size(); //assuming that the list has only one occurence per course
+        int selectedCourseIndex = Utils.chooseElementFromPrintout(message, 0, lengthOfCourseList);
+
+        Course selectedCourse = listOfCourses.get(selectedCourseIndex);
+
+        System.out.println("\nThe course you have selected is: \n");
+        System.out.println(selectedCourse.toString());
+
+        return selectedCourse;
+    }
+
+    public static ArrayList selectAssignmentsForCourse(School school) {
         ArrayList<Assignment> selectedAssignments = new ArrayList();
+        System.out.println("Please choose assignments to add to the selected course.\n");
+        school.printAssignments();
+
         do {
             int lengthOfAssignmentsList = school.getListOfAssignments().size();
             int asignmentIndex = Utils.chooseElementFromPrintout("You can choose an assignment using its ID.\nAssignment ID: ", 0, lengthOfAssignmentsList);
@@ -42,8 +63,10 @@ public class Utils {
         return selectedAssignments;
     }
 
-    public static ArrayList selectTrainers(School school) {
+    public static ArrayList selectTrainersForCourse(School school) {
         ArrayList<Trainer> selectedTrainers = new ArrayList();
+        System.out.println("Please choose trainers to add to the selected course.\n");
+        school.printTrainers();
         do {
             int lengthOfTrainerList = school.getListOfTrainers().size();
             int trainerIndex = Utils.chooseElementFromPrintout("You can choose a trainer using his/her ID.\nTrainer ID: ", 0, lengthOfTrainerList);
@@ -54,8 +77,10 @@ public class Utils {
         return selectedTrainers;
     }
 
-    public static ArrayList selectStudents(School school) {
+    public static ArrayList selectStudentsForCourse(School school) {
         ArrayList<Student> selectedStudents = new ArrayList();
+        System.out.println("Please choose students to add to the selected course.\n");
+        school.printStudents();
         do {
             int lengthOfStudentList = school.getListOfStudents().size();
             int studentIndex = Utils.chooseElementFromPrintout("You can choose a student using his/her ID.\nStudent ID: ", 0, lengthOfStudentList);

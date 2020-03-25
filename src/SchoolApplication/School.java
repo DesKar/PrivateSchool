@@ -72,19 +72,19 @@ public class School {
         return listOfAssignmentsInCourse;
     }
 
-    public void PrintStudents() {
+    public void printStudents() {
         Printing.printListOfStudents(listOfStudents);
     }
 
-    public void PrintTrainers() {
+    public void printTrainers() {
         Printing.printListOfTrainers(listOfTrainers);
     }
 
-    public void PrintCourses() {
+    public void printCourses() {
         Printing.printListOfCourses(listOfCourses);
     }
 
-    public void PrintAssignments() {
+    public void printAssignments() {
         Printing.printListOfAssignments(listOfAssignments);
     }
 
@@ -94,16 +94,8 @@ public class School {
         } else if (listOfStudents.isEmpty()) {
             System.out.println("There are no students. Please add a student to continue.");
         } else {
-            System.out.println("Please choose a course from the list below:");
-            PrintCourses();
-
             Course selectedCourse = Utils.selectCourse(this);
-            System.out.printf("Selected course: %s.\n", (selectedCourse.toString()));
-
-            System.out.println("Please choose students to add to the selected course.\n");
-            PrintStudents();
-
-            ArrayList<Student> selectedStudents = Utils.selectStudents(this);
+            ArrayList<Student> selectedStudents = Utils.selectStudentsForCourse(this);
 
             StudentsInCourse studentsInCourse = new StudentsInCourse(selectedCourse, selectedStudents);
             addStudentsInCourseToListOfStudentsInCourse(studentsInCourse);
@@ -117,15 +109,8 @@ public class School {
         } else if (listOfTrainers.isEmpty()) {
             System.out.println("There are no trainers. Please add a trainer to continue.");
         } else {
-            System.out.println("Please choose a course from the list below:");
-            PrintCourses();
-
             Course selectedCourse = Utils.selectCourse(this);
-            System.out.printf("Selected course: %s.\n", (selectedCourse.toString()));
-
-            System.out.println("Please choose trainers to add to the selected course.\n");
-            PrintTrainers();
-            ArrayList<Trainer> selectedTrainers = Utils.selectTrainers(this);
+            ArrayList<Trainer> selectedTrainers = Utils.selectTrainersForCourse(this);
 
             TrainersInCourse trainersInCourse = new TrainersInCourse(selectedCourse, selectedTrainers);
             addTrainersInCourseToListOfTrainersInCourse(trainersInCourse);
@@ -139,16 +124,8 @@ public class School {
         } else if (listOfAssignments.isEmpty()) {
             System.out.println("There are no assignments. Please add a trainer to continue.");
         } else {
-            System.out.println("Please choose a course from the list below:");
-            PrintCourses();
-
             Course selectedCourse = Utils.selectCourse(this);
-
-            System.out.printf("Selected course: %s.\n", (selectedCourse.toString()));
-            System.out.println("Please choose assignments to add to the selected course.\n");
-            PrintAssignments();
-
-            ArrayList<Assignment> selectedAssignments = Utils.selectAssignments(this);
+            ArrayList<Assignment> selectedAssignments = Utils.selectAssignmentsForCourse(this);
 
             AssignmentsInCourse assignmentsInCourse = new AssignmentsInCourse(selectedCourse, selectedAssignments);
             addAssignmentsInCourseToListOfAssignmentsInCourse(assignmentsInCourse);
@@ -159,22 +136,13 @@ public class School {
         if (listOfStudentsInCourse.isEmpty()) {
             System.out.println("There are no students registered to courses. Please register students to a course first.");
         } else {
-
             ArrayList<Course> coursesWithRegisteredStudents = new ArrayList();
             for (StudentsInCourse studentsInCourse : listOfStudentsInCourse) {
                 Course course = studentsInCourse.getCourse();
                 coursesWithRegisteredStudents.add(course);
             }
 
-            Printing.printListOfCourses(coursesWithRegisteredStudents);
-
-            int lengthOfCourseList = listOfStudentsInCourse.size(); //assuming that the list has only one occurence per course
-            int selectedCourseIndex = Utils.chooseElementFromPrintout("Choose a course to print its registered students: ", 0, lengthOfCourseList);
-
-            Course selectedCourse = coursesWithRegisteredStudents.get(selectedCourseIndex);
-
-            System.out.println("\nThe course you have selected is: \n");
-            System.out.println(selectedCourse.toString());
+            Course selectedCourse = Utils.selectCourseFromListOfCourses(coursesWithRegisteredStudents, "Choose a course to print its registered students: ");
 
             ArrayList<Student> listOfStudentsRegisteredToCourse = new ArrayList();
             for (StudentsInCourse studentsInCourse : listOfStudentsInCourse) {
@@ -184,7 +152,6 @@ public class School {
             }
             System.out.println("The students of this course are: ");
             Printing.printListOfStudents(listOfStudentsRegisteredToCourse);
-
         }
 
     }
@@ -199,15 +166,7 @@ public class School {
                 courseswithRegisteredTrainers.add(course);
             }
 
-            Printing.printListOfCourses(courseswithRegisteredTrainers);
-
-            int lengthOfCourseList = listOfTrainersInCourse.size();
-            int selectedCourseIndex = Utils.chooseElementFromPrintout("Choose a course to print its registered trainers: ", 0, lengthOfCourseList);
-
-            Course selectedCourse = courseswithRegisteredTrainers.get(selectedCourseIndex);
-
-            System.out.println("\nThe course you have selected is: \n");
-            System.out.println(selectedCourse.toString());
+            Course selectedCourse = Utils.selectCourseFromListOfCourses(courseswithRegisteredTrainers, "Choose a course to print its registered trainers: ");
 
             ArrayList<Trainer> listOfTrainersRegisteredToCourse = new ArrayList();
             for (TrainersInCourse trainersInCourse : listOfTrainersInCourse) {
@@ -231,16 +190,7 @@ public class School {
                 Course course = assignmentInCourse.getCourse();
                 courseswithRegisteredAssignments.add(course);
             }
-
-            Printing.printListOfCourses(courseswithRegisteredAssignments);
-
-            int lengthOfCourseList = listOfTrainersInCourse.size();
-            int selectedCourseIndex = Utils.chooseElementFromPrintout("Choose a course to print its registered assignments: ", 0, lengthOfCourseList);
-
-            Course selectedCourse = courseswithRegisteredAssignments.get(selectedCourseIndex);
-
-            System.out.println("\nThe course you have selected is: \n");
-            System.out.println(selectedCourse.toString());
+            Course selectedCourse = Utils.selectCourseFromListOfCourses(courseswithRegisteredAssignments, "Choose a course to print its registered assignments: ");
 
             ArrayList<Assignment> listOfAssignmentsRegistereToCourse = new ArrayList();
             for (AssignmentsInCourse assignmentInCourse : listOfAssignmentsInCourse) {
@@ -306,7 +256,7 @@ public class School {
         } else {
 
             ArrayList listOfAllStudentsRegisteredToCourses = new ArrayList();
-            ArrayList listOfStudentsRegisteredInManyCourses = new ArrayList();
+            ArrayList listOfStudentsRegisteredToManyCourses = new ArrayList();
 
             for (StudentsInCourse studentInCourse : listOfStudentsInCourse) {
                 ArrayList<Student> students = studentInCourse.getListOfStudents();
@@ -318,7 +268,7 @@ public class School {
             for (int i = 0; i < listOfAllStudentsRegisteredToCourses.size(); i++) {
                 for (int j = i + 1; j < listOfAllStudentsRegisteredToCourses.size(); j++) {
                     if (listOfAllStudentsRegisteredToCourses.get(i).equals(listOfAllStudentsRegisteredToCourses.get(j))) {
-                        listOfStudentsRegisteredInManyCourses.add(listOfAllStudentsRegisteredToCourses.get(i));
+                        listOfStudentsRegisteredToManyCourses.add(listOfAllStudentsRegisteredToCourses.get(i));
                     }
                 }
 
@@ -326,7 +276,7 @@ public class School {
             if (listOfAllStudentsRegisteredToCourses.isEmpty()) {
                 System.out.println("All students are registered in only one course.");
             } else {
-                Printing.printListOfStudents(listOfStudentsRegisteredInManyCourses);
+                Printing.printListOfStudents(listOfStudentsRegisteredToManyCourses);
             }
 
         }
@@ -361,11 +311,11 @@ public class School {
     private boolean isSubmissionDateInCW(LocalDate firstDayOfWeek, LocalDate lastDayOfWeek, LocalDate submissionDate) {
         int compareWithLastDate = submissionDate.compareTo(lastDayOfWeek);
         int compareWithFirstDate = submissionDate.compareTo(firstDayOfWeek);
-        if((Math.abs(compareWithLastDate) + Math.abs(compareWithFirstDate)) == 4){
+        if ((Math.abs(compareWithLastDate) + Math.abs(compareWithFirstDate)) == 4) {
             System.out.println("compareWithLastDate" + compareWithLastDate);
             System.out.println("compareWithFirstDate" + compareWithFirstDate);
             return true;
-        }else{
+        } else {
             return false;
         }
 

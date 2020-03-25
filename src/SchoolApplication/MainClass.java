@@ -39,16 +39,16 @@ public class MainClass {
                     realSchool.addCourseToSchool();
                     break;
                 case "-ps":
-                    school.PrintStudents();
+                    school.printStudents();
                     break;
                 case "-pt":
-                    school.PrintTrainers();
+                    school.printTrainers();
                     break;
                 case "-pa":
-                    school.PrintAssignments();
+                    school.printAssignments();
                     break;
                 case "-pc":
-                    school.PrintCourses();
+                    school.printCourses();
                     break;
                 case "-asc":
                     school.addStudentToCourse();
