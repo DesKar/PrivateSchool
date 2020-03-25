@@ -144,14 +144,22 @@ public class Utils {
 
     public static int getIntNumber(String message1, String message2, int lowerBound, int upperBound) {
         int number;
+        System.out.print(message1);
+        boolean numberIsWithinBounds = false;
         do {
-            System.out.print(message1);
+
             while (!MainClass.input.hasNextInt()) {
                 System.out.print(message2);
                 MainClass.input.next();
             }
             number = MainClass.input.nextInt();
-        } while (number <= lowerBound || number >= upperBound);
+            if (number < lowerBound || number > upperBound) {
+                numberIsWithinBounds = false;
+                System.out.println(message2);
+            } else {
+                numberIsWithinBounds = true;
+            }
+        } while (!numberIsWithinBounds);
         return number;
     }
 }

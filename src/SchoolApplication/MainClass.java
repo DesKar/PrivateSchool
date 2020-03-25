@@ -3,7 +3,6 @@ package SchoolApplication;
 import java.util.Scanner;
 
 public class MainClass {
-//    TODO check if I select more than once the same student, assignment, etc..
 
     static Scanner input = new Scanner(System.in);
     private static final RealSchool realSchool = new RealSchool();

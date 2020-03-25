@@ -114,7 +114,6 @@ public class School {
     }
 
     public void addTrainerToCourse() {
-//        TODO add check if course has trainers
         if (courses.isEmpty()) {
             System.out.println("There are no courses. Please add a course to continue.");
         } else if (trainers.isEmpty()) {
@@ -123,14 +122,24 @@ public class School {
             Course selectedCourse = Utils.selectCourse(this);
             ArrayList<Trainer> selectedTrainers = Utils.selectTrainersForCourse(this);
 
-            TrainersInCourse trainersInCourse = new TrainersInCourse(selectedCourse, selectedTrainers);
-            addTrainersInCourseToTrainersInCourses(trainersInCourse);
-        }
+            ArrayList<TrainersInCourse> existingTrainersInCourses = this.getTrainersInCourse();
+            boolean courseExists = false;
+            for (TrainersInCourse trainersInCourse : existingTrainersInCourses) {
+                Course course = trainersInCourse.getCourse();
+                if (course.equals(selectedCourse)) {
+                    trainersInCourse.getTrainersInCourse().addAll(selectedTrainers);
+                    courseExists = true;
+                }
+            }
+            if (!courseExists) {
+                TrainersInCourse trainersInCourse = new TrainersInCourse(selectedCourse, selectedTrainers);
+                addTrainersInCourseToTrainersInCourses(trainersInCourse);
+            }
 
+        }
     }
 
     public void addAssignmentToCourse() {
-//        TODO add check if course has assignments
         if (courses.isEmpty()) {
             System.out.println("There are no courses. Please add a course to continue.");
         } else if (assignments.isEmpty()) {
@@ -139,8 +148,19 @@ public class School {
             Course selectedCourse = Utils.selectCourse(this);
             ArrayList<Assignment> selectedAssignments = Utils.selectAssignmentsForCourse(this);
 
-            AssignmentsInCourse assignmentsInCourse = new AssignmentsInCourse(selectedCourse, selectedAssignments);
-            addAssignmentsInCourseToAssignemntsInCourses(assignmentsInCourse);
+            ArrayList<AssignmentsInCourse> existingAssignmentsInCourses = this.getAssignmentsInCourse();
+            boolean courseExists = false;
+            for (AssignmentsInCourse assignmentsInCourse : existingAssignmentsInCourses) {
+                Course course = assignmentsInCourse.getCourse();
+                if (course.equals(selectedCourse)) {
+                    assignmentsInCourse.getListOfAssignments().addAll(selectedAssignments);
+                    courseExists = true;
+                }
+            }
+            if (!courseExists) {
+                AssignmentsInCourse assignmentsInCourse = new AssignmentsInCourse(selectedCourse, selectedAssignments);
+                addAssignmentsInCourseToAssignemntsInCourses(assignmentsInCourse);
+            }
         }
     }
 
@@ -283,7 +303,7 @@ public class School {
                     }
                 }
             }
-            
+
             if (studentsRegisteredToManyCourses.isEmpty()) {
                 System.out.println("All students are registered in only one course.");
             } else {
@@ -295,7 +315,7 @@ public class School {
     }
 
     public void printStudentsToBeDeliveredWithinTheWeek() {
-        //        Lastly, the program should ask from the user a date and it should output a list of
+        //        TODO Lastly, the program should ask from the user a date and it should output a list of
 //students who need to submit one or more assignments on the same calendar week
 //as the given date [15 marks].
         LocalDate date = Utils.getDate("Please provide a date to print the students that need to submit assignments on the same calendar week.");
