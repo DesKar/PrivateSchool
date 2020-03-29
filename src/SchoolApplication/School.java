@@ -318,7 +318,8 @@ public class School {
         //        TODO Lastly, the program should ask from the user a date and it should output a list of
 //students who need to submit one or more assignments on the same calendar week
 //as the given date [15 marks].
-        LocalDate date = Utils.getDate("Please provide a date to print the students that need to submit assignments on the same calendar week.");
+        LocalDate date = Utils.getDate("Please provide a date to print the students that need to submit assignments on the same calendar week."
+                + "\nPlease provide the date in the format YYYY-MM-DD: ");
 
         DayOfWeek selectedDayOfWeek = date.getDayOfWeek();
         LocalDate firstDayOfWeek = date;
@@ -340,6 +341,7 @@ public class School {
         }
         
         Printing.printListOfAssignments(assingmentsToBeSubmittedInCW);
+
 
     }
 
