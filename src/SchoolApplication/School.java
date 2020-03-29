@@ -326,28 +326,30 @@ public class School {
             firstDayOfWeek = firstDayOfWeek.minusDays(1);
         }
 
-        LocalDate lastDayOfWeek = firstDayOfWeek.plusDays(4);
-        System.out.println("week starts on " + firstDayOfWeek + " ends on " + lastDayOfWeek);
+        LocalDate lastDayOfWeek = firstDayOfWeek.plusDays(6);
 
         HashSet<Student> studentsToSubmitAssignments = new HashSet();
+        HashSet<Assignment> assingmentsToBeSubmittedInCW = new HashSet();
 
         for (Assignment assignment : assignments) {
             LocalDate submissionDate = assignment.getSubDateTime();
-            boolean isit = isSubmissionDateInCW(firstDayOfWeek, lastDayOfWeek, submissionDate);
-            System.out.println(isit);
+            boolean toBeSubmittedInCW = isSubmissionDateInCW(firstDayOfWeek, lastDayOfWeek, submissionDate);
+            if(toBeSubmittedInCW){
+                assingmentsToBeSubmittedInCW.add(assignment);           
+            }
         }
+        
+        Printing.printListOfAssignments(assingmentsToBeSubmittedInCW);
 
     }
 
     private boolean isSubmissionDateInCW(LocalDate firstDayOfWeek, LocalDate lastDayOfWeek, LocalDate submissionDate) {
-        int compareWithLastDate = submissionDate.compareTo(lastDayOfWeek);
-        int compareWithFirstDate = submissionDate.compareTo(firstDayOfWeek);
-        if ((Math.abs(compareWithLastDate) + Math.abs(compareWithFirstDate)) == 4) {
-            System.out.println("compareWithLastDate" + compareWithLastDate);
-            System.out.println("compareWithFirstDate" + compareWithFirstDate);
-            return true;
-        } else {
+        boolean isAfterLastDate = submissionDate.isAfter(lastDayOfWeek);
+        boolean isBeforeFirstDate = submissionDate.isBefore(firstDayOfWeek);
+        if (isAfterLastDate || isBeforeFirstDate) {
             return false;
+        } else {
+            return true;
         }
 
     }
