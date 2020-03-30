@@ -16,7 +16,7 @@ public class Utils {
             System.out.print(message);
             while (!MainClass.input.hasNextInt()) {
                 System.out.print(message);
-                MainClass.input.next();
+                MainClass.input.nextLine();
             }
             number = MainClass.input.nextInt();
         } while (number <= lowerBound || number > upperBound);
@@ -113,7 +113,7 @@ public class Utils {
 
     public static String getStringWithMessage(String message) {
         System.out.print(message);
-        return MainClass.input.next();
+        return MainClass.input.nextLine();
     }
 
     public static LocalDate getDate(String message) {

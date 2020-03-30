@@ -5,8 +5,9 @@ import java.util.Scanner;
 public class MainClass {
 //Add same trainer to course
 //Add same assignment to course
+//Add same student to course
 //All students have been selected and I cannot add another one in -asc , escape option
-//2020-03-0=30'When input in string has spaces, the input does not work
+
     
     static Scanner input = new Scanner(System.in);
     private static final RealSchool realSchool = new RealSchool();
@@ -20,7 +21,7 @@ public class MainClass {
 
         do {
             Printing.printUserOptions();
-            option = input.next();
+            option = input.nextLine();
             School school;
             if (Utils.realSchoolIsEmpty(realSchool)) {
                 school = syntheticSchool;
