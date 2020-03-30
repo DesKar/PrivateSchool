@@ -238,7 +238,7 @@ public class School {
 
     }
 
-    public void printAsignemntsPerStudent() {
+    public void printAssignmentsPerStudent() {
         if (studentsInCourses.isEmpty() && assignmentsInCourses.isEmpty()) {
             System.out.println("There are no students and assignments registered to courses. Please register students and assignments to a course.");
         } else if (studentsInCourses.isEmpty()) {
@@ -315,9 +315,6 @@ public class School {
     }
 
     public void printStudentsToBeDeliveredWithinTheWeek() {
-        //        TODO Lastly, the program should ask from the user a date and it should output a list of
-//students who need to submit one or more assignments on the same calendar week
-//as the given date [15 marks].
         LocalDate date = Utils.getDate("Please provide a date to print the students that need to submit assignments on the same calendar week."
                 + "\nPlease provide the date in the format YYYY-MM-DD: ");
 
@@ -329,20 +326,42 @@ public class School {
 
         LocalDate lastDayOfWeek = firstDayOfWeek.plusDays(6);
 
-        HashSet<Student> studentsToSubmitAssignments = new HashSet();
         HashSet<Assignment> assingmentsToBeSubmittedInCW = new HashSet();
 
         for (Assignment assignment : assignments) {
             LocalDate submissionDate = assignment.getSubDateTime();
             boolean toBeSubmittedInCW = isSubmissionDateInCW(firstDayOfWeek, lastDayOfWeek, submissionDate);
-            if(toBeSubmittedInCW){
-                assingmentsToBeSubmittedInCW.add(assignment);           
+            if (toBeSubmittedInCW) {
+                assingmentsToBeSubmittedInCW.add(assignment);
             }
         }
         
-        Printing.printListOfAssignments(assingmentsToBeSubmittedInCW);
-
-
+        
+        ArrayList<Course> coursesOfAssignments = new ArrayList();
+        
+        for(AssignmentsInCourse assignmentsInCourse:assignmentsInCourses){
+            ArrayList<Assignment> assignments  = assignmentsInCourse.getListOfAssignments();
+            for(int i = 0; i < assignments.size(); i++)
+                for(Assignment assingment: assingmentsToBeSubmittedInCW){
+                    if(assignments.get(i).equals(assingment)){
+                        coursesOfAssignments.add(assignmentsInCourse.getCourse());
+                    }
+            }
+        }
+        
+        HashSet<Student> studentsToSubmitAssignmentsInCW = new HashSet();
+           
+        for(StudentsInCourse studentInCourse:studentsInCourses){
+            ArrayList<Student> students = studentInCourse.getStudentsInCourse();
+            for(Course course:coursesOfAssignments){
+                if(studentInCourse.getCourse().equals(course)){
+                    studentsToSubmitAssignmentsInCW.addAll(students);
+                }
+            }
+        }
+        
+        ArrayList studentsToPrint = new ArrayList(studentsToSubmitAssignmentsInCW);
+        Printing.printListOfStudents(studentsToPrint);
     }
 
     private boolean isSubmissionDateInCW(LocalDate firstDayOfWeek, LocalDate lastDayOfWeek, LocalDate submissionDate) {

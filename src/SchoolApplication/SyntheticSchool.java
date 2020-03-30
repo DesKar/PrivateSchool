@@ -46,9 +46,9 @@ public class SyntheticSchool extends School {
         super.addAssignmentToAssignments(assignment);
         assignment = new Assignment("Java Team Project", "The team project of the students", LocalDate.of(2020, 5, 28), 9, 9);
         super.addAssignmentToAssignments(assignment);
-        assignment = new Assignment("C# Individual Project", "The individual project of the students", LocalDate.of(2020, 4, 8), 10, 10);
+        assignment = new Assignment("C# Individual Project", "The individual project of the students", LocalDate.of(2020, 5, 8), 10, 10);
         super.addAssignmentToAssignments(assignment);
-        assignment = new Assignment("C# Team Project", "The team project of the students", LocalDate.of(2020, 5, 28), 9, 9);
+        assignment = new Assignment("C# Team Project", "The team project of the students", LocalDate.of(2020, 7, 30), 9, 9);
         super.addAssignmentToAssignments(assignment);
     }
 

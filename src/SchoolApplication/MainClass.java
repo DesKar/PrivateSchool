@@ -67,7 +67,7 @@ public class MainClass {
                     school.printAssignmentsInCourse();
                     break;
                 case "-paps":
-                    school.printAsignemntsPerStudent();
+                    school.printAssignmentsPerStudent();
                     break;
                 case "-psmc":
                     school.printStudentsInManyCourses();
