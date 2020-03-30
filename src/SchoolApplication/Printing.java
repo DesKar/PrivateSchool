@@ -45,7 +45,7 @@ public class Printing {
 
         System.out.println("-paps to print all assignents per student");
         System.out.println("-psmc to print all students that belong to more than one courses");
-        System.out.println("-pscw to print students that need to submit assignments on the calendar week of a diven date");
+        System.out.println("-pscw to print students that need to submit assignments on the calendar week of a given date");
         System.out.println("");
 
         System.out.println("-q to exit\n");
