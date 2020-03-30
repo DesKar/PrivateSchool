@@ -335,33 +335,40 @@ public class School {
                 assingmentsToBeSubmittedInCW.add(assignment);
             }
         }
-        
-        
+
         ArrayList<Course> coursesOfAssignments = new ArrayList();
-        
-        for(AssignmentsInCourse assignmentsInCourse:assignmentsInCourses){
-            ArrayList<Assignment> assignments  = assignmentsInCourse.getListOfAssignments();
-            for(int i = 0; i < assignments.size(); i++)
-                for(Assignment assingment: assingmentsToBeSubmittedInCW){
-                    if(assignments.get(i).equals(assingment)){
+
+        for (AssignmentsInCourse assignmentsInCourse : assignmentsInCourses) {
+            ArrayList<Assignment> assignments = assignmentsInCourse.getListOfAssignments();
+            for (int i = 0; i < assignments.size(); i++) {
+                for (Assignment assingment : assingmentsToBeSubmittedInCW) {
+                    if (assignments.get(i).equals(assingment)) {
                         coursesOfAssignments.add(assignmentsInCourse.getCourse());
                     }
+                }
             }
         }
-        
+
         HashSet<Student> studentsToSubmitAssignmentsInCW = new HashSet();
-           
-        for(StudentsInCourse studentInCourse:studentsInCourses){
+
+        for (StudentsInCourse studentInCourse : studentsInCourses) {
             ArrayList<Student> students = studentInCourse.getStudentsInCourse();
-            for(Course course:coursesOfAssignments){
-                if(studentInCourse.getCourse().equals(course)){
+            for (Course course : coursesOfAssignments) {
+                if (studentInCourse.getCourse().equals(course)) {
                     studentsToSubmitAssignmentsInCW.addAll(students);
                 }
             }
         }
-        
-        ArrayList studentsToPrint = new ArrayList(studentsToSubmitAssignmentsInCW);
-        Printing.printListOfStudents(studentsToPrint);
+        if (studentsToSubmitAssignmentsInCW.isEmpty()) {
+            System.out.println("No students need to submit assignments this week.");
+        } else {
+
+            ArrayList studentsToPrint = new ArrayList(studentsToSubmitAssignmentsInCW);
+            System.out.println("The students that need to submit assignments this week are: ");
+            Printing.printListOfStudents(studentsToPrint);
+
+        }
+
     }
 
     private boolean isSubmissionDateInCW(LocalDate firstDayOfWeek, LocalDate lastDayOfWeek, LocalDate submissionDate) {
