@@ -4,7 +4,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 
 public class School {
 
@@ -104,7 +103,7 @@ public class School {
         if (courses.isEmpty()) {
             System.out.println("There are no courses. Please add a course to continue.");
         } else if (assignments.isEmpty()) {
-            System.out.println("There are no assignments. Please add a trainer to continue.");
+            System.out.println("There are no assignments. Please add an assignment to continue.");
         } else {
             Course selectedCourse = Utils.selectCourse(this);
             ArrayList<Assignment> selectedAssignments = Utils.selectAssignmentsForCourse(this);
@@ -127,7 +126,7 @@ public class School {
 
             for (SchoolCourse schoolCourse : schoolCourses) {
                 if (schoolCourse.getCourse().equals(selectedCourse)) {
-                    ArrayList<Student> studentsRegisteredToCourse = schoolCourse.getStudents();
+                    HashSet<Student> studentsRegisteredToCourse = schoolCourse.getStudents();
                     System.out.println("The students of this course are: ");
                     Printing.printListOfStudents(studentsRegisteredToCourse);
                     break;
@@ -150,7 +149,7 @@ public class School {
 
             for (SchoolCourse schoolCourse : schoolCourses) {
                 if (schoolCourse.getCourse().equals(selectedCourse)) {
-                    ArrayList<Trainer> trainersRegisteredToCourse = schoolCourse.getTrainers();
+                    HashSet<Trainer> trainersRegisteredToCourse = schoolCourse.getTrainers();
                     System.out.println("The trainers of this course are: ");
                     Printing.printListOfTrainers(trainersRegisteredToCourse);
                     break;
@@ -172,7 +171,7 @@ public class School {
 
             for (SchoolCourse schoolCourse : schoolCourses) {
                 if (schoolCourse.getCourse().equals(selectedCourse)) {
-                    ArrayList<Assignment> assignmentsRegisteredToCourse = schoolCourse.getAssignments();
+                    HashSet<Assignment> assignmentsRegisteredToCourse = schoolCourse.getAssignments();
                     System.out.println("The assignments of this course are: ");
                     Printing.printListOfAssignments(assignmentsRegisteredToCourse);
                     break;

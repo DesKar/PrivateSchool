@@ -58,12 +58,16 @@ public class Utils {
             int asignmentIndex = Utils.chooseElementFromPrintout("You can choose an assignment using its ID.\nAssignment ID: ", 0, lengthOfAssignmentsList);
             Assignment selectedAssignment = school.getAssignments().get(asignmentIndex);
             if (selectedAssignments.contains(selectedAssignment)) {
-                System.out.println("Assignment is already selected. Please choose another assignment.");
-                addAnotherAssignment = true;
+                System.out.println("Assignment is already selected. Please type any letter to choose another assignment or Q to exit.");
+                if ("Q".equals(MainClass.input.next())) {
+                    addAnotherAssignment = false;
+                } else {
+                    addAnotherAssignment = true;
+                }
             } else {
                 selectedAssignments.add(selectedAssignment);
                 System.out.println("Would you like to add another assignment? Y: Yes");
-                addAnotherAssignment = "Y".equals(MainClass.input.nextLine());
+                addAnotherAssignment = "Y".equals(MainClass.input.next());
             }
         } while (addAnotherAssignment);
         return selectedAssignments;
@@ -79,12 +83,16 @@ public class Utils {
             int trainerIndex = Utils.chooseElementFromPrintout("You can choose a trainer using his/her ID.\nTrainer ID: ", 0, lengthOfTrainerList);
             Trainer selectedTrainer = school.getTrainers().get(trainerIndex);
             if (selectedTrainers.contains(selectedTrainer)) {
-                System.out.println("Trainer is already selected. Please choose another trainer.");
-                addAnotherTrainer = true;
+                System.out.println("Trainer is already selected. Please type any letter to choose another trainer or Q to exit.");
+                if ("Q".equals(MainClass.input.next())) {
+                    addAnotherTrainer = false;
+                } else {
+                    addAnotherTrainer = true;
+                }
             } else {
                 selectedTrainers.add(selectedTrainer);
                 System.out.println("Would you like to add another trainer? Y: Yes");
-                addAnotherTrainer = "Y".equals(MainClass.input.nextLine());
+                addAnotherTrainer = "Y".equals(MainClass.input.next());
             }
         } while (addAnotherTrainer);
         return selectedTrainers;
@@ -100,12 +108,16 @@ public class Utils {
             int studentIndex = Utils.chooseElementFromPrintout("You can choose a student using his/her ID.\nStudent ID: ", 0, lengthOfStudentList);
             Student selectedStudent = school.getStudents().get(studentIndex);
             if (selectedStudents.contains(selectedStudent)) {
-                System.out.println("Student is already selected. Please choose another student.");
-                addAnotherStudent = true;
+                System.out.println("Student is already selected. Please type any letter to choose another student or Q to exit.");
+                if ("Q".equals(MainClass.input.next())) {
+                    addAnotherStudent = false;
+                } else {
+                    addAnotherStudent = true;
+                }
             } else {
                 selectedStudents.add(selectedStudent);
                 System.out.println("Would you like to add another student? Y: Yes");
-                addAnotherStudent = "Y".equals(MainClass.input.nextLine());
+                addAnotherStudent = "Y".equals(MainClass.input.next());
             }
         } while (addAnotherStudent);
         return selectedStudents;
@@ -148,10 +160,10 @@ public class Utils {
         do {
             endDate = getDate(message);
             isEndDateAfterStartDate = endDate.isAfter(startDate);
-            if(!isEndDateAfterStartDate){
+            if (!isEndDateAfterStartDate) {
                 System.out.println("The ending date should be after the starting date.");
             }
-        }while(!isEndDateAfterStartDate);
+        } while (!isEndDateAfterStartDate);
         return endDate;
     }
 

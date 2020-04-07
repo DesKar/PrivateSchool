@@ -3,10 +3,8 @@ package SchoolApplication;
 import java.util.Scanner;
 
 public class MainClass {
-//Add same trainer to course
-//Add same assignment to course
-//Add same student to course
-//All students have been selected and I cannot add another one in -asc , escape option
+//  Assignment oral mark and local mark should not be initialized with assignment, as this is per student 
+//    the options appeat twice in some cases
     
     static Scanner input = new Scanner(System.in);
     private static final RealSchool realSchool = new RealSchool();

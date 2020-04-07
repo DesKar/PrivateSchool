@@ -1,13 +1,14 @@
 package SchoolApplication;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class SchoolCourse {
 
     private final Course course;
-    private final ArrayList<Student> students = new ArrayList();
-    private final ArrayList<Trainer> trainers = new ArrayList();
-    private final ArrayList<Assignment> assignments = new ArrayList();
+    private final HashSet<Student> students = new HashSet();
+    private final HashSet<Trainer> trainers = new HashSet();
+    private final HashSet<Assignment> assignments = new HashSet();
 
     public SchoolCourse(Course course) {
         this.course = course;
@@ -17,15 +18,15 @@ public class SchoolCourse {
         return course;
     }
 
-    public ArrayList<Student> getStudents() {
+    public HashSet<Student> getStudents() {
         return students;
     }
 
-    public ArrayList<Trainer> getTrainers() {
+    public HashSet<Trainer> getTrainers() {
         return trainers;
     }
 
-    public ArrayList<Assignment> getAssignments() {
+    public HashSet<Assignment> getAssignments() {
         return assignments;
     }
 

@@ -69,7 +69,7 @@ public class Printing {
 
     }
 
-    public static void printListOfTrainers(ArrayList<Trainer> trainers) {
+    public static void printListOfTrainers(Collection<Trainer> trainers) {
         if (trainers.isEmpty()) {
             System.out.println("There are no trainers in the School.");
         } else {
@@ -103,7 +103,7 @@ public class Printing {
         }
     }
 
-    public static void printListOfCourses(ArrayList<Course> courses) {
+    public static void printListOfCourses(Collection<Course> courses) {
         if (courses.isEmpty()) {
             System.out.println("There are no courses in the School.");
         } else {
