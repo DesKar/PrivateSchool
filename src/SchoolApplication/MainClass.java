@@ -7,7 +7,6 @@ public class MainClass {
 //Add same assignment to course
 //Add same student to course
 //All students have been selected and I cannot add another one in -asc , escape option
-
     
     static Scanner input = new Scanner(System.in);
     private static final RealSchool realSchool = new RealSchool();
@@ -78,7 +77,7 @@ public class MainClass {
                     school.printStudentsInManyCourses();
                     break;
                 case "-pscw":
-                    school.printStudentsToBeDeliveredWithinTheWeek();
+                    school.printStudentsToDeliverWithinCW();
                     break;
                 case "-q":
                     System.out.println("Thank you for using the School Application!");

@@ -63,7 +63,7 @@ public class Utils {
             } else {
                 selectedAssignments.add(selectedAssignment);
                 System.out.println("Would you like to add another assignment? Y: Yes");
-                addAnotherAssignment = "Y".equals(MainClass.input.next());
+                addAnotherAssignment = "Y".equals(MainClass.input.nextLine());
             }
         } while (addAnotherAssignment);
         return selectedAssignments;
@@ -84,7 +84,7 @@ public class Utils {
             } else {
                 selectedTrainers.add(selectedTrainer);
                 System.out.println("Would you like to add another trainer? Y: Yes");
-                addAnotherTrainer = "Y".equals(MainClass.input.next());
+                addAnotherTrainer = "Y".equals(MainClass.input.nextLine());
             }
         } while (addAnotherTrainer);
         return selectedTrainers;
@@ -105,7 +105,7 @@ public class Utils {
             } else {
                 selectedStudents.add(selectedStudent);
                 System.out.println("Would you like to add another student? Y: Yes");
-                addAnotherStudent = "Y".equals(MainClass.input.next());
+                addAnotherStudent = "Y".equals(MainClass.input.nextLine());
             }
         } while (addAnotherStudent);
         return selectedStudents;
@@ -121,10 +121,10 @@ public class Utils {
         LocalDate localDate = null;
         while (localDate == null) {
             try {
-                String date = MainClass.input.next();
+                String date = MainClass.input.nextLine();
                 while (date.charAt(4) != '-' || date.charAt(7) != '-' || date.length() != 10) {
                     System.out.print("Please provide the date in the format YYYY-MM-DD: ");
-                    date = MainClass.input.next();
+                    date = MainClass.input.nextLine();
                 }
                 String[] dateArray = date.split("-");
                 int year = Integer.parseInt(dateArray[0]);
@@ -163,7 +163,7 @@ public class Utils {
 
             while (!MainClass.input.hasNextInt()) {
                 System.out.print(message2);
-                MainClass.input.next();
+                MainClass.input.nextLine();
             }
             number = MainClass.input.nextInt();
             if (number < lowerBound || number > upperBound) {

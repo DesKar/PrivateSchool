@@ -51,7 +51,7 @@ public class Printing {
         System.out.println("-q to exit\n");
     }
 
-    public static void printListOfStudents(ArrayList<Student> students) {
+    public static void printListOfStudents(Collection<Student> students) {
         if (students.isEmpty()) {
             System.out.println("There are no students in the School.");
         } else {

@@ -4,17 +4,16 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 public class School {
 
-    private ArrayList<Student> students = new ArrayList();
-    private ArrayList<Trainer> trainers = new ArrayList();
-    private ArrayList<Assignment> assignments = new ArrayList();
-    private ArrayList<Course> courses = new ArrayList();
+    private final ArrayList<Student> students = new ArrayList();
+    private final ArrayList<Trainer> trainers = new ArrayList();
+    private final ArrayList<Assignment> assignments = new ArrayList();
+    private final ArrayList<Course> courses = new ArrayList();
 
-    private ArrayList<StudentsInCourse> studentsInCourses = new ArrayList();
-    private ArrayList<TrainersInCourse> trainersInCourses = new ArrayList();
-    private ArrayList<AssignmentsInCourse> assignmentsInCourses = new ArrayList();
+    private final ArrayList<SchoolCourse> schoolCourses = new ArrayList();
 
     public void addStudenToStudents(Student student) {
         this.students.add(student);
@@ -32,16 +31,8 @@ public class School {
         this.courses.add(course);
     }
 
-    public void addStudentsInCourseToStudentsInCourses(StudentsInCourse studentsInCourse) {
-        this.studentsInCourses.add(studentsInCourse);
-    }
-
-    public void addTrainersInCourseToTrainersInCourses(TrainersInCourse trainersInCourse) {
-        this.trainersInCourses.add(trainersInCourse);
-    }
-
-    public void addAssignmentsInCourseToAssignemntsInCourses(AssignmentsInCourse listOfAssignments) {
-        this.assignmentsInCourses.add(listOfAssignments);
+    public void addSchoolCourseToSchoolCourses(SchoolCourse schoolCourse) {
+        this.schoolCourses.add(schoolCourse);
     }
 
     public ArrayList<Student> getStudents() {
@@ -60,16 +51,8 @@ public class School {
         return courses;
     }
 
-    public ArrayList<StudentsInCourse> getStudentsInCourse() {
-        return studentsInCourses;
-    }
-
-    public ArrayList<TrainersInCourse> getTrainersInCourse() {
-        return trainersInCourses;
-    }
-
-    public ArrayList<AssignmentsInCourse> getAssignmentsInCourse() {
-        return assignmentsInCourses;
+    public ArrayList<SchoolCourse> getSchoolCourses() {
+        return schoolCourses;
     }
 
     public void printStudents() {
@@ -97,19 +80,8 @@ public class School {
             Course selectedCourse = Utils.selectCourse(this);
             ArrayList<Student> selectedStudents = Utils.selectStudentsForCourse(this);
 
-            ArrayList<StudentsInCourse> existingStudentsInCourses = this.getStudentsInCourse();
-            boolean courseExists = false;
-            for (StudentsInCourse studentsInCourse : existingStudentsInCourses) {
-                Course course = studentsInCourse.getCourse();
-                if (course.equals(selectedCourse)) {
-                    studentsInCourse.getStudentsInCourse().addAll(selectedStudents);
-                    courseExists = true;
-                }
-            }
-            if (!courseExists) {
-                StudentsInCourse studentsInCourse = new StudentsInCourse(selectedCourse, selectedStudents);
-                addStudentsInCourseToStudentsInCourses(studentsInCourse);
-            }
+            SchoolCourse schoolCourse = createNewSchoolCourseIfNotExists(selectedCourse);
+            schoolCourse.getStudents().addAll(selectedStudents);
         }
     }
 
@@ -122,19 +94,8 @@ public class School {
             Course selectedCourse = Utils.selectCourse(this);
             ArrayList<Trainer> selectedTrainers = Utils.selectTrainersForCourse(this);
 
-            ArrayList<TrainersInCourse> existingTrainersInCourses = this.getTrainersInCourse();
-            boolean courseExists = false;
-            for (TrainersInCourse trainersInCourse : existingTrainersInCourses) {
-                Course course = trainersInCourse.getCourse();
-                if (course.equals(selectedCourse)) {
-                    trainersInCourse.getTrainersInCourse().addAll(selectedTrainers);
-                    courseExists = true;
-                }
-            }
-            if (!courseExists) {
-                TrainersInCourse trainersInCourse = new TrainersInCourse(selectedCourse, selectedTrainers);
-                addTrainersInCourseToTrainersInCourses(trainersInCourse);
-            }
+            SchoolCourse schoolCourse = createNewSchoolCourseIfNotExists(selectedCourse);
+            schoolCourse.getTrainers().addAll(selectedTrainers);
 
         }
     }
@@ -148,102 +109,89 @@ public class School {
             Course selectedCourse = Utils.selectCourse(this);
             ArrayList<Assignment> selectedAssignments = Utils.selectAssignmentsForCourse(this);
 
-            ArrayList<AssignmentsInCourse> existingAssignmentsInCourses = this.getAssignmentsInCourse();
-            boolean courseExists = false;
-            for (AssignmentsInCourse assignmentsInCourse : existingAssignmentsInCourses) {
-                Course course = assignmentsInCourse.getCourse();
-                if (course.equals(selectedCourse)) {
-                    assignmentsInCourse.getListOfAssignments().addAll(selectedAssignments);
-                    courseExists = true;
-                }
-            }
-            if (!courseExists) {
-                AssignmentsInCourse assignmentsInCourse = new AssignmentsInCourse(selectedCourse, selectedAssignments);
-                addAssignmentsInCourseToAssignemntsInCourses(assignmentsInCourse);
-            }
+            SchoolCourse schoolCourse = createNewSchoolCourseIfNotExists(selectedCourse);
+            schoolCourse.getAssignments().addAll(selectedAssignments);
+
         }
     }
 
     public void printStudentsInCourse() {
-        if (studentsInCourses.isEmpty()) {
+
+        ArrayList<Course> coursesWithRegisteredStudents = getCoursesWithRegisteredStudents();
+
+        if (coursesWithRegisteredStudents.isEmpty()) {
             System.out.println("There are no students registered to courses. Please register students to a course first.");
         } else {
-            ArrayList<Course> coursesWithRegisteredStudents = new ArrayList();
-            for (StudentsInCourse studentsInCourse : studentsInCourses) {
-                Course course = studentsInCourse.getCourse();
-                coursesWithRegisteredStudents.add(course);
-            }
 
             Course selectedCourse = Utils.selectCourseFromListOfCourses(coursesWithRegisteredStudents, "Choose a course to print its registered students: ");
 
-            ArrayList<Student> StudentsRegisteredToCourse = new ArrayList();
-            for (StudentsInCourse studentsInCourse : studentsInCourses) {
-                if (studentsInCourse.getCourse().equals(selectedCourse)) {
-                    StudentsRegisteredToCourse = studentsInCourse.getStudentsInCourse();
+            for (SchoolCourse schoolCourse : schoolCourses) {
+                if (schoolCourse.getCourse().equals(selectedCourse)) {
+                    ArrayList<Student> studentsRegisteredToCourse = schoolCourse.getStudents();
+                    System.out.println("The students of this course are: ");
+                    Printing.printListOfStudents(studentsRegisteredToCourse);
+                    break;
                 }
             }
-            System.out.println("The students of this course are: ");
-            Printing.printListOfStudents(StudentsRegisteredToCourse);
+
         }
 
     }
 
     public void printTrainersInCourse() {
-        if (trainersInCourses.isEmpty()) {
+
+        ArrayList<Course> coursesWithRegisteredTrainers = getCoursesWithRegisteredTrainers();
+
+        if (coursesWithRegisteredTrainers.isEmpty()) {
             System.out.println("There are no trainers registered to courses. Please register trainers to a course first.");
         } else {
-            ArrayList<Course> courseswithRegisteredTrainers = new ArrayList();
-            for (TrainersInCourse trainersInCourse : trainersInCourses) {
-                Course course = trainersInCourse.getCourse();
-                courseswithRegisteredTrainers.add(course);
-            }
 
-            Course selectedCourse = Utils.selectCourseFromListOfCourses(courseswithRegisteredTrainers, "Choose a course to print its registered trainers: ");
+            Course selectedCourse = Utils.selectCourseFromListOfCourses(coursesWithRegisteredTrainers, "Choose a course to print its registered trainers: ");
 
-            ArrayList<Trainer> trainersRegisteredToCourse = new ArrayList();
-            for (TrainersInCourse trainersInCourse : trainersInCourses) {
-                if (trainersInCourse.getCourse().equals(selectedCourse)) {
-                    trainersRegisteredToCourse = trainersInCourse.getTrainersInCourse();
+            for (SchoolCourse schoolCourse : schoolCourses) {
+                if (schoolCourse.getCourse().equals(selectedCourse)) {
+                    ArrayList<Trainer> trainersRegisteredToCourse = schoolCourse.getTrainers();
+                    System.out.println("The trainers of this course are: ");
+                    Printing.printListOfTrainers(trainersRegisteredToCourse);
+                    break;
                 }
             }
-
-            System.out.println("The trainers of this course are: ");
-            Printing.printListOfTrainers(trainersRegisteredToCourse);
 
         }
     }
 
     public void printAssignmentsInCourse() {
-        if (assignmentsInCourses.isEmpty()) {
+
+        ArrayList<Course> coursesWithRegisteredAssignments = getCoursesWithRegisteredAssignments();
+
+        if (coursesWithRegisteredAssignments.isEmpty()) {
             System.out.println("There are no assignments registered to courses. Please register assignments to a course first.");
         } else {
-            ArrayList<Course> courseswithRegisteredAssignments = new ArrayList();
-            for (AssignmentsInCourse assignmentInCourse : assignmentsInCourses) {
-                Course course = assignmentInCourse.getCourse();
-                courseswithRegisteredAssignments.add(course);
-            }
-            Course selectedCourse = Utils.selectCourseFromListOfCourses(courseswithRegisteredAssignments, "Choose a course to print its registered assignments: ");
 
-            ArrayList<Assignment> assignmentsRegisteredToCourse = new ArrayList();
-            for (AssignmentsInCourse assignmentInCourse : assignmentsInCourses) {
-                if (assignmentInCourse.getCourse().equals(selectedCourse)) {
-                    assignmentsRegisteredToCourse = assignmentInCourse.getListOfAssignments();
+            Course selectedCourse = Utils.selectCourseFromListOfCourses(coursesWithRegisteredAssignments, "Choose a course to print its registered assignments: ");
+
+            for (SchoolCourse schoolCourse : schoolCourses) {
+                if (schoolCourse.getCourse().equals(selectedCourse)) {
+                    ArrayList<Assignment> assignmentsRegisteredToCourse = schoolCourse.getAssignments();
+                    System.out.println("The assignments of this course are: ");
+                    Printing.printListOfAssignments(assignmentsRegisteredToCourse);
+                    break;
                 }
             }
-
-            System.out.println("The assignments of this course are: ");
-            Printing.printListOfAssignments(assignmentsRegisteredToCourse);
 
         }
 
     }
 
     public void printAssignmentsPerStudent() {
-        if (studentsInCourses.isEmpty() && assignmentsInCourses.isEmpty()) {
+        ArrayList<Course> coursesWithRegisteredStudents = getCoursesWithRegisteredStudents();
+        ArrayList<Course> coursesWithRegisteredAssignments = getCoursesWithRegisteredAssignments();
+
+        if (coursesWithRegisteredStudents.isEmpty() && coursesWithRegisteredAssignments.isEmpty()) {
             System.out.println("There are no students and assignments registered to courses. Please register students and assignments to a course.");
-        } else if (studentsInCourses.isEmpty()) {
+        } else if (coursesWithRegisteredStudents.isEmpty()) {
             System.out.println("There are no students registered to courses. Please register students to a course first.");
-        } else if (assignmentsInCourses.isEmpty()) {
+        } else if (coursesWithRegisteredAssignments.isEmpty()) {
             System.out.println("There are no assignments registered to courses. Please register assignments to a course first.");
         } else {
 
@@ -255,52 +203,43 @@ public class School {
 
             Student selectedStudent = students.get(studentIndex);
 
-            ArrayList<Course> coursesOfSelectedStudent = new ArrayList();
+            HashSet<Assignment> assignmentsOfSelectedStudent = new HashSet();
 
-            for (StudentsInCourse studentsInCourse : studentsInCourses) {
-                ArrayList<Student> students = studentsInCourse.getStudentsInCourse();
-                for (Student student : students) {
-                    if (student == selectedStudent) {
-                        Course course = studentsInCourse.getCourse();
-                        coursesOfSelectedStudent.add(course);
+            for (SchoolCourse schoolCourse : schoolCourses) {
+                for (Student student : schoolCourse.getStudents()) {
+                    if (student.equals(selectedStudent)) {
+                        assignmentsOfSelectedStudent.addAll(schoolCourse.getAssignments());
                     }
                 }
             }
 
-            HashSet<Assignment> assignmentsOfCourses = new HashSet();
-            for (Course course : coursesOfSelectedStudent) {
-                for (AssignmentsInCourse assignmentsInCourse : assignmentsInCourses) {
-                    if (course.equals(assignmentsInCourse.getCourse())) {
-                        assignmentsOfCourses.addAll(assignmentsInCourse.getListOfAssignments());
-                    }
-                }
+            if (assignmentsOfSelectedStudent.isEmpty()) {
+                System.out.println("The student has no assignments.");
+            } else {
+                System.out.println("The assignments of this student are: ");
+                Printing.printListOfAssignments(assignmentsOfSelectedStudent);
             }
-
-            System.out.println("The assignments of this student are: ");
-            Printing.printListOfAssignments(assignmentsOfCourses);
         }
     }
 
     public void printStudentsInManyCourses() {
-        if (studentsInCourses.isEmpty()) {
+        ArrayList<Course> coursesWithRegisteredStudents = getCoursesWithRegisteredStudents();
+        if (coursesWithRegisteredStudents.isEmpty()) {
             System.out.println("There are no students registered to courses. Please register students to a course first.");
         } else {
 
-            ArrayList studentsRegisteredToCourses = new ArrayList();
-            ArrayList studentsRegisteredToManyCourses = new ArrayList();
+            ArrayList<Student> studentsRegisteredToAllCourses = new ArrayList();
 
-            for (StudentsInCourse studentInCourse : studentsInCourses) {
-                ArrayList<Student> students = studentInCourse.getStudentsInCourse();
-                for (Student student : students) {
-                    studentsRegisteredToCourses.add(student);
-                }
+            for (SchoolCourse schoolCourse : schoolCourses) {
+                studentsRegisteredToAllCourses.addAll(schoolCourse.getStudents());
             }
 
-            for (int i = 0; i < studentsRegisteredToCourses.size(); i++) {
-                for (int j = i + 1; j < studentsRegisteredToCourses.size(); j++) {
-                    if (studentsRegisteredToCourses.get(i).equals(studentsRegisteredToCourses.get(j))) {
-                        studentsRegisteredToManyCourses.add(studentsRegisteredToCourses.get(i));
-                    }
+            HashSet<Student> singleEntryStudent = new HashSet();
+            ArrayList<Student> studentsRegisteredToManyCourses = new ArrayList();
+
+            for (Student student : studentsRegisteredToAllCourses) {
+                if (singleEntryStudent.add(student) == false) {
+                    studentsRegisteredToManyCourses.add(student);
                 }
             }
 
@@ -314,8 +253,8 @@ public class School {
 
     }
 
-    public void printStudentsToBeDeliveredWithinTheWeek() {
-        LocalDate date = Utils.getDate("Please provide a date to print the students that need to submit assignments on the same calendar week."
+    public void printStudentsToDeliverWithinCW() {
+        LocalDate date = Utils.getDate("Please provide a date to print the students that need to submit assignments in the same calendar week."
                 + "\nPlease provide the date in the format YYYY-MM-DD: ");
 
         DayOfWeek selectedDayOfWeek = date.getDayOfWeek();
@@ -336,39 +275,76 @@ public class School {
             }
         }
 
-        ArrayList<Course> coursesOfAssignments = new ArrayList();
+        HashSet<Student> studentsToSubmitAssignmentsInCW = new HashSet();
 
-        for (AssignmentsInCourse assignmentsInCourse : assignmentsInCourses) {
-            ArrayList<Assignment> assignments = assignmentsInCourse.getListOfAssignments();
-            for (int i = 0; i < assignments.size(); i++) {
-                for (Assignment assingment : assingmentsToBeSubmittedInCW) {
-                    if (assignments.get(i).equals(assingment)) {
-                        coursesOfAssignments.add(assignmentsInCourse.getCourse());
+        for (SchoolCourse schoolCourse : schoolCourses) {
+            for (Assignment assignmentCandidate : schoolCourse.getAssignments()) {
+                for (Assignment assignment : assingmentsToBeSubmittedInCW) {
+                    if (assignmentCandidate.equals(assignment)) {
+                        studentsToSubmitAssignmentsInCW.addAll(schoolCourse.getStudents());
                     }
                 }
             }
         }
 
-        HashSet<Student> studentsToSubmitAssignmentsInCW = new HashSet();
-
-        for (StudentsInCourse studentInCourse : studentsInCourses) {
-            ArrayList<Student> students = studentInCourse.getStudentsInCourse();
-            for (Course course : coursesOfAssignments) {
-                if (studentInCourse.getCourse().equals(course)) {
-                    studentsToSubmitAssignmentsInCW.addAll(students);
-                }
-            }
-        }
         if (studentsToSubmitAssignmentsInCW.isEmpty()) {
             System.out.println("No students need to submit assignments this week.");
         } else {
 
-            ArrayList studentsToPrint = new ArrayList(studentsToSubmitAssignmentsInCW);
             System.out.println("The students that need to submit assignments this week are: ");
-            Printing.printListOfStudents(studentsToPrint);
+            Printing.printListOfStudents(studentsToSubmitAssignmentsInCW);
 
         }
 
+    }
+
+    private SchoolCourse createNewSchoolCourseIfNotExists(Course selectedCourse) {
+        SchoolCourse schoolCourse = null;
+
+        for (SchoolCourse schoolCourseCandidate : this.schoolCourses) {
+            Course course = schoolCourseCandidate.getCourse();
+            if (course.equals(selectedCourse)) {
+                schoolCourse = schoolCourseCandidate;
+            }
+        }
+        if (schoolCourse == null) {
+            schoolCourse = new SchoolCourse(selectedCourse);
+            addSchoolCourseToSchoolCourses(schoolCourse);
+        }
+        return schoolCourse;
+    }
+
+    private ArrayList<Course> getCoursesWithRegisteredStudents() {
+        ArrayList<Course> coursesWithRegisteredStudents = new ArrayList();
+        for (SchoolCourse schoolCourse : schoolCourses) {
+            if (!schoolCourse.getStudents().isEmpty()) {
+                Course course = schoolCourse.getCourse();
+                coursesWithRegisteredStudents.add(course);
+            }
+        }
+        return coursesWithRegisteredStudents;
+    }
+
+    private ArrayList<Course> getCoursesWithRegisteredTrainers() {
+        ArrayList<Course> coursesWithRegisteredTrainers = new ArrayList();
+        for (SchoolCourse schoolCourse : schoolCourses) {
+            if (!schoolCourse.getTrainers().isEmpty()) {
+                Course course = schoolCourse.getCourse();
+                coursesWithRegisteredTrainers.add(course);
+            }
+        }
+        return coursesWithRegisteredTrainers;
+    }
+
+    private ArrayList<Course> getCoursesWithRegisteredAssignments() {
+        ArrayList<Course> coursesWithRegisteredAssignments = new ArrayList();
+        for (SchoolCourse schoolCourse : schoolCourses) {
+            if (!schoolCourse.getAssignments().isEmpty()) {
+                Course course = schoolCourse.getCourse();
+                coursesWithRegisteredAssignments.add(course);
+            }
+        }
+        return coursesWithRegisteredAssignments;
     }
 
     private boolean isSubmissionDateInCW(LocalDate firstDayOfWeek, LocalDate lastDayOfWeek, LocalDate submissionDate) {
