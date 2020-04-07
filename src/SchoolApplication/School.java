@@ -349,12 +349,6 @@ public class School {
     private boolean isSubmissionDateInCW(LocalDate firstDayOfWeek, LocalDate lastDayOfWeek, LocalDate submissionDate) {
         boolean isAfterLastDate = submissionDate.isAfter(lastDayOfWeek);
         boolean isBeforeFirstDate = submissionDate.isBefore(firstDayOfWeek);
-        if (isAfterLastDate || isBeforeFirstDate) {
-            return false;
-        } else {
-            return true;
-        }
-
+        return !(isAfterLastDate || isBeforeFirstDate);
     }
-
 }
