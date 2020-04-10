@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,7 +13,7 @@ public class CourseDAO {
     public static int createRecordInCourses(Course course, Database db) {
         int result = 0;
         String CourseData = String.format("\"%s\", \"%s\", \"%s\", \"%s\", \"%s\"", course.getTitle(), course.getStream(), course.getType(), course.getStartDate(), course.getEndDate());
-        String query = String.format("INSERT INTO `PrivateSchool`.`Courses`(`title`, `stream`, `type`, `start_date`, `end_date`)" + "VALUES(%s);", CourseData);
+        String query = String.format("INSERT INTO `PrivateSchool`.`courses`(`title`, `stream`, `type`, `start_date`, `end_date`)" + "VALUES(%s);", CourseData);
         db.setStatement();
         Statement st = db.getStatement();
         try {
@@ -27,7 +26,7 @@ public class CourseDAO {
     }
 
     public static HashSet<Course> readAllCourses(HashSet<Course> courses) {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`Courses`");
+        String query = String.format("SELECT * FROM `PrivateSchool`.`courses`");
         ResultSet rs = Database.getResults(query);
         try {
             rs.first();

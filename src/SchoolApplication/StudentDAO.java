@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,7 +13,7 @@ public class StudentDAO {
     public static int createRecordInStudents(Student student, Database db) {
         int result = 0;
         String studentData = String.format("\"%s\", \"%s\", \"%s\", \"%s\"", student.getFirstName(), student.getLastName(), student.getDateOfBirth(), student.getTuitionFees());
-        String query = String.format("INSERT INTO `PrivateSchool`.`Students`(`first_name`, `last_name`, `date_of_birth`, `tuition_fees`)" + "VALUES(%s);", studentData);
+        String query = String.format("INSERT INTO `PrivateSchool`.`students`(`first_name`, `last_name`, `date_of_birth`, `tuition_fees`)" + "VALUES(%s);", studentData);
         db.setStatement();
         Statement st = db.getStatement();
         try {
@@ -27,7 +26,7 @@ public class StudentDAO {
     }
 
     public static HashSet<Student> readAllStudents(HashSet<Student> students ) {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`Students`");
+        String query = String.format("SELECT * FROM `PrivateSchool`.`students`");
         ResultSet rs = Database.getResults(query);
         try {
             rs.first();
