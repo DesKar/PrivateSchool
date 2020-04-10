@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,6 +58,23 @@ public class StudentDAO {
             int tuitionFees = rs.getInt("tuition_fees");
             Student student = new Student(id, first_name, last_name, dateOfBirth, tuitionFees);
             return student;
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public static ArrayList<Integer> readAllStudentsIds(Database db) {
+        String query = String.format("SELECT `id` FROM `PrivateSchool`.`students`;");
+        ResultSet rs = Database.getResults(query);
+        ArrayList<Integer> studentsIds = new ArrayList();
+        try {
+            rs.first();
+            do {
+                int id = rs.getInt("id");
+                studentsIds.add(id);
+            } while (rs.next());
+            return studentsIds;
         } catch (SQLException ex) {
             Logger.getLogger(CourseDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;

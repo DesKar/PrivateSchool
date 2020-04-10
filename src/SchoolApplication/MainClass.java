@@ -50,12 +50,12 @@ public class MainClass {
 //                case "-aac":
 //                    school.addAssignmentToCourse();
 //                    break;
-//                case "-atc":
-//                    school.addTrainerToCourse();
-//                    break;
-//                case "-psc":
-//                    school.printStudentsInCourse();
-//                    break;
+                case "-atc":
+                    school.addTrainerToCourse();
+                    break;
+                case "-psc":
+                    school.printStudentsInCourse();
+                    break;
 //                case "-ptc":
 //                    school.printTrainersInCourse();
 //                    break;

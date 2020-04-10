@@ -3,6 +3,7 @@ package SchoolApplication;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 
 public class School {
@@ -81,11 +82,16 @@ public class School {
         } else if (!StudentDAO.studentsExist(MainClass.db)) {
             System.out.println("There are no students. Please add a student to continue.");
         } else {
-            Course selectedCourse = Utils.selectCourse(this);
+            Collection<Course> availableCourses = CourseDAO.readAllCourses(courses);
+            Course selectedCourse = Utils.selectCourse(availableCourses);
             ArrayList<Student> selectedStudents = Utils.selectStudentsForCourse(this);
             
             for(Student student: selectedStudents){
+                if(!StudentDAO.studentExists(student, MainClass.db)){
                 StudentsInCoursesDAO.addStudentInCourse(selectedCourse, student,MainClass.db);
+                }else{
+                    System.out.printf("\nStudent %s is already registered to the course\n", student.toString());
+                }
             }
 //
 //            SchoolCourse schoolCourse = createNewSchoolCourseIfNotExists(selectedCourse);
@@ -123,70 +129,65 @@ public class School {
 //    }
     public void printStudentsInCourse() {
 
-        ArrayList<Course> coursesWithRegisteredStudents = getCoursesWithRegisteredStudents();
+        int number = StudentsInCoursesDAO.readNumberOfCoursesWithAssignedStudents(MainClass.db);
 
-        if (coursesWithRegisteredStudents.isEmpty()) {
+        if (number == 0) {
             System.out.println("There are no students registered to courses. Please register students to a course first.");
         } else {
+            
+            ArrayList<Course> coursesWithRegisteredStudents = StudentsInCoursesDAO.readCoursesWithRegisteredStudents(MainClass.db);
+            Course selectedCourse = Utils.selectCourse(coursesWithRegisteredStudents);
 
-            Course selectedCourse = Utils.selectCourseFromListOfCourses(coursesWithRegisteredStudents, "Choose a course to print its registered students: ");
-
-            for (SchoolCourse schoolCourse : schoolCourses) {
-                if (schoolCourse.getCourse().equals(selectedCourse)) {
-                    HashSet<Student> studentsRegisteredToCourse = schoolCourse.getStudents();
-                    System.out.println("The students of this course are: ");
-                    Printing.printListOfStudents(studentsRegisteredToCourse);
-                    break;
-                }
-            }
+            ArrayList<Student> students = StudentsInCoursesDAO.readStudentsOfCourseWithCourseID(selectedCourse, MainClass.db);
+            Printing.printListOfStudents(students);
         }
 
     }
 
-    public void printTrainersInCourse() {
-
-        ArrayList<Course> coursesWithRegisteredTrainers = getCoursesWithRegisteredTrainers();
-
-        if (coursesWithRegisteredTrainers.isEmpty()) {
-            System.out.println("There are no trainers registered to courses. Please register trainers to a course first.");
-        } else {
-
-            Course selectedCourse = Utils.selectCourseFromListOfCourses(coursesWithRegisteredTrainers, "Choose a course to print its registered trainers: ");
-
-            for (SchoolCourse schoolCourse : schoolCourses) {
-                if (schoolCourse.getCourse().equals(selectedCourse)) {
-                    HashSet<Trainer> trainersRegisteredToCourse = schoolCourse.getTrainers();
-                    System.out.println("The trainers of this course are: ");
-                    Printing.printListOfTrainers(trainersRegisteredToCourse);
-                    break;
-                }
-            }
-
-        }
-    }
-
-    public void printAssignmentsInCourse() {
-
-        ArrayList<Course> coursesWithRegisteredAssignments = getCoursesWithRegisteredAssignments();
-
-        if (coursesWithRegisteredAssignments.isEmpty()) {
-            System.out.println("There are no assignments registered to courses. Please register assignments to a course first.");
-        } else {
-
-            Course selectedCourse = Utils.selectCourseFromListOfCourses(coursesWithRegisteredAssignments, "Choose a course to print its registered assignments: ");
-
-            for (SchoolCourse schoolCourse : schoolCourses) {
-                if (schoolCourse.getCourse().equals(selectedCourse)) {
-                    HashSet<Assignment> assignmentsRegisteredToCourse = schoolCourse.getAssignments();
-                    System.out.println("The assignments of this course are: ");
-                    Printing.printListOfAssignments(assignmentsRegisteredToCourse);
-                    break;
-                }
-            }
-
-        }
-
-    }
+//    public void printTrainersInCourse() {
+//
+//        ArrayList<Course> coursesWithRegisteredTrainers = getCoursesWithRegisteredTrainers();
+//
+//        if (coursesWithRegisteredTrainers.isEmpty()) {
+//            System.out.println("There are no trainers registered to courses. Please register trainers to a course first.");
+//        } else {
+//
+//            Course selectedCourse = Utils.selectCourseFromListOfCourses(coursesWithRegisteredTrainers, "Choose a course to print its registered trainers: ");
+//
+//            for (SchoolCourse schoolCourse : schoolCourses) {
+//                if (schoolCourse.getCourse().equals(selectedCourse)) {
+//                    HashSet<Trainer> trainersRegisteredToCourse = schoolCourse.getTrainers();
+//                    System.out.println("The trainers of this course are: ");
+//                    Printing.printListOfTrainers(trainersRegisteredToCourse);
+//                    break;
+//                }
+//            }
+//
+//        }
+//    }
+//
+//    public void printAssignmentsInCourse() {
+//
+//        ArrayList<Course> coursesWithRegisteredAssignments = getCoursesWithRegisteredAssignments();
+//
+//        if (coursesWithRegisteredAssignments.isEmpty()) {
+//            System.out.println("There are no assignments registered to courses. Please register assignments to a course first.");
+//        } else {
+//
+//            Course selectedCourse = Utils.selectCourseFromListOfCourses(coursesWithRegisteredAssignments, "Choose a course to print its registered assignments: ");
+//
+//            for (SchoolCourse schoolCourse : schoolCourses) {
+//                if (schoolCourse.getCourse().equals(selectedCourse)) {
+//                    HashSet<Assignment> assignmentsRegisteredToCourse = schoolCourse.getAssignments();
+//                    System.out.println("The assignments of this course are: ");
+//                    Printing.printListOfAssignments(assignmentsRegisteredToCourse);
+//                    break;
+//                }
+//            }
+//
+//        }
+//
+//    }
 
 //    public void printAssignmentsPerStudent() {
 //        ArrayList<Course> coursesWithRegisteredStudents = getCoursesWithRegisteredStudents();
@@ -204,7 +205,7 @@ public class School {
 //            Printing.printListOfStudents(students);
 //            
 //            int lengthOfStudentList = students.size();
-//            int studentIndex = Utils.chooseElementFromPrintout("Choose a students to print his/her assignments: ", 0, lengthOfStudentList);
+//            int studentIndex = Utils.chooseElementWithID("Choose a students to print his/her assignments: ", 0, lengthOfStudentList);
 //            
 //            Student selectedStudent = students.get(studentIndex);
 //            

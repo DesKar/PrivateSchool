@@ -11,7 +11,7 @@ public class Student {
     private LocalDate dateOfBirth;
     private int tuitionFees;
 
-    public Student(int id,String firstName, String lastName, LocalDate dateOfBirth, int tuitionFees) {
+    public Student(int id, String firstName, String lastName, LocalDate dateOfBirth, int tuitionFees) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -63,7 +63,6 @@ public class Student {
         return String.format("|%-5s|%-15s|%-15s|%-15s|%-15s|", index, firstName, lastName, dateOfBirth, tuitionFees);
     }
 
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -100,7 +99,10 @@ public class Student {
         hash = 89 * hash + this.tuitionFees;
         return hash;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "\"" + firstName + " " + lastName + "\"";
+    }
 
 }

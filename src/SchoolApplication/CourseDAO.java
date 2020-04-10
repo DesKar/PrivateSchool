@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,6 +60,23 @@ public class CourseDAO {
             LocalDate endDate = rs.getDate("end_date").toLocalDate();
             Course course = new Course(id, title, string, type, startDate, endDate);
             return course;
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public static ArrayList<Integer> readAllCoursesIds(Database db){
+        String query = String.format("SELECT `id` FROM `PrivateSchool`.`courses`;");
+        ResultSet rs = Database.getResults(query);
+        ArrayList<Integer> coursesIds = new ArrayList();
+        try {
+            rs.first();
+             do {
+                 int id = rs.getInt("id");
+                 coursesIds.add(id);
+            } while (rs.next());
+             return coursesIds;
         } catch (SQLException ex) {
             Logger.getLogger(CourseDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;

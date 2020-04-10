@@ -3,6 +3,7 @@ package SchoolApplication;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Utils {
 
@@ -10,7 +11,7 @@ public class Utils {
         return s.getAssignments().isEmpty() && s.getCourses().isEmpty() && s.getStudents().isEmpty() && s.getTrainers().isEmpty();
     }
 
-    public static int chooseElementFromPrintout(String message, int lowerBound, int upperBound) {
+    public static int chooseElementWithID(String message, ArrayList<Integer> ids) {
         int number;
         do {
             System.out.print(message);
@@ -19,34 +20,36 @@ public class Utils {
                 MainClass.input.nextLine();
             }
             number = MainClass.input.nextInt();
-        } while (number <= lowerBound || number > upperBound);
+        } while (!ids.contains(number));
         return number;
     }
 
-    public static Course selectCourse(School school) {
+    public static Course selectCourse(Collection<Course> courses) {
         System.out.println("Please choose a course from the list below: ");
-        school.printAllCourses();
-        int lengthOfCourseList = school.getCourses().size();
-        int selectedCourseId = Utils.chooseElementFromPrintout("You can choose the course using its ID.\nCourse ID: ", 0, lengthOfCourseList);
+        Printing.printListOfCourses(courses);
+        
+        ArrayList<Integer> courseIds = getCoursesIds(courses);
+        int selectedCourseId = Utils.chooseElementWithID("You can choose the course using its ID.\nCourse ID: ", courseIds);
         Course selectedCourse = CourseDAO.readCourseWithID(selectedCourseId);
+        
         System.out.printf("Selected course: %s.\n", (selectedCourse.toString()));
         return selectedCourse;
     }
 
-    public static Course selectCourseFromListOfCourses(ArrayList<Course> listOfCourses, String message) {
-
-        Printing.printListOfCourses(listOfCourses);
-
-        int lengthOfCourseList = listOfCourses.size(); //assuming that the list has only one occurence per course
-        int selectedCourseIndex = Utils.chooseElementFromPrintout(message, 0, lengthOfCourseList);
-
-        Course selectedCourse = listOfCourses.get(selectedCourseIndex);
-
-        System.out.println("\nThe course you have selected is: \n");
-        System.out.println(selectedCourse.toString());
-
-        return selectedCourse;
-    }
+//    public static Course selectCourseFromListOfCourses(ArrayList<Course> listOfCourses, String message) {
+//
+//        Printing.printListOfCourses(listOfCourses);
+//
+//        int lengthOfCourseList = listOfCourses.size();
+//        int selectedCourseIndex = Utils.chooseElementWithID(message, 0, lengthOfCourseList);
+//
+//        Course selectedCourse = listOfCourses.get(selectedCourseIndex);
+//
+//        System.out.println("\nThe course you have selected is: \n");
+//        System.out.println(selectedCourse.toString());
+//
+//        return selectedCourse;
+//    }
 
 //    public static ArrayList selectAssignmentsForCourse(School school) {
 //        ArrayList<Assignment> selectedAssignments = new ArrayList();
@@ -55,7 +58,7 @@ public class Utils {
 //        boolean addAnotherAssignment;
 //        do {
 //            int lengthOfAssignmentsList = school.getAssignments().size();
-//            int asignmentIndex = Utils.chooseElementFromPrintout("You can choose an assignment using its ID.\nAssignment ID: ", 0, lengthOfAssignmentsList);
+//            int asignmentIndex = Utils.chooseElementWithID("You can choose an assignment using its ID.\nAssignment ID: ", 0, lengthOfAssignmentsList);
 //            Assignment selectedAssignment = school.getAssignments().get(asignmentIndex);
 //            if (selectedAssignments.contains(selectedAssignment)) {
 //                System.out.println("Assignment is already selected. Please type any letter to choose another assignment or Q to exit.");
@@ -80,7 +83,7 @@ public class Utils {
 //        boolean addAnotherTrainer;
 //        do {
 //            int lengthOfTrainerList = school.getTrainers().size();
-//            int trainerIndex = Utils.chooseElementFromPrintout("You can choose a trainer using his/her ID.\nTrainer ID: ", 0, lengthOfTrainerList);
+//            int trainerIndex = Utils.chooseElementWithID("You can choose a trainer using his/her ID.\nTrainer ID: ", 0, lengthOfTrainerList);
 //            Trainer selectedTrainer = school.getTrainers().get(trainerIndex);
 //            if (selectedTrainers.contains(selectedTrainer)) {
 //                System.out.println("Trainer is already selected. Please type any letter to choose another trainer or Q to exit.");
@@ -104,8 +107,8 @@ public class Utils {
         school.printAllStudents();
         boolean addAnotherStudent;
         do {
-            int lengthOfStudentList = school.getStudents().size();
-            int selectedStudentID = Utils.chooseElementFromPrintout("You can choose a student using his/her ID.\nStudent ID: ", 0, lengthOfStudentList);
+            ArrayList<Integer> studentIds = StudentDAO.readAllStudentsIds(MainClass.db);
+            int selectedStudentID = Utils.chooseElementWithID("You can choose a student using his/her ID.\nStudent ID: ", studentIds);
             Student selectedStudent = StudentDAO.readStudentWithID(selectedStudentID);
             if (selectedStudents.contains(selectedStudent)) {
                 System.out.println("Student is already selected. Please type any letter to choose another student or Q to exit.");
@@ -187,4 +190,12 @@ public class Utils {
         } while (!numberIsWithinBounds);
         return number;
     }
+    
+    private static ArrayList<Integer> getCoursesIds(Collection<Course> courses){
+        ArrayList<Integer> coursesIds = new ArrayList();
+            for(Course course : courses){
+            coursesIds.add(course.getId());
+        }
+            return coursesIds;
+        }
 }
