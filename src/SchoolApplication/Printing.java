@@ -60,7 +60,7 @@ public class Printing {
             System.out.println(header);
             int index = 1;
             for (Student student : students) {
-                String content = String.format("|%-5s|%-15s|%-15s|%-15s|%-15s|", index, student.getFirstName(), student.getLastName(), student.getDateOfBirth(), student.getTuitionFees());
+                String content = String.format("|%-5s|%-15s|%-15s|%-15s|%-15s|", student.getId(), student.getFirstName(), student.getLastName(), student.getDateOfBirth(), student.getTuitionFees());
                 System.out.println(content);
                 index++;
             }
@@ -95,7 +95,7 @@ public class Printing {
             System.out.println(header);
             int index = 1;
             for (Assignment assignment : assignments) {
-                String content = String.format("|%-5s|%-25s|%-40s|%-18s|%-13d|%-13d|", index, assignment.getTitle(), assignment.getDescription(), assignment.getSubDateTime(), assignment.getOralMark(), assignment.getLocalMark());
+                String content = String.format("|%-5s|%-25s|%-40s|%-18s|%-13d|%-13d|", assignment, assignment.getTitle(), assignment.getDescription(), assignment.getSubDateTime(), assignment.getOralMark(), assignment.getLocalMark());
                 System.out.println(content);
                 index++;
             }
@@ -112,7 +112,7 @@ public class Printing {
             System.out.println(header);
             int index = 1;
             for (Course course : courses) {
-                String content = String.format("|%-5s|%-25s|%-30s|%-13s|%-13s|%-13s|", index, course.getTitle(), course.getStream(), course.getType(), course.getStartDate(), course.getEndDate());
+                String content = String.format("|%-5s|%-25s|%-30s|%-13s|%-13s|%-13s|", course.getId(), course.getTitle(), course.getStream(), course.getType(), course.getStartDate(), course.getEndDate());
                 System.out.println(content);
                 index++;
             }
