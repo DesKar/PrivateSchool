@@ -5,18 +5,28 @@ import java.util.Objects;
 
 public class Course {
 
+    private int id;
     private String title;
     private String stream;
     private String type;
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public Course(String title, String stream, String type, LocalDate startDate, LocalDate endDate) {
+    public Course(int id, String title, String stream, String type, LocalDate startDate, LocalDate endDate) {
+        this.id = id;
         this.title = title;
         this.stream = stream;
         this.type = type;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

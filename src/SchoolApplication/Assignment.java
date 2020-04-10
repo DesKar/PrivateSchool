@@ -7,14 +7,14 @@ public class Assignment {
 
     private String title;
     private String description;
-    private LocalDate subDateTime;
+    private LocalDate subDate;
     private int oralMark;
     private int localMark;
 
-    public Assignment(String title, String description, LocalDate subDateTime, int oralMark, int localMark) {
+    public Assignment(String title, String description, LocalDate subDate, int oralMark, int localMark) {
         this.title = title;
         this.description = description;
-        this.subDateTime = subDateTime;
+        this.subDate = subDate;
         this.oralMark = oralMark;
         this.localMark = localMark;
     }
@@ -28,7 +28,7 @@ public class Assignment {
     }
 
     public LocalDate getSubDateTime() {
-        return subDateTime;
+        return subDate;
     }
 
     public int getOralMark() {
@@ -48,7 +48,7 @@ public class Assignment {
     }
 
     public void setSubDateTime(LocalDate subDateTime) {
-        this.subDateTime = subDateTime;
+        this.subDate = subDateTime;
     }
 
     public void setOralMark(int oralMark) {
@@ -64,7 +64,7 @@ public class Assignment {
         int hash = 3;
         hash = 29 * hash + Objects.hashCode(this.title);
         hash = 29 * hash + Objects.hashCode(this.description);
-        hash = 29 * hash + Objects.hashCode(this.subDateTime);
+        hash = 29 * hash + Objects.hashCode(this.subDate);
         hash = 29 * hash + this.oralMark;
         hash = 29 * hash + this.localMark;
         return hash;
@@ -94,7 +94,7 @@ public class Assignment {
         if (!Objects.equals(this.description, other.description)) {
             return false;
         }
-        if (!Objects.equals(this.subDateTime, other.subDateTime)) {
+        if (!Objects.equals(this.subDate, other.subDate)) {
             return false;
         }
         return true;

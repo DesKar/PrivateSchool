@@ -30,6 +30,10 @@ public class Trainer {
         this.lastName = lastName;
     }
 
+    public String getSubject() {
+        return subject;
+    }
+
     public String print(int index) {
         return String.format("|%-5s|%-15s|%-15s|", index, firstName, lastName, subject);
     }

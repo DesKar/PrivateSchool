@@ -25,17 +25,18 @@ public class StudentDAO {
         }
     }
 
-    public static HashSet<Student> readAllStudents(HashSet<Student> students ) {
+    public static HashSet<Student> readAllStudents(HashSet<Student> students) {
         String query = String.format("SELECT * FROM `PrivateSchool`.`students`");
         ResultSet rs = Database.getResults(query);
         try {
             rs.first();
             do {
+                int id = rs.getInt("id");
                 String first_name = rs.getString("first_name");
                 String last_name = rs.getString("last_name");
                 LocalDate dateOfBirth = rs.getDate("date_of_birth").toLocalDate();
                 int tuitionFees = rs.getInt("tuition_fees");
-                Student student = new Student(first_name, last_name, dateOfBirth, tuitionFees);
+                Student student = new Student(id, first_name, last_name, dateOfBirth, tuitionFees);
                 students.add(student);
             } while (rs.next());
         } catch (SQLException ex) {
@@ -44,9 +45,33 @@ public class StudentDAO {
         return students;
     }
 
+    public static Student readStudentWithID(int selectedStudentID) {
+        String query = String.format("SELECT * FROM `PrivateSchool`.`students` WHERE `id` = %s", selectedStudentID);
+        ResultSet rs = Database.getResults(query);
+        try {
+            rs.first();
+            int id = rs.getInt("id");
+            String first_name = rs.getString("first_name");
+            String last_name = rs.getString("last_name");
+            LocalDate dateOfBirth = rs.getDate("date_of_birth").toLocalDate();
+            int tuitionFees = rs.getInt("tuition_fees");
+            Student student = new Student(id, first_name, last_name, dateOfBirth, tuitionFees);
+            return student;
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
     public static boolean studentExists(Student student, Database db) {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`Students` WHERE `first_name` = \"%s\" AND `last_name` = \"%s\" AND `date_of_birth` = \"%s\" AND `tuition_fees` = \"%s\"", student.getFirstName(), student.getLastName(), student.getDateOfBirth(), student.getTuitionFees());
+        String query = String.format("SELECT * FROM `PrivateSchool`.`students` WHERE `first_name` = \"%s\" AND `last_name` = \"%s\" AND `date_of_birth` = \"%s\" AND `tuition_fees` = \"%s\"", student.getFirstName(), student.getLastName(), student.getDateOfBirth(), student.getTuitionFees());
         return Database.recordExists(student, db, query);
+    }
+
+    public static boolean studentsExist(Database db) {
+        String query = String.format("SELECT count(1) FROM `PrivateSchool`.`students`;");
+        return Database.tableIsNotEmpty(db, query);
+
     }
 
 }

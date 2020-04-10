@@ -82,4 +82,18 @@ public class Database {
         }
     }
 
+    public static boolean tableIsNotEmpty(Database db, String query) {
+        ResultSet rs = Database.getResults(query);
+        try {
+            rs.first();
+            int counter = rs.getInt("count(1)");
+            if(counter != 0){
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
 }

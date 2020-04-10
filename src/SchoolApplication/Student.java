@@ -5,16 +5,26 @@ import java.util.Objects;
 
 public class Student {
 
+    private int id;
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
     private int tuitionFees;
 
-    public Student(String firstName, String lastName, LocalDate dateOfBirth, int tuitionFees) {
+    public Student(int id,String firstName, String lastName, LocalDate dateOfBirth, int tuitionFees) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.tuitionFees = tuitionFees;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
