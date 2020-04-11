@@ -1,5 +1,8 @@
-package SchoolApplication;
+package SchoolApplication.daos;
 
+import SchoolApplication.Database;
+import SchoolApplication.MainClass;
+import SchoolApplication.models.Course;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;

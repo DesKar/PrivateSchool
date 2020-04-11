@@ -1,4 +1,4 @@
-package SchoolApplication;
+package SchoolApplication.models;
 
 import java.util.Objects;
 

@@ -1,5 +1,9 @@
 package SchoolApplication;
 
+import SchoolApplication.models.Trainer;
+import SchoolApplication.models.Student;
+import SchoolApplication.models.Course;
+import SchoolApplication.models.Assignment;
 import java.util.HashSet;
 
 public class SchoolCourse {

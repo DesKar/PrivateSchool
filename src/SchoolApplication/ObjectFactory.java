@@ -1,5 +1,13 @@
 package SchoolApplication;
 
+import SchoolApplication.daos.CourseDAO;
+import SchoolApplication.daos.TrainerDAO;
+import SchoolApplication.daos.StudentDAO;
+import SchoolApplication.daos.AssignmentDAO;
+import SchoolApplication.models.Trainer;
+import SchoolApplication.models.Student;
+import SchoolApplication.models.Course;
+import SchoolApplication.models.Assignment;
 import static SchoolApplication.MainClass.db;
 import java.time.LocalDate;
 
