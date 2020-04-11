@@ -95,7 +95,7 @@ public class Printing {
             System.out.println(header);
             int index = 1;
             for (Assignment assignment : assignments) {
-                String content = String.format("|%-5s|%-25s|%-40s|%-18s|%-13d|%-13d|", assignment, assignment.getTitle(), assignment.getDescription(), assignment.getSubDateTime(), assignment.getOralMark(), assignment.getLocalMark());
+                String content = String.format("|%-5s|%-25s|%-40s|%-18s|%-13d|%-13d|", assignment.getId(), assignment.getTitle(), assignment.getDescription(), assignment.getSubDateTime(), assignment.getOralMark(), assignment.getLocalMark());
                 System.out.println(content);
                 index++;
             }

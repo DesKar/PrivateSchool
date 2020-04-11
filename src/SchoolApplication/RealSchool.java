@@ -16,7 +16,7 @@ public class RealSchool extends School {
 
     public void addTrainerToSchool() {
         Trainer trainer = createTrainerObject();
-        if (!TrainerDAO.recordExists(trainer, db)) {
+        if (!TrainerDAO.trainerExists(trainer, db)) {
             TrainerDAO.createRecordInTrainers(trainer, db);
         } else {
             System.out.println("\nTrainer already exists.");
@@ -54,7 +54,7 @@ public class RealSchool extends School {
         String firstName = Utils.getStringWithMessage("Trainer first name: ");
         String lastName = Utils.getStringWithMessage("Trainer last name: ");
         String subject = Utils.getStringWithMessage("Trainer subject: ");
-        Trainer trainer = new Trainer(firstName, lastName, subject);
+        Trainer trainer = new Trainer(0, firstName, lastName, subject);
         return trainer;
     }
 
@@ -64,7 +64,7 @@ public class RealSchool extends School {
         LocalDate subDateTime = Utils.getDate("Assignment submission date (YYYY-MM-DD): ");
         int oralMark = Utils.getIntNumber("Oral Mark: ", "Please provide a number between 0-10: ", 0, 10);
         int localMark = Utils.getIntNumber("Local mark: ", "Please provide a number between 0-10: ", 0, 10);
-        Assignment assignment = new Assignment(title, description, subDateTime, oralMark, localMark);
+        Assignment assignment = new Assignment(0, title, description, subDateTime, oralMark, localMark);
         return assignment;
     }
 

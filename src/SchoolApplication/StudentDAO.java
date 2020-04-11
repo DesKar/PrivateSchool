@@ -89,7 +89,6 @@ public class StudentDAO {
     public static boolean studentsExist(Database db) {
         String query = String.format("SELECT count(1) FROM `PrivateSchool`.`students`;");
         return Database.tableIsNotEmpty(db, query);
-
     }
 
 }

@@ -85,110 +85,101 @@ public class School {
             Collection<Course> availableCourses = CourseDAO.readAllCourses(courses);
             Course selectedCourse = Utils.selectCourse(availableCourses);
             ArrayList<Student> selectedStudents = Utils.selectStudentsForCourse(this);
-            
-            for(Student student: selectedStudents){
-                if(!StudentDAO.studentExists(student, MainClass.db)){
-                StudentsInCoursesDAO.addStudentInCourse(selectedCourse, student,MainClass.db);
-                }else{
+
+            for (Student student : selectedStudents) {
+                if (!StudentsInCoursesDAO.studentExistsInCourse(student, selectedCourse, MainClass.db)) {
+                    StudentsInCoursesDAO.addStudentInCourse(selectedCourse, student, MainClass.db);
+                } else {
                     System.out.printf("\nStudent %s is already registered to the course\n", student.toString());
                 }
             }
-//
-//            SchoolCourse schoolCourse = createNewSchoolCourseIfNotExists(selectedCourse);
-//            schoolCourse.getStudents().addAll(selectedStudents);
         }
     }
 
-//    public void addTrainerToCourse() {
-//        if (courses.isEmpty()) {
-//            System.out.println("There are no courses. Please add a course to continue.");
-//        } else if (trainers.isEmpty()) {
-//            System.out.println("There are no trainers. Please add a trainer to continue.");
-//        } else {
-//            Course selectedCourse = Utils.selectCourse(this);
-//            ArrayList<Trainer> selectedTrainers = Utils.selectTrainersForCourse(this);
-//            
-//            SchoolCourse schoolCourse = createNewSchoolCourseIfNotExists(selectedCourse);
-//            schoolCourse.getTrainers().addAll(selectedTrainers);
-//            
-//        }
-//    }
-//    public void addAssignmentToCourse() {
-//        if (courses.isEmpty()) {
-//            System.out.println("There are no courses. Please add a course to continue.");
-//        } else if (assignments.isEmpty()) {
-//            System.out.println("There are no assignments. Please add an assignment to continue.");
-//        } else {
-//            Course selectedCourse = Utils.selectCourse(this);
-//            ArrayList<Assignment> selectedAssignments = Utils.selectAssignmentsForCourse(this);
-//            
-//            SchoolCourse schoolCourse = createNewSchoolCourseIfNotExists(selectedCourse);
-//            schoolCourse.getAssignments().addAll(selectedAssignments);
-//            
-//        }
-//    }
-    public void printStudentsInCourse() {
+    public void addTrainerToCourse() {
+        if (!CourseDAO.coursesExist(MainClass.db)) {
+            System.out.println("There are no courses. Please add a course to continue.");
+        } else if (!TrainerDAO.trainersExist(MainClass.db)) {
+            System.out.println("There are no trainers. Please add a trainer to continue.");
+        } else {
+            Collection<Course> availableCourses = CourseDAO.readAllCourses(courses);
+            Course selectedCourse = Utils.selectCourse(availableCourses);
+            ArrayList<Trainer> selectedTrainers = Utils.selectTrainersForCourse(this);
 
+            for (Trainer trainer : selectedTrainers) {
+                if (!TrainersInCoursesDAO.trainerExistsInCourse(trainer, selectedCourse, MainClass.db)) {
+                    TrainersInCoursesDAO.addTrainerInCourse(selectedCourse, trainer, MainClass.db);
+                } else {
+                    System.out.printf("\nTrainer %s is already assigned to the course\n", trainer.toString());
+                }
+            }
+        }
+    }
+
+    public void addAssignmentToCourse() {
+        if (!CourseDAO.coursesExist(MainClass.db)) {
+            System.out.println("There are no courses. Please add a course to continue.");
+        } else if (!AssignmentDAO.assignmentsExist(MainClass.db)) {
+            System.out.println("There are no assignments. Please add an assignment to continue.");
+        } else {
+            Collection<Course> availableCourses = CourseDAO.readAllCourses(courses);
+            Course selectedCourse = Utils.selectCourse(availableCourses);
+            ArrayList<Assignment> selectedAssignments = Utils.selectAssignmentsForCourse(this);
+
+            for (Assignment assignment : selectedAssignments) {
+                if (!AssignmentsInCoursesDAO.assignmentExistsInCourse(assignment, selectedCourse, MainClass.db)) {
+                    AssignmentsInCoursesDAO.addAssignmentInCourse(selectedCourse, assignment, MainClass.db);
+                } else {
+                    System.out.printf("\nAssignment %s is already assigned to the course\n", assignment.toString());
+                }
+            }
+        }
+    }
+
+    public void printStudentsInCourse() {
         int number = StudentsInCoursesDAO.readNumberOfCoursesWithAssignedStudents(MainClass.db);
 
         if (number == 0) {
             System.out.println("There are no students registered to courses. Please register students to a course first.");
         } else {
-            
+
             ArrayList<Course> coursesWithRegisteredStudents = StudentsInCoursesDAO.readCoursesWithRegisteredStudents(MainClass.db);
             Course selectedCourse = Utils.selectCourse(coursesWithRegisteredStudents);
 
             ArrayList<Student> students = StudentsInCoursesDAO.readStudentsOfCourseWithCourseID(selectedCourse, MainClass.db);
             Printing.printListOfStudents(students);
         }
-
     }
 
-//    public void printTrainersInCourse() {
-//
-//        ArrayList<Course> coursesWithRegisteredTrainers = getCoursesWithRegisteredTrainers();
-//
-//        if (coursesWithRegisteredTrainers.isEmpty()) {
-//            System.out.println("There are no trainers registered to courses. Please register trainers to a course first.");
-//        } else {
-//
-//            Course selectedCourse = Utils.selectCourseFromListOfCourses(coursesWithRegisteredTrainers, "Choose a course to print its registered trainers: ");
-//
-//            for (SchoolCourse schoolCourse : schoolCourses) {
-//                if (schoolCourse.getCourse().equals(selectedCourse)) {
-//                    HashSet<Trainer> trainersRegisteredToCourse = schoolCourse.getTrainers();
-//                    System.out.println("The trainers of this course are: ");
-//                    Printing.printListOfTrainers(trainersRegisteredToCourse);
-//                    break;
-//                }
-//            }
-//
-//        }
-//    }
-//
-//    public void printAssignmentsInCourse() {
-//
-//        ArrayList<Course> coursesWithRegisteredAssignments = getCoursesWithRegisteredAssignments();
-//
-//        if (coursesWithRegisteredAssignments.isEmpty()) {
-//            System.out.println("There are no assignments registered to courses. Please register assignments to a course first.");
-//        } else {
-//
-//            Course selectedCourse = Utils.selectCourseFromListOfCourses(coursesWithRegisteredAssignments, "Choose a course to print its registered assignments: ");
-//
-//            for (SchoolCourse schoolCourse : schoolCourses) {
-//                if (schoolCourse.getCourse().equals(selectedCourse)) {
-//                    HashSet<Assignment> assignmentsRegisteredToCourse = schoolCourse.getAssignments();
-//                    System.out.println("The assignments of this course are: ");
-//                    Printing.printListOfAssignments(assignmentsRegisteredToCourse);
-//                    break;
-//                }
-//            }
-//
-//        }
-//
-//    }
+    public void printTrainersInCourse() {
+        int number = TrainersInCoursesDAO.readNumberOfCoursesWithAssignedTrainers(MainClass.db);
 
+        if (number == 0) {
+            System.out.println("There are no trainers registered to courses. Please register trainers to a course first.");
+        } else {
+
+            ArrayList<Course> coursesWithRegisteredTrainers = TrainersInCoursesDAO.readCoursesWithRegisteredTrainers(MainClass.db);
+            Course selectedCourse = Utils.selectCourse(coursesWithRegisteredTrainers);
+
+            ArrayList<Trainer> trainers = TrainersInCoursesDAO.readTrainersOfCourseWithCourseID(selectedCourse, MainClass.db);
+            Printing.printListOfTrainers(trainers);
+        }
+    }
+
+    public void printAssignmentsInCourse() {
+        int number = AssignmentsInCoursesDAO.readNumberOfCoursesWithAssignedAssignments(MainClass.db);
+
+        if (number == 0) {
+            System.out.println("There are no assignments registered to courses. Please register assignments to a course first.");
+        } else {
+
+            ArrayList<Course> coursesWithRegisteredAssignments = AssignmentsInCoursesDAO.readCoursesWithRegisteredAssignments(MainClass.db);
+            Course selectedCourse = Utils.selectCourse(coursesWithRegisteredAssignments);
+
+            ArrayList<Assignment> assignments = AssignmentsInCoursesDAO.readAssignmentsOfCourseWithCourseID(selectedCourse, MainClass.db);
+            Printing.printListOfAssignments(assignments);
+        }
+    }
 //    public void printAssignmentsPerStudent() {
 //        ArrayList<Course> coursesWithRegisteredStudents = getCoursesWithRegisteredStudents();
 //        ArrayList<Course> coursesWithRegisteredAssignments = getCoursesWithRegisteredAssignments();
@@ -227,6 +218,7 @@ public class School {
 //            }
 //        }
 //    }
+
     public void printStudentsInManyCourses() {
         ArrayList<Course> coursesWithRegisteredStudents = getCoursesWithRegisteredStudents();
         if (coursesWithRegisteredStudents.isEmpty()) {
@@ -253,9 +245,7 @@ public class School {
             } else {
                 Printing.printListOfStudents(studentsRegisteredToManyCourses);
             }
-
         }
-
     }
 
     public void printStudentsToDeliverWithinCW() {

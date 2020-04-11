@@ -47,21 +47,21 @@ public class MainClass {
                 case "-asc":
                    school.addStudentToCourse();
                     break;
-//                case "-aac":
-//                    school.addAssignmentToCourse();
-//                    break;
+                case "-aac":
+                    school.addAssignmentToCourse();
+                    break;
                 case "-atc":
                     school.addTrainerToCourse();
                     break;
                 case "-psc":
                     school.printStudentsInCourse();
                     break;
-//                case "-ptc":
-//                    school.printTrainersInCourse();
-//                    break;
-//                case "-pac":
-//                    school.printAssignmentsInCourse();
-//                    break;
+                case "-ptc":
+                    school.printTrainersInCourse();
+                    break;
+                case "-pac":
+                    school.printAssignmentsInCourse();
+                    break;
 //                case "-paps":
 ////                    school.printAssignmentsPerStudent();
 //                    break;

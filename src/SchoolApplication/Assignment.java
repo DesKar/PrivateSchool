@@ -5,18 +5,28 @@ import java.util.Objects;
 
 public class Assignment {
 
+    private int id;
     private String title;
     private String description;
     private LocalDate subDate;
     private int oralMark;
     private int localMark;
 
-    public Assignment(String title, String description, LocalDate subDate, int oralMark, int localMark) {
+    public Assignment(int id, String title, String description, LocalDate subDate, int oralMark, int localMark) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.subDate = subDate;
         this.oralMark = oralMark;
         this.localMark = localMark;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -99,7 +109,9 @@ public class Assignment {
         }
         return true;
     }
-    
-    
 
+    @Override
+    public String toString() {
+        return "Assignment{" + "title=" + title + ", description=" + description + ", subDate=" + subDate + '}';
+    }
 }
