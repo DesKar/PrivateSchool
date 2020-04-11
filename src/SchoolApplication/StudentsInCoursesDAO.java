@@ -10,12 +10,12 @@ import java.util.logging.Logger;
 
 public class StudentsInCoursesDAO {
 
-    public static int addStudentInCourse(Course selectedCourse, Student student, Database db) {
+    public static int addStudentInCourse(Course selectedCourse, Student student) {
         int result = 0;
         String studentInCourseData = String.format("\"%s\", \"%s\"", student.getId(), selectedCourse.getId());
         String query = String.format("INSERT INTO `PrivateSchool`.`students_in_courses`(`students_id`, `courses_id`)" + "VALUES(%s);", studentInCourseData);
-        db.setStatement();
-        Statement st = db.getStatement();
+        Database.setStatement();
+        Statement st = Database.getStatement();
         try {
             result = st.executeUpdate(query);
             return result;
@@ -25,7 +25,7 @@ public class StudentsInCoursesDAO {
         }
     }
 
-    public static int readNumberOfCoursesWithAssignedStudents(Database db) {
+    public static int readNumberOfCoursesWithAssignedStudents() {
         int result = 0;
         String query = String.format("SELECT count(1) FROM `PrivateSchool`.`students_in_courses`;");
         ResultSet rs = Database.getResults(query);
@@ -41,7 +41,7 @@ public class StudentsInCoursesDAO {
         }
     }
 
-    public static ArrayList<Course> readCoursesWithRegisteredStudents(Database db) {
+    public static ArrayList<Course> readCoursesWithRegisteredStudents() {
         ArrayList<Course> courses = new ArrayList();
         String query = String.format("SELECT DISTINCT(`courses`.`id`),`courses`.`title`, `courses`.`stream`, `courses`.`type`, `courses`.`start_date`, `courses`.`end_date`  "
                 + "FROM `PrivateSchool`.`courses`, `PrivateSchool`.`students_in_courses`\n"
@@ -65,7 +65,7 @@ public class StudentsInCoursesDAO {
         return courses;
     }
 
-    public static ArrayList<Student> readStudentsOfCourseWithCourseID(Course course, Database db) {
+    public static ArrayList<Student> readStudentsOfCourseWithCourseID(Course course) {
         ArrayList<Student> students = new ArrayList();
         int courseId = course.getId();
         String query = String.format("SELECT \n"
@@ -100,12 +100,12 @@ public class StudentsInCoursesDAO {
         return students;
     }
 
-    public static boolean studentExistsInCourse(Student student, Course course, Database db) {
+    public static boolean studentExistsInCourse(Student student, Course course) {
         int studentID = student.getId();
         int courseID = course.getId();
         String query = String.format("SELECT count(1) FROM `PrivateSchool`.`students_in_courses`"
                 + "WHERE `PrivateSchool`.`students_in_courses`.`students_id` = '%s'"
                 + "AND `PrivateSchool`.`students_in_courses`.`courses_id` = '%s';", studentID, courseID);
-        return Database.tableIsNotEmpty(db, query);
+        return Database.tableIsNotEmpty(query);
     }
 }

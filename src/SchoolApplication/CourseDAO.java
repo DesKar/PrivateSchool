@@ -5,18 +5,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CourseDAO {
 
-    public static int createRecordInCourses(Course course, Database db) {
+    public static int createRecordInCourses(Course course) {
         int result = 0;
         String CourseData = String.format("\"%s\", \"%s\", \"%s\", \"%s\", \"%s\"", course.getTitle(), course.getStream(), course.getType(), course.getStartDate(), course.getEndDate());
         String query = String.format("INSERT INTO `PrivateSchool`.`courses`(`title`, `stream`, `type`, `start_date`, `end_date`)" + "VALUES(%s);", CourseData);
-        db.setStatement();
-        Statement st = db.getStatement();
+        Database.setStatement();
+        Statement st = Database.getStatement();
         try {
             result = st.executeUpdate(query);
             return result;
@@ -26,7 +25,8 @@ public class CourseDAO {
         }
     }
 
-    public static HashSet<Course> readAllCourses(HashSet<Course> courses) {
+    public static ArrayList<Course> readAllCourses() {
+        ArrayList<Course> courses = new ArrayList();
         String query = String.format("SELECT * FROM `PrivateSchool`.`courses`");
         ResultSet rs = Database.getResults(query);
         try {
@@ -66,7 +66,7 @@ public class CourseDAO {
         }
     }
     
-    public static ArrayList<Integer> readAllCoursesIds(Database db){
+    public static ArrayList<Integer> readAllCoursesIds(){
         String query = String.format("SELECT `id` FROM `PrivateSchool`.`courses`;");
         ResultSet rs = Database.getResults(query);
         ArrayList<Integer> coursesIds = new ArrayList();
@@ -83,14 +83,14 @@ public class CourseDAO {
         }
     }
 
-    public static boolean courseExists(Course course, Database db) {
+    public static boolean courseExists(Course course) {
         String query = String.format("SELECT * FROM `PrivateSchool`.`courses` WHERE `title` = \"%s\" AND `stream` = \"%s\" AND `type` = \"%s\" AND `start_date` = \"%s\" AND `end_date` = \"%s\"", course.getTitle(), course.getStream(), course.getType(), course.getStartDate(), course.getEndDate());
-        return Database.recordExists(course, db, query);
+        return Database.recordExists(course, query);
     }
 
-    public static boolean coursesExist(Database db) {
+    public static boolean coursesExist( ) {
         String query = String.format("SELECT count(1) FROM `PrivateSchool`.`courses`;");
-        return Database.tableIsNotEmpty(db, query);
+        return Database.tableIsNotEmpty(query);
 
     }
 

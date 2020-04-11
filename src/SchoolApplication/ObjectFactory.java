@@ -3,45 +3,45 @@ package SchoolApplication;
 import static SchoolApplication.MainClass.db;
 import java.time.LocalDate;
 
-public class RealSchool extends School {
+public class ObjectFactory {
 
-    public void addStudentToSchool() {
+    public static void addStudentToSchool() {
         Student student = createStudentObject();
-        if (!StudentDAO.studentExists(student, db)) {
-            StudentDAO.createRecordInStudents(student, db);
+        if (!StudentDAO.studentExists(student)) {
+            StudentDAO.createRecordInStudents(student);
         } else {
             System.out.println("\nStudent already exists.");
         }
     }
 
-    public void addTrainerToSchool() {
+    public static void addTrainerToSchool() {
         Trainer trainer = createTrainerObject();
-        if (!TrainerDAO.trainerExists(trainer, db)) {
-            TrainerDAO.createRecordInTrainers(trainer, db);
+        if (!TrainerDAO.trainerExists(trainer)) {
+            TrainerDAO.createRecordInTrainers(trainer);
         } else {
             System.out.println("\nTrainer already exists.");
         }
     }
 
-    public void addAssignmentToSchool() {
+    public static void addAssignmentToSchool() {
         Assignment assignment = createAssignmentObject();
-        if (!AssignmentDAO.assignmentExists(assignment, db)) {
-            AssignmentDAO.createRecordInAssignments(assignment, db);
+        if (!AssignmentDAO.assignmentExists(assignment)) {
+            AssignmentDAO.createRecordInAssignments(assignment);
         } else {
             System.out.println("\nThe assignment already exists.");
         }
     }
 
-    public void addCourseToSchool() {
+    public static void addCourseToSchool() {
         Course course = createCourseObject();
-        if (!CourseDAO.courseExists(course, db)) {
-            CourseDAO.createRecordInCourses(course, db);
+        if (!CourseDAO.courseExists(course)) {
+            CourseDAO.createRecordInCourses(course);
         } else {
             System.out.println("\nThe Course already exists.");
         }
     }
 
-    private Student createStudentObject() {
+    private static Student createStudentObject() {
         String firstName = Utils.getStringWithMessage("Student first name: ");
         String lastName = Utils.getStringWithMessage("Student last name: ");
         LocalDate dateOfBirth = Utils.getDate("Student date of birth(YYYY-MM-DD): ");
@@ -50,7 +50,7 @@ public class RealSchool extends School {
         return student;
     }
 
-    private Trainer createTrainerObject() {
+    private static Trainer createTrainerObject() {
         String firstName = Utils.getStringWithMessage("Trainer first name: ");
         String lastName = Utils.getStringWithMessage("Trainer last name: ");
         String subject = Utils.getStringWithMessage("Trainer subject: ");
@@ -58,7 +58,7 @@ public class RealSchool extends School {
         return trainer;
     }
 
-    private Assignment createAssignmentObject() {
+    private static Assignment createAssignmentObject() {
         String title = Utils.getStringWithMessage("Assignment title: ");
         String description = Utils.getStringWithMessage("Assignment description: ");
         LocalDate subDateTime = Utils.getDate("Assignment submission date (YYYY-MM-DD): ");
@@ -68,7 +68,7 @@ public class RealSchool extends School {
         return assignment;
     }
 
-    private Course createCourseObject() {
+    private static Course createCourseObject() {
         String title = Utils.getStringWithMessage("Course title: ");
         String stream = Utils.getStringWithMessage("Course stream title: ");
         String type = Utils.getStringWithMessage("Course type: ");

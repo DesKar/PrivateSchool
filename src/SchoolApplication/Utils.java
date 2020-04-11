@@ -7,10 +7,6 @@ import java.util.Collection;
 
 public class Utils {
 
-    public static boolean realSchoolIsEmpty(School s) {
-        return s.getAssignments().isEmpty() && s.getCourses().isEmpty() && s.getStudents().isEmpty() && s.getTrainers().isEmpty();
-    }
-
     public static int chooseElementWithID(String message, ArrayList<Integer> ids) {
         int number;
         do {
@@ -36,13 +32,13 @@ public class Utils {
         return selectedCourse;
     }
 
-    public static ArrayList selectAssignmentsForCourse(School school) {
+    public static ArrayList selectAssignmentsForCourse() {
         ArrayList<Assignment> selectedAssignments = new ArrayList();
         System.out.println("Please choose assignments to add to the selected course.\n");
-        school.printAllAssignments();
+        School.printAllAssignments();
         boolean addAnotherAssignment;
         do {
-            ArrayList<Integer> assignmentIds = AssignmentDAO.readAllAssignmentsIds(MainClass.db);
+            ArrayList<Integer> assignmentIds = AssignmentDAO.readAllAssignmentsIds();
             int selectedAssignmentID = Utils.chooseElementWithID("You can choose an assignment using its ID.\nAssignment ID: ", assignmentIds);
             
             Assignment selectedAssignment = AssignmentDAO.readAssignmentWithID(selectedAssignmentID);
@@ -62,13 +58,13 @@ public class Utils {
         return selectedAssignments;
     }
 
-    public static ArrayList selectTrainersForCourse(School school) {
+    public static ArrayList selectTrainersForCourse() {
         ArrayList<Trainer> selectedTrainers = new ArrayList();
         System.out.println("Please choose trainers to add to the selected course.\n");
-        school.printAllTrainers();
+        School.printAllTrainers();
         boolean addAnotherTrainer;
         do {
-            ArrayList<Integer> trainerIds = TrainerDAO.readAllTrainersIds(MainClass.db);
+            ArrayList<Integer> trainerIds = TrainerDAO.readAllTrainersIds();
             int selectedTrainerID = Utils.chooseElementWithID("You can choose a trainer using his/her ID.\nTrainer ID: ", trainerIds);
             Trainer selectedTrainer = TrainerDAO.readTrainerWithID(selectedTrainerID);
             if (selectedTrainers.contains(selectedTrainer)) {
@@ -87,13 +83,13 @@ public class Utils {
         return selectedTrainers;
     }
 
-    public static ArrayList<Student> selectStudentsForCourse(School school) {
+    public static ArrayList<Student> selectStudentsForCourse() {
         ArrayList<Student> selectedStudents = new ArrayList();
         System.out.println("Please choose students to add to the selected course.\n");
-        school.printAllStudents();
+        School.printAllStudents();
         boolean addAnotherStudent;
         do {
-            ArrayList<Integer> studentIds = StudentDAO.readAllStudentsIds(MainClass.db);
+            ArrayList<Integer> studentIds = StudentDAO.readAllStudentsIds();
             int selectedStudentID = Utils.chooseElementWithID("You can choose a student using his/her ID.\nStudent ID: ", studentIds);
             Student selectedStudent = StudentDAO.readStudentWithID(selectedStudentID);
             if (selectedStudents.contains(selectedStudent)) {

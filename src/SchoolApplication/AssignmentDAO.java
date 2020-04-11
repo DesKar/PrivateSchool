@@ -5,18 +5,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AssignmentDAO {
 
-    public static int createRecordInAssignments(Assignment assignment, Database db) {
+    public static int createRecordInAssignments(Assignment assignment) {
         int result = 0;
         String assingmentData = String.format("\"%s\", \"%s\", \"%s\", \"%s\", \"%s\"", assignment.getTitle(), assignment.getDescription(), assignment.getSubDateTime(), assignment.getOralMark(), assignment.getLocalMark());
         String query = String.format("INSERT INTO `PrivateSchool`.`assignments`(`title`, `description`, `sub_date`, `oral_mark`, `local_mark`)" + "VALUES(%s);", assingmentData);
-        db.setStatement();
-        Statement st = db.getStatement();
+        Database.setStatement();
+        Statement st = Database.getStatement();
         try {
             result = st.executeUpdate(query);
             return result;
@@ -26,7 +25,8 @@ public class AssignmentDAO {
         }
     }
 
-    public static HashSet<Assignment> readAllAssignments(HashSet<Assignment> assignments) {
+    public static ArrayList<Assignment> readAllAssignments() {
+        ArrayList<Assignment> assignments = new ArrayList();
         String query = String.format("SELECT * FROM `PrivateSchool`.`assignments`");
         ResultSet rs = Database.getResults(query);
         try {
@@ -66,7 +66,7 @@ public class AssignmentDAO {
         }
     }
 
-    public static ArrayList<Integer> readAllAssignmentsIds(Database db) {
+    public static ArrayList<Integer> readAllAssignmentsIds() {
         String query = String.format("SELECT `id` FROM `PrivateSchool`.`assignments`;");
         ResultSet rs = Database.getResults(query);
         ArrayList<Integer> assignmentsIds = new ArrayList();
@@ -83,14 +83,14 @@ public class AssignmentDAO {
         }
     }
 
-    public static boolean assignmentExists(Assignment assignment, Database db) {
+    public static boolean assignmentExists(Assignment assignment) {
         String query = String.format("SELECT * FROM `PrivateSchool`.`assignments` WHERE `title` = \"%s\" AND `sub_date` = \"%s\"", assignment.getTitle(), assignment.getSubDateTime());
-        return Database.recordExists(assignment, db, query);
+        return Database.recordExists(assignment, query);
     }
 
-    public static boolean assignmentsExist(Database db) {
+    public static boolean assignmentsExist() {
         String query = String.format("SELECT count(1) FROM `PrivateSchool`.`assignments`;");
-        return Database.tableIsNotEmpty(db, query);
+        return Database.tableIsNotEmpty(query);
     }
 
 }

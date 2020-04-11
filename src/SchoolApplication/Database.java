@@ -72,7 +72,7 @@ public class Database {
 
     }
 
-    public static boolean recordExists(Object o, Database db, String query) {
+    public static boolean recordExists(Object o,String query) {
         ResultSet rs = getResults(query);
         try {
             return rs.next();
@@ -82,7 +82,7 @@ public class Database {
         }
     }
 
-    public static boolean tableIsNotEmpty(Database db, String query) {
+    public static boolean tableIsNotEmpty(String query) {
         ResultSet rs = Database.getResults(query);
         try {
             rs.first();

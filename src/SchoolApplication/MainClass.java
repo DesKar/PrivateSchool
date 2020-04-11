@@ -7,7 +7,6 @@ public class MainClass {
 //    the options appeat twice in some cases
     
     static Scanner input = new Scanner(System.in);
-    private static final RealSchool school = new RealSchool();
     public static final Database db = new Database();
 
     public static void main(String[] args) {
@@ -15,52 +14,51 @@ public class MainClass {
         Printing.printWelcomeMessage();
 
         String option = null;
-
         do {
             Printing.printUserOptions();
             option = input.nextLine();
             switch (option) {
                 case "-as":
-                    school.addStudentToSchool();
+                    ObjectFactory.addStudentToSchool();
                     break;
                 case "-at":
-                    school.addTrainerToSchool();
+                    ObjectFactory.addTrainerToSchool();
                     break;
                 case "-aa":
-                    school.addAssignmentToSchool();
+                    ObjectFactory.addAssignmentToSchool();
                     break;
                 case "-ac":
-                    school.addCourseToSchool();
+                    ObjectFactory.addCourseToSchool();
                     break;
                 case "-ps":
-                    school.printAllStudents();
+                    School.printAllStudents();
                     break;
                 case "-pt":
-                    school.printAllTrainers();
+                    School.printAllTrainers();
                     break;
                 case "-pa":
-                    school.printAllAssignments();
+                    School.printAllAssignments();
                     break;
                 case "-pc":
-                    school.printAllCourses();
+                    School.printAllCourses();
                     break;
                 case "-asc":
-                   school.addStudentToCourse();
+                   School.addStudentToCourse();
                     break;
                 case "-aac":
-                    school.addAssignmentToCourse();
+                    School.addAssignmentToCourse();
                     break;
                 case "-atc":
-                    school.addTrainerToCourse();
+                    School.addTrainerToCourse();
                     break;
                 case "-psc":
-                    school.printStudentsInCourse();
+                    School.printStudentsInCourse();
                     break;
                 case "-ptc":
-                    school.printTrainersInCourse();
+                    School.printTrainersInCourse();
                     break;
                 case "-pac":
-                    school.printAssignmentsInCourse();
+                    School.printAssignmentsInCourse();
                     break;
 //                case "-paps":
 ////                    school.printAssignmentsPerStudent();

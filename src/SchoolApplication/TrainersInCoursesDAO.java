@@ -10,12 +10,12 @@ import java.util.logging.Logger;
 
 public class TrainersInCoursesDAO {
 
-    public static int addTrainerInCourse(Course selectedCourse, Trainer trainer, Database db) {
+    public static int addTrainerInCourse(Course selectedCourse, Trainer trainer) {
         int result = 0;
         String trainerInCourseData = String.format("\"%s\", \"%s\"", trainer.getId(), selectedCourse.getId());
         String query = String.format("INSERT INTO `PrivateSchool`.`trainers_in_courses`(`trainers_id`, `courses_id`)" + "VALUES(%s);", trainerInCourseData);
-        db.setStatement();
-        Statement st = db.getStatement();
+        Database.setStatement();
+        Statement st = Database.getStatement();
         try {
             result = st.executeUpdate(query);
             return result;
@@ -25,7 +25,7 @@ public class TrainersInCoursesDAO {
         }
     }
 
-    public static int readNumberOfCoursesWithAssignedTrainers(Database db) {
+    public static int readNumberOfCoursesWithAssignedTrainers() {
         int result = 0;
         String query = String.format("SELECT count(1) FROM `PrivateSchool`.`trainers_in_courses`;");
         ResultSet rs = Database.getResults(query);
@@ -41,7 +41,7 @@ public class TrainersInCoursesDAO {
         }
     }
 
-    public static ArrayList<Course> readCoursesWithRegisteredTrainers(Database db) {
+    public static ArrayList<Course> readCoursesWithRegisteredTrainers() {
         ArrayList<Course> courses = new ArrayList();
         String query = String.format("SELECT DISTINCT(`courses`.`id`),`courses`.`title`, `courses`.`stream`, `courses`.`type`, `courses`.`start_date`, `courses`.`end_date`  "
                 + "FROM `PrivateSchool`.`courses`, `PrivateSchool`.`trainers_in_courses`\n"
@@ -65,7 +65,7 @@ public class TrainersInCoursesDAO {
         return courses;
     }
 
-    public static ArrayList<Trainer> readTrainersOfCourseWithCourseID(Course course, Database db) {
+    public static ArrayList<Trainer> readTrainersOfCourseWithCourseID(Course course) {
         ArrayList<Trainer> trainers = new ArrayList();
         int courseId = course.getId();
         String query = String.format("SELECT \n"
@@ -98,13 +98,13 @@ public class TrainersInCoursesDAO {
         return trainers;
     }
 
-    public static boolean trainerExistsInCourse(Trainer trainer, Course course, Database db) {
+    public static boolean trainerExistsInCourse(Trainer trainer, Course course) {
         int courseID = course.getId();
         int trainerID = trainer.getId();
         String query = String.format("SELECT count(1) FROM `PrivateSchool`.`trainers_in_courses`"
                 + "WHERE `PrivateSchool`.`trainers_in_courses`.`trainers_id` = '%s'"
                 + "AND `PrivateSchool`.`trainers_in_courses`.`courses_id` = '%s';", trainerID, courseID);
-        return Database.tableIsNotEmpty(db, query);
+        return Database.tableIsNotEmpty(query);
     }
 
 }

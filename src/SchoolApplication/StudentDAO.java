@@ -5,18 +5,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class StudentDAO {
 
-    public static int createRecordInStudents(Student student, Database db) {
+    public static int createRecordInStudents(Student student) {
         int result = 0;
         String studentData = String.format("\"%s\", \"%s\", \"%s\", \"%s\"", student.getFirstName(), student.getLastName(), student.getDateOfBirth(), student.getTuitionFees());
         String query = String.format("INSERT INTO `PrivateSchool`.`students`(`first_name`, `last_name`, `date_of_birth`, `tuition_fees`)" + "VALUES(%s);", studentData);
-        db.setStatement();
-        Statement st = db.getStatement();
+        Database.setStatement();
+        Statement st = Database.getStatement();
         try {
             result = st.executeUpdate(query);
             return result;
@@ -26,7 +25,8 @@ public class StudentDAO {
         }
     }
 
-    public static HashSet<Student> readAllStudents(HashSet<Student> students) {
+    public static ArrayList<Student> readAllStudents() {
+        ArrayList<Student>students = new ArrayList();
         String query = String.format("SELECT * FROM `PrivateSchool`.`students`");
         ResultSet rs = Database.getResults(query);
         try {
@@ -64,7 +64,7 @@ public class StudentDAO {
         }
     }
 
-    public static ArrayList<Integer> readAllStudentsIds(Database db) {
+    public static ArrayList<Integer> readAllStudentsIds() {
         String query = String.format("SELECT `id` FROM `PrivateSchool`.`students`;");
         ResultSet rs = Database.getResults(query);
         ArrayList<Integer> studentsIds = new ArrayList();
@@ -81,14 +81,14 @@ public class StudentDAO {
         }
     }
 
-    public static boolean studentExists(Student student, Database db) {
+    public static boolean studentExists(Student student) {
         String query = String.format("SELECT * FROM `PrivateSchool`.`students` WHERE `first_name` = \"%s\" AND `last_name` = \"%s\" AND `date_of_birth` = \"%s\" AND `tuition_fees` = \"%s\"", student.getFirstName(), student.getLastName(), student.getDateOfBirth(), student.getTuitionFees());
-        return Database.recordExists(student, db, query);
+        return Database.recordExists(student, query);
     }
 
-    public static boolean studentsExist(Database db) {
+    public static boolean studentsExist() {
         String query = String.format("SELECT count(1) FROM `PrivateSchool`.`students`;");
-        return Database.tableIsNotEmpty(db, query);
+        return Database.tableIsNotEmpty(query);
     }
 
 }
