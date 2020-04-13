@@ -1,4 +1,4 @@
-select trainers of course with course id (here 1)
+-- select trainers of course with course id (here 1)
 
 SELECT 
     *
