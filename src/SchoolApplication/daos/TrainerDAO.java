@@ -28,23 +28,9 @@ public class TrainerDAO {
     }
 
     public static ArrayList<Trainer> readAllTrainers() {
-        ArrayList<Trainer> trainers = new ArrayList();
         String query = String.format("SELECT * FROM `PrivateSchool`.`trainers`");
         ResultSet rs = Database.getResults(query);
-        try {
-            rs.first();
-            do {
-                int id = rs.getInt("id");
-                String first_name = rs.getString("first_name");
-                String last_name = rs.getString("last_name");
-                String subject = rs.getString("subject");
-                Trainer trainer = new Trainer(id, first_name, last_name, subject);
-                trainers.add(trainer);
-            } while (rs.next());
-        } catch (SQLException ex) {
-            return trainers;
-        }
-        return trainers;
+        return createTrainerListFromResultSet(rs);
     }
 
     public static ArrayList<Integer> readAllTrainersIds() {
@@ -91,4 +77,22 @@ public class TrainerDAO {
         return Database.tableIsNotEmpty(query);
     }
 
+    public static ArrayList<Trainer> createTrainerListFromResultSet(ResultSet rs) {
+        ArrayList<Trainer> trainers = new ArrayList();
+        try {
+            rs.first();
+            do {
+                int id = rs.getInt("id");
+                String first_name = rs.getString("first_name");
+                String last_name = rs.getString("last_name");
+                String subject = rs.getString("subject");
+                Trainer trainer = new Trainer(id, first_name, last_name, subject);
+                trainers.add(trainer);
+            } while (rs.next());
+        } catch (SQLException ex) {
+            return trainers;
+        }
+        return trainers;
+
+    }
 }

@@ -39,6 +39,18 @@ public class Utils {
         System.out.printf("Selected course: %s.\n", (selectedCourse.toString()));
         return selectedCourse;
     }
+    
+    public static Student selectStudent(Collection<Student> students){
+         System.out.println("Please choose a student from the list below: ");
+        Printing.printListOfStudents(students);
+
+        ArrayList<Integer> studentIds = getStudentsIds(students);
+        int selectedStudentId = Utils.chooseElementWithID("You can choose the course using its ID.\nCourse ID: ", studentIds);
+        Student selectedStudent = StudentDAO.readStudentWithID(selectedStudentId);
+
+        System.out.printf("Selected student: %s.\n", (selectedStudent.toString()));
+        return selectedStudent;
+    }
 
     public static ArrayList selectAssignmentsForCourse() {
         ArrayList<Assignment> selectedAssignments = new ArrayList();
@@ -187,5 +199,13 @@ public class Utils {
             coursesIds.add(course.getId());
         }
         return coursesIds;
+    }
+    
+        private static ArrayList<Integer> getStudentsIds(Collection<Student> students) {
+        ArrayList<Integer> studentsIds = new ArrayList();
+        for (Student course : students) {
+            studentsIds.add(course.getId());
+        }
+        return studentsIds;
     }
 }

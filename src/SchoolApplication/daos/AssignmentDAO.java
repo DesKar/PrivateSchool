@@ -29,25 +29,10 @@ public class AssignmentDAO {
     }
 
     public static ArrayList<Assignment> readAllAssignments() {
-        ArrayList<Assignment> assignments = new ArrayList();
         String query = String.format("SELECT * FROM `PrivateSchool`.`assignments`");
         ResultSet rs = Database.getResults(query);
-        try {
-            rs.first();
-            do {
-                int id = rs.getInt("id");
-                String title = rs.getString("title");
-                String description = rs.getString("description");
-                LocalDate subDate = rs.getDate("sub_date").toLocalDate();
-                int oralMark = rs.getInt("oral_mark");
-                int localMark = rs.getInt("local_mark");
-                Assignment assignment = new Assignment(id, title, description, subDate, oralMark, localMark);
-                assignments.add(assignment);
-            } while (rs.next());
-        } catch (SQLException ex) {
-            return assignments;
-        }
-        return assignments;
+        return createAssignmentListFromResultSet(rs);
+
     }
 
     public static Assignment readAssignmentWithID(int selectedAssignmentID) {
@@ -94,6 +79,26 @@ public class AssignmentDAO {
     public static boolean assignmentsExist() {
         String query = String.format("SELECT count(1) FROM `PrivateSchool`.`assignments`;");
         return Database.tableIsNotEmpty(query);
+    }
+
+    public static ArrayList<Assignment> createAssignmentListFromResultSet(ResultSet rs) {
+        ArrayList<Assignment> assignments = new ArrayList();
+        try {
+            rs.first();
+            do {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String description = rs.getString("description");
+                LocalDate subDate = rs.getDate("sub_date").toLocalDate();
+                int oralMark = rs.getInt("oral_mark");
+                int localMark = rs.getInt("local_mark");
+                Assignment assignment = new Assignment(id, title, description, subDate, oralMark, localMark);
+                assignments.add(assignment);
+            } while (rs.next());
+        } catch (SQLException ex) {
+            return assignments;
+        }
+        return assignments;
     }
 
 }

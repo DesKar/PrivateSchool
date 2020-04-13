@@ -29,24 +29,9 @@ public class StudentDAO {
     }
 
     public static ArrayList<Student> readAllStudents() {
-        ArrayList<Student>students = new ArrayList();
         String query = String.format("SELECT * FROM `PrivateSchool`.`students`");
         ResultSet rs = Database.getResults(query);
-        try {
-            rs.first();
-            do {
-                int id = rs.getInt("id");
-                String first_name = rs.getString("first_name");
-                String last_name = rs.getString("last_name");
-                LocalDate dateOfBirth = rs.getDate("date_of_birth").toLocalDate();
-                int tuitionFees = rs.getInt("tuition_fees");
-                Student student = new Student(id, first_name, last_name, dateOfBirth, tuitionFees);
-                students.add(student);
-            } while (rs.next());
-        } catch (SQLException ex) {
-            return students;
-        }
-        return students;
+        return createStudentListFromResultSet(rs);
     }
 
     public static Student readStudentWithID(int selectedStudentID) {
@@ -92,6 +77,25 @@ public class StudentDAO {
     public static boolean studentsExist() {
         String query = String.format("SELECT count(1) FROM `PrivateSchool`.`students`;");
         return Database.tableIsNotEmpty(query);
+    }
+
+    public static ArrayList<Student> createStudentListFromResultSet(ResultSet rs) {
+        ArrayList<Student> students = new ArrayList();
+        try {
+            rs.first();
+            do {
+                int id = rs.getInt("id");
+                String first_name = rs.getString("first_name");
+                String last_name = rs.getString("last_name");
+                LocalDate dateOfBirth = rs.getDate("date_of_birth").toLocalDate();
+                int tuitionFees = rs.getInt("tuition_fees");
+                Student student = new Student(id, first_name, last_name, dateOfBirth, tuitionFees);
+                students.add(student);
+            } while (rs.next());
+        } catch (SQLException ex) {
+            return students;
+        }
+        return students;
     }
 
 }

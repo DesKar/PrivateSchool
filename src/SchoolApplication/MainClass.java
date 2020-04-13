@@ -3,8 +3,9 @@ package SchoolApplication;
 import java.util.Scanner;
 
 public class MainClass {
-//  Assignment oral mark and local mark should not be initialized with assignment, as this is per student 
-//    the options appeat twice in some cases
+// TODO  Assignment oral mark and local mark should not be initialized with assignment, as this is per student 
+// TODO   the options appeat twice in some cases
+// TODO   use synthetic data OR insert new data
     
     static Scanner input = new Scanner(System.in);
     public static final Database db = new Database();
@@ -60,15 +61,12 @@ public class MainClass {
                 case "-pac":
                     School.printAssignmentsInCourse();
                     break;
-//                case "-paps":
-////                    school.printAssignmentsPerStudent();
-//                    break;
-//                case "-psmc":
-//                    school.printStudentsInManyCourses();
-//                    break;
-//                case "-pscw":
-//                    school.printStudentsToDeliverWithinCW();
-//                    break;
+                case "-paps":
+                    School.printAssignmentsPerCoursePerStudent();
+                    break;
+                case "-psmc":
+                    School.printStudentsInManyCourses();
+                    break;
                 case "-q":
                     System.out.println("Thank you for using the School Application!");
                     input.close();

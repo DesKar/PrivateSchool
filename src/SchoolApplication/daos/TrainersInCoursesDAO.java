@@ -2,12 +2,13 @@ package SchoolApplication.daos;
 
 import SchoolApplication.Database;
 import SchoolApplication.MainClass;
+import static SchoolApplication.daos.CourseDAO.createCourseListFromResultSet;
+import static SchoolApplication.daos.TrainerDAO.createTrainerListFromResultSet;
 import SchoolApplication.models.Trainer;
 import SchoolApplication.models.Course;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,31 +47,14 @@ public class TrainersInCoursesDAO {
     }
 
     public static ArrayList<Course> readCoursesWithRegisteredTrainers() {
-        ArrayList<Course> courses = new ArrayList();
         String query = String.format("SELECT DISTINCT(`courses`.`id`),`courses`.`title`, `courses`.`stream`, `courses`.`type`, `courses`.`start_date`, `courses`.`end_date`  "
                 + "FROM `PrivateSchool`.`courses`, `PrivateSchool`.`trainers_in_courses`\n"
                 + "WHERE `PrivateSchool`.`courses`.`id` = `PrivateSchool`.`trainers_in_courses`.`courses_id`;");
         ResultSet rs = Database.getResults(query);
-        try {
-            rs.first();
-            do {
-                int id = rs.getInt("id");
-                String title = rs.getString("title");
-                String string = rs.getString("stream");
-                String type = rs.getString("type");
-                LocalDate startDate = rs.getDate("start_date").toLocalDate();
-                LocalDate endDate = rs.getDate("end_date").toLocalDate();
-                Course course = new Course(id, title, string, type, startDate, endDate);
-                courses.add(course);
-            } while (rs.next());
-        } catch (SQLException ex) {
-            return courses;
-        }
-        return courses;
+        return createCourseListFromResultSet(rs);
     }
 
     public static ArrayList<Trainer> readTrainersOfCourseWithCourseID(Course course) {
-        ArrayList<Trainer> trainers = new ArrayList();
         int courseId = course.getId();
         String query = String.format("SELECT \n"
                 + "    `trainers`.`id`,\n"
@@ -86,20 +70,8 @@ public class TrainersInCoursesDAO {
                 + "        AND `PrivateSchool`.`trainers`.`id` = `PrivateSchool`.`trainers_in_courses`.`trainers_id`\n"
                 + "        AND `PrivateSchool`.`courses`.`id` = '%s';", courseId);
         ResultSet rs = Database.getResults(query);
-        try {
-            rs.first();
-            do {
-                int id = rs.getInt("id");
-                String first_name = rs.getString("first_name");
-                String last_name = rs.getString("last_name");
-                String subject = rs.getString("subject");
-                Trainer trainer = new Trainer(id, first_name, last_name, subject);
-                trainers.add(trainer);
-            } while (rs.next());
-        } catch (SQLException ex) {
-            return trainers;
-        }
-        return trainers;
+        return createTrainerListFromResultSet(rs);
+
     }
 
     public static boolean trainerExistsInCourse(Trainer trainer, Course course) {

@@ -2,12 +2,12 @@ package SchoolApplication.daos;
 
 import SchoolApplication.Database;
 import SchoolApplication.MainClass;
+import static SchoolApplication.daos.CourseDAO.createCourseListFromResultSet;
 import SchoolApplication.models.Course;
 import SchoolApplication.models.Assignment;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,31 +46,14 @@ public class AssignmentsInCoursesDAO {
     }
 
     public static ArrayList<Course> readCoursesWithRegisteredAssignments() {
-        ArrayList<Course> courses = new ArrayList();
         String query = String.format("SELECT DISTINCT(`courses`.`id`),`courses`.`title`, `courses`.`stream`, `courses`.`type`, `courses`.`start_date`, `courses`.`end_date`  "
                 + "FROM `PrivateSchool`.`courses`, `PrivateSchool`.`assignments_in_courses`\n"
                 + "WHERE `PrivateSchool`.`courses`.`id` = `PrivateSchool`.`assignments_in_courses`.`courses_id`;");
         ResultSet rs = Database.getResults(query);
-        try {
-            rs.first();
-            do {
-                int id = rs.getInt("id");
-                String title = rs.getString("title");
-                String string = rs.getString("stream");
-                String type = rs.getString("type");
-                LocalDate startDate = rs.getDate("start_date").toLocalDate();
-                LocalDate endDate = rs.getDate("end_date").toLocalDate();
-                Course course = new Course(id, title, string, type, startDate, endDate);
-                courses.add(course);
-            } while (rs.next());
-        } catch (SQLException ex) {
-            return courses;
-        }
-        return courses;
+        return createCourseListFromResultSet(rs);
     }
 
     public static ArrayList<Assignment> readAssignmentsOfCourseWithCourseID(Course course) {
-        ArrayList<Assignment> assignments = new ArrayList();
         int courseId = course.getId();
         String query = String.format("SELECT \n"
                 + "    `assignments`.`id`,\n"
@@ -88,22 +71,26 @@ public class AssignmentsInCoursesDAO {
                 + "        AND `PrivateSchool`.`assignments`.`id` = `PrivateSchool`.`assignments_in_courses`.`assignments_id`\n"
                 + "        AND `PrivateSchool`.`courses`.`id` = '%s';", courseId);
         ResultSet rs = Database.getResults(query);
-        try {
-            rs.first();
-            do {
-                int id = rs.getInt("id");
-                String title = rs.getString("title");
-                String description = rs.getString("description");
-                LocalDate subDate = rs.getDate("sub_date").toLocalDate();
-                int oralMark = rs.getInt("oral_mark");
-                int localMark = rs.getInt("local_mark");
-                Assignment assignment = new Assignment(id, title, description, subDate, oralMark, localMark);
-                assignments.add(assignment);
-            } while (rs.next());
-        } catch (SQLException ex) {
-            return assignments;
-        }
-        return assignments;
+        return AssignmentDAO.createAssignmentListFromResultSet(rs);
+    }
+    
+    public static ArrayList<Assignment> readAssignmentsPerStudentPerCourse(int courseID, int studentID){
+        String query = String.format("SELECT `PrivateSchool`.`assignments`.`id`,\n" 
+                +"      `PrivateSchool`.`assignments`.`title`,\n" 
+                +"      `PrivateSchool`.`assignments`.`description`,\n" 
+                +"      `PrivateSchool`.`assignments`.`sub_date`,\n" 
+                +"      `PrivateSchool`.`assignments`.`oral_mark`,\n" 
+                +"      `PrivateSchool`.`assignments`.`local_mark`\n" 
+                +"FROM\n" 
+                +"      `PrivateSchool`.`assignments`\n" 
+                +"JOIN `PrivateSchool`.`assignments_in_courses` "
+                +"      ON  `PrivateSchool`.`assignments_in_courses`.`assignments_id` = `PrivateSchool`.`assignments`.`id`\n" 
+                +"JOIN `PrivateSchool`.`students_in_courses` "
+                +"      ON `PrivateSchool`.`students_in_courses`.`courses_id` = `PrivateSchool`.`assignments_in_courses`.`courses_id`\n"
+                +"WHERE `PrivateSchool`.`assignments_in_courses`.`courses_id` = '%s' "
+                +"      and `PrivateSchool`.`students_in_courses`.`students_id` = '%s';", courseID, studentID);
+        ResultSet rs = Database.getResults(query);
+        return AssignmentDAO.createAssignmentListFromResultSet(rs);
     }
 
     public static boolean assignmentExistsInCourse(Assignment assignment, Course course) {

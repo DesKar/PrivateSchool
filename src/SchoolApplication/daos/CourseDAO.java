@@ -29,25 +29,9 @@ public class CourseDAO {
     }
 
     public static ArrayList<Course> readAllCourses() {
-        ArrayList<Course> courses = new ArrayList();
         String query = String.format("SELECT * FROM `PrivateSchool`.`courses`");
         ResultSet rs = Database.getResults(query);
-        try {
-            rs.first();
-            do {
-                int id = rs.getInt("id");
-                String title = rs.getString("title");
-                String string = rs.getString("stream");
-                String type = rs.getString("type");
-                LocalDate startDate = rs.getDate("start_date").toLocalDate();
-                LocalDate endDate = rs.getDate("end_date").toLocalDate();
-                Course course = new Course(id, title, string, type, startDate, endDate);
-                courses.add(course);
-            } while (rs.next());
-        } catch (SQLException ex) {
-            return courses;
-        }
-        return courses;
+        return createCourseListFromResultSet(rs);
     }
 
     public static Course readCourseWithID(int selectedCourseID) {
@@ -68,18 +52,18 @@ public class CourseDAO {
             return null;
         }
     }
-    
-    public static ArrayList<Integer> readAllCoursesIds(){
+
+    public static ArrayList<Integer> readAllCoursesIds() {
         String query = String.format("SELECT `id` FROM `PrivateSchool`.`courses`;");
         ResultSet rs = Database.getResults(query);
         ArrayList<Integer> coursesIds = new ArrayList();
         try {
             rs.first();
-             do {
-                 int id = rs.getInt("id");
-                 coursesIds.add(id);
+            do {
+                int id = rs.getInt("id");
+                coursesIds.add(id);
             } while (rs.next());
-             return coursesIds;
+            return coursesIds;
         } catch (SQLException ex) {
             Logger.getLogger(CourseDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -91,9 +75,30 @@ public class CourseDAO {
         return Database.recordExists(course, query);
     }
 
-    public static boolean coursesExist( ) {
+    public static boolean coursesExist() {
         String query = String.format("SELECT count(1) FROM `PrivateSchool`.`courses`;");
         return Database.tableIsNotEmpty(query);
+
+    }
+
+    public static ArrayList<Course> createCourseListFromResultSet(ResultSet rs) {
+        ArrayList<Course> courses = new ArrayList();
+        try {
+            rs.first();
+            do {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String string = rs.getString("stream");
+                String type = rs.getString("type");
+                LocalDate startDate = rs.getDate("start_date").toLocalDate();
+                LocalDate endDate = rs.getDate("end_date").toLocalDate();
+                Course course = new Course(id, title, string, type, startDate, endDate);
+                courses.add(course);
+            } while (rs.next());
+        } catch (SQLException ex) {
+            return courses;
+        }
+        return courses;
 
     }
 
