@@ -15,7 +15,7 @@ public class AssignmentDAO {
 
     public static int createRecordInAssignments(Assignment assignment) {
         int result = 0;
-        String assingmentData = String.format("\"%s\", \"%s\", \"%s\", \"%s\", \"%s\"", assignment.getTitle(), assignment.getDescription(), assignment.getSubDateTime(), assignment.getOralMark(), assignment.getLocalMark());
+        String assingmentData = String.format("'%s', '%s', '%s', '%s', '%s'", assignment.getTitle(), assignment.getDescription(), assignment.getSubDateTime(), assignment.getOralMark(), assignment.getLocalMark());
         String query = String.format("INSERT INTO `PrivateSchool`.`assignments`(`title`, `description`, `sub_date`, `oral_mark`, `local_mark`)" + "VALUES(%s);", assingmentData);
         Database.setStatement();
         Statement st = Database.getStatement();
@@ -29,14 +29,20 @@ public class AssignmentDAO {
     }
 
     public static ArrayList<Assignment> readAllAssignments() {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`assignments`");
+        String query = String.format("SELECT * FROM `PrivateSchool`.`assignments`;");
         ResultSet rs = Database.getResults(query);
         return createAssignmentListFromResultSet(rs);
 
     }
 
     public static Assignment readAssignmentWithID(int selectedAssignmentID) {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`assignments` WHERE `id` = %s", selectedAssignmentID);
+        String query = String.format(""
+                +"SELECT "
+                + "     * " 
+                +"FROM "
+                +"      `PrivateSchool`.`assignments`" 
+                +"WHERE "
+                + "     `id` = '%s';", selectedAssignmentID);
         ResultSet rs = Database.getResults(query);
         try {
             rs.first();
@@ -72,7 +78,13 @@ public class AssignmentDAO {
     }
 
     public static boolean assignmentExists(Assignment assignment) {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`assignments` WHERE `title` = \"%s\" AND `sub_date` = \"%s\"", assignment.getTitle(), assignment.getSubDateTime());
+        String query = String.format(""
+                + "SELECT " 
+                +"    * " 
+                +"FROM" 
+                +"    `PrivateSchool`.`assignments`" 
+                +"WHERE" 
+                +"    `title` = '%s'AND `sub_date` = '%s';", assignment.getTitle(), assignment.getSubDateTime());
         return Database.recordExists(assignment, query);
     }
 

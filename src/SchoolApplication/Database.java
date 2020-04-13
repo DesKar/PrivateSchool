@@ -72,7 +72,7 @@ public class Database {
 
     }
 
-    public static boolean recordExists(Object o,String query) {
+    public static boolean recordExists(Object o, String query) {
         ResultSet rs = getResults(query);
         try {
             return rs.next();
@@ -87,13 +87,34 @@ public class Database {
         try {
             rs.first();
             int counter = rs.getInt("count(1)");
-            if(counter != 0){
+            if (counter != 0) {
                 return true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    public static void emptyDatabase() {
+        try {
+            String query = "DELETE FROM `PrivateSchool`.`students_in_courses`;";
+            int rs = statement.executeUpdate(query);
+            query = "DELETE FROM `PrivateSchool`.`assignments_in_courses`;";
+            rs = statement.executeUpdate(query);
+            query = "DELETE FROM `PrivateSchool`.`trainers_in_courses`;";
+            rs = statement.executeUpdate(query);
+            query = "DELETE FROM `PrivateSchool`.`students`;`;";
+            rs = statement.executeUpdate(query);
+            query = "DELETE FROM `PrivateSchool`.`assignments`;";
+            rs = statement.executeUpdate(query);
+            query = "DELETE FROM `PrivateSchool`.`assignments_in_courses`;";
+            rs = statement.executeUpdate(query);
+            query = "DELETE FROM `PrivateSchool`.`courses`;";    
+            rs = statement.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

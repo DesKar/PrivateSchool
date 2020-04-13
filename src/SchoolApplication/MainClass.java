@@ -3,8 +3,7 @@ package SchoolApplication;
 import java.util.Scanner;
 
 public class MainClass {
-// TODO  Assignment oral mark and local mark should not be initialized with assignment, as this is per student 
-// TODO   the options appeat twice in some cases
+// TODO   the options appear twice in some cases
 // TODO   use synthetic data OR insert new data
     
     static Scanner input = new Scanner(System.in);

@@ -16,7 +16,7 @@ public class StudentsInCoursesDAO {
 
     public static int addStudentInCourse(Course selectedCourse, Student student) {
         int result = 0;
-        String studentInCourseData = String.format("\"%s\", \"%s\"", student.getId(), selectedCourse.getId());
+        String studentInCourseData = String.format("'%s', '%s'", student.getId(), selectedCourse.getId());
         String query = String.format("INSERT INTO `PrivateSchool`.`students_in_courses`(`students_id`, `courses_id`)" + "VALUES(%s);", studentInCourseData);
         Database.setStatement();
         Statement st = Database.getStatement();
@@ -46,48 +46,56 @@ public class StudentsInCoursesDAO {
     }
 
     public static ArrayList<Course> readCoursesWithRegisteredStudents() {
-        String query = String.format("SELECT DISTINCT(`courses`.`id`),`courses`.`title`, `courses`.`stream`, `courses`.`type`, `courses`.`start_date`, `courses`.`end_date`  "
-                + "FROM `PrivateSchool`.`courses`, `PrivateSchool`.`students_in_courses`\n"
-                + "WHERE `PrivateSchool`.`courses`.`id` = `PrivateSchool`.`students_in_courses`.`courses_id`;");
+        String query = String.format(""
+                + "SELECT DISTINCT(`courses`.`id`)," 
+                + "    `courses`.`title`," 
+                + "    `courses`.`stream`," 
+                + "    `courses`.`type`," 
+                + "    `courses`.`start_date`,"
+                + "    `courses`.`end_date`" 
+                + "FROM" 
+                + "    `PrivateSchool`.`courses`," 
+                + "    `PrivateSchool`.`students_in_courses`" 
+                + "WHERE" 
+                + "    `PrivateSchool`.`courses`.`id` = `PrivateSchool`.`students_in_courses`.`courses_id`;");
         ResultSet rs = Database.getResults(query);
         return createCourseListFromResultSet(rs);
     }
 
     public static ArrayList<Student> readStudentsOfCourseWithCourseID(Course course) {
         int courseId = course.getId();
-        String query = String.format("SELECT \n"
-                + "    `students`.`id`,\n"
-                + "    `students`.`first_name`,\n"
-                + "    `students`.`last_name`,\n"
-                + "    `students`.`date_of_birth`,\n"
-                + "    `students`.`tuition_fees`\n"
-                + "FROM\n"
-                + "    `PrivateSchool`.`students`,\n"
-                + "    `PrivateSchool`.`courses`,\n"
-                + "    `PrivateSchool`.`students_in_courses`\n"
-                + "WHERE\n"
-                + "    `PrivateSchool`.`courses`.`id` = `PrivateSchool`.`students_in_courses`.`courses_id`\n"
-                + "        AND `PrivateSchool`.`students`.`id` = `PrivateSchool`.`students_in_courses`.`students_id`\n"
-                + "        AND `PrivateSchool`.`courses`.`id` = '%s';", courseId);
+        String query = String.format(""
+                + "SELECT *" 
+                + "FROM `PrivateSchool`.`students`" 
+                + "JOIN `PrivateSchool`.`students_in_courses` "
+                + "     ON `PrivateSchool`.`students`.`id` = `PrivateSchool`.`students_in_courses`.`students_id`" 
+                + "JOIN `PrivateSchool`.`courses` "
+                + "     ON `PrivateSchool`.`courses`.`id` = `PrivateSchool`.`students_in_courses`.`courses_id`" 
+                + "WHERE" 
+                + "    `PrivateSchool`.`courses`.`id` = '%s';", courseId);
         ResultSet rs = Database.getResults(query);
         return StudentDAO.createStudentListFromResultSet(rs);
     }
 
     public static ArrayList<Student> readStudentsRegisteredToManyCorses() {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`students` AS S,\n"
-                + "    (SELECT `students_id`, COUNT(*) occurences\n"
-                + "    FROM `PrivateSchool`.`students_in_courses`\n"
-                + "    GROUP BY `students_id`\n"
-                + "    HAVING COUNT(*) > 1) AS `T`\n"
-                + "    WHERE `T`.`students_id` = `S`.`id`;");
+        String query = String.format(""
+                + "SELECT * "
+                + "FROM `PrivateSchool`.`students` AS S,"
+                + "    (SELECT `students_id`, COUNT(*) occurences"
+                + "         FROM `PrivateSchool`.`students_in_courses`"
+                + "     GROUP BY `students_id`"
+                + "     HAVING COUNT(*) > 1) AS `T`"
+                + "WHERE `T`.`students_id` = `S`.`id`;");
         ResultSet rs = Database.getResults(query);
         return StudentDAO.createStudentListFromResultSet(rs);
     }
     
     public static ArrayList<Student> readStudentsRegisteredToCourse(int courseID){
-        String query = String.format("SELECT * FROM `PrivateSchool`.`students`\n" 
-                +"JOIN `PrivateSchool`.`students_in_courses` "
-                + "     ON `PrivateSchool`.`students_in_courses`.`students_id` = `PrivateSchool`.`students`.`id`\n" 
+        String query = String.format(""
+                + "SELECT * "
+                + "FROM `PrivateSchool`.`students`" 
+                + "JOIN `PrivateSchool`.`students_in_courses`"
+                + "     ON `PrivateSchool`.`students_in_courses`.`students_id` = `PrivateSchool`.`students`.`id`" 
                 +"WHERE `PrivateSchool`.`students_in_courses`.`courses_id` ='%s';", courseID);
         ResultSet rs = Database.getResults(query);
         return StudentDAO.createStudentListFromResultSet(rs);
@@ -97,9 +105,10 @@ public class StudentsInCoursesDAO {
     public static boolean studentExistsInCourse(Student student, Course course) {
         int studentID = student.getId();
         int courseID = course.getId();
-        String query = String.format("SELECT count(1) FROM `PrivateSchool`.`students_in_courses`"
+        String query = String.format(""
+                + "SELECT count(1) FROM `PrivateSchool`.`students_in_courses`"
                 + "WHERE `PrivateSchool`.`students_in_courses`.`students_id` = '%s'"
-                + "AND `PrivateSchool`.`students_in_courses`.`courses_id` = '%s';", studentID, courseID);
+                + "     AND `PrivateSchool`.`students_in_courses`.`courses_id` = '%s';", studentID, courseID);
         return Database.tableIsNotEmpty(query);
     }
 

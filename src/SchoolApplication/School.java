@@ -12,7 +12,6 @@ import SchoolApplication.models.Student;
 import SchoolApplication.models.Course;
 import SchoolApplication.models.Assignment;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class School {
 

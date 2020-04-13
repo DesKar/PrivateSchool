@@ -15,7 +15,7 @@ public class StudentDAO {
 
     public static int createRecordInStudents(Student student) {
         int result = 0;
-        String studentData = String.format("\"%s\", \"%s\", \"%s\", \"%s\"", student.getFirstName(), student.getLastName(), student.getDateOfBirth(), student.getTuitionFees());
+        String studentData = String.format("'%s', '%s', '%s', '%s'", student.getFirstName(), student.getLastName(), student.getDateOfBirth(), student.getTuitionFees());
         String query = String.format("INSERT INTO `PrivateSchool`.`students`(`first_name`, `last_name`, `date_of_birth`, `tuition_fees`)" + "VALUES(%s);", studentData);
         Database.setStatement();
         Statement st = Database.getStatement();
@@ -29,13 +29,13 @@ public class StudentDAO {
     }
 
     public static ArrayList<Student> readAllStudents() {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`students`");
+        String query = String.format("SELECT * FROM `PrivateSchool`.`students`;");
         ResultSet rs = Database.getResults(query);
         return createStudentListFromResultSet(rs);
     }
 
     public static Student readStudentWithID(int selectedStudentID) {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`students` WHERE `id` = %s", selectedStudentID);
+        String query = String.format("SELECT * FROM `PrivateSchool`.`students` WHERE `id` = '%s'", selectedStudentID);
         ResultSet rs = Database.getResults(query);
         try {
             rs.first();
@@ -70,7 +70,14 @@ public class StudentDAO {
     }
 
     public static boolean studentExists(Student student) {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`students` WHERE `first_name` = \"%s\" AND `last_name` = \"%s\" AND `date_of_birth` = \"%s\" AND `tuition_fees` = \"%s\"", student.getFirstName(), student.getLastName(), student.getDateOfBirth(), student.getTuitionFees());
+        String query = String.format(""
+                + "SELECT * "
+                + "FROM `PrivateSchool`.`students` "
+                + "WHERE `first_name` = '%s' "
+                + "     AND `last_name` = '%s' "
+                + "     AND `date_of_birth` = '%s' "
+                + "     AND `tuition_fees` = '%s';", 
+                student.getFirstName(), student.getLastName(), student.getDateOfBirth(), student.getTuitionFees());
         return Database.recordExists(student, query);
     }
 

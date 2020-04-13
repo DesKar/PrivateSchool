@@ -80,7 +80,7 @@ public class Printing {
             System.out.println(header);
             int index = 1;
             for (Trainer trainer : trainers) {
-                String content = String.format("|%-5s|%-15s|%-15s|", index, trainer.getFirstName(), trainer.getLastName());
+                String content = String.format("|%-5s|%-15s|%-15s|", trainer.getId(), trainer.getFirstName(), trainer.getLastName());
                 System.out.println(content);
                 index++;
             }

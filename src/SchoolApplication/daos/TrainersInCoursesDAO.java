@@ -17,7 +17,7 @@ public class TrainersInCoursesDAO {
 
     public static int addTrainerInCourse(Course selectedCourse, Trainer trainer) {
         int result = 0;
-        String trainerInCourseData = String.format("\"%s\", \"%s\"", trainer.getId(), selectedCourse.getId());
+        String trainerInCourseData = String.format("'%s', '%s'", trainer.getId(), selectedCourse.getId());
         String query = String.format("INSERT INTO `PrivateSchool`.`trainers_in_courses`(`trainers_id`, `courses_id`)" + "VALUES(%s);", trainerInCourseData);
         Database.setStatement();
         Statement st = Database.getStatement();
@@ -47,28 +47,34 @@ public class TrainersInCoursesDAO {
     }
 
     public static ArrayList<Course> readCoursesWithRegisteredTrainers() {
-        String query = String.format("SELECT DISTINCT(`courses`.`id`),`courses`.`title`, `courses`.`stream`, `courses`.`type`, `courses`.`start_date`, `courses`.`end_date`  "
-                + "FROM `PrivateSchool`.`courses`, `PrivateSchool`.`trainers_in_courses`\n"
-                + "WHERE `PrivateSchool`.`courses`.`id` = `PrivateSchool`.`trainers_in_courses`.`courses_id`;");
+        String query = String.format(""
+                + "SELECT DISTINCT(`courses`.`id`),"
+                + "                 `courses`.`title`, "
+                + "                 `courses`.`stream`, "
+                + "                 `courses`.`type`, "
+                + "                 `courses`.`start_date`, "
+                + "                 `courses`.`end_date`  "
+                + "FROM "
+                + "         `PrivateSchool`.`courses`, `PrivateSchool`.`trainers_in_courses`"
+                + "WHERE"
+                + "         `PrivateSchool`.`courses`.`id` = `PrivateSchool`.`trainers_in_courses`.`courses_id`;");
         ResultSet rs = Database.getResults(query);
         return createCourseListFromResultSet(rs);
     }
 
     public static ArrayList<Trainer> readTrainersOfCourseWithCourseID(Course course) {
         int courseId = course.getId();
-        String query = String.format("SELECT \n"
-                + "    `trainers`.`id`,\n"
-                + "    `trainers`.`first_name`,\n"
-                + "    `trainers`.`last_name`,\n"
-                + "    `trainers`.`subject`\n"
-                + "FROM\n"
-                + "    `PrivateSchool`.`trainers`,\n"
-                + "    `PrivateSchool`.`courses`,\n"
-                + "    `PrivateSchool`.`trainers_in_courses`\n"
-                + "WHERE\n"
-                + "    `PrivateSchool`.`courses`.`id` = `PrivateSchool`.`trainers_in_courses`.`courses_id`\n"
-                + "        AND `PrivateSchool`.`trainers`.`id` = `PrivateSchool`.`trainers_in_courses`.`trainers_id`\n"
-                + "        AND `PrivateSchool`.`courses`.`id` = '%s';", courseId);
+        String query = String.format(""
+                + "SELECT *" 
+                + "FROM `PrivateSchool`.`trainers`"
+                + "JOIN" 
+                + "    `PrivateSchool`.`trainers_in_courses` "
+                + " ON `PrivateSchool`.`trainers`.`id` = `PrivateSchool`.`trainers_in_courses`.`trainers_id`" 
+                + "JOIN" 
+                + "    `PrivateSchool`.`courses` "
+                + " ON `PrivateSchool`.`courses`.`id` = `PrivateSchool`.`trainers_in_courses`.`courses_id`" 
+                +"WHERE" 
+                +"    `PrivateSchool`.`courses`.`id` = '%s';", courseId);
         ResultSet rs = Database.getResults(query);
         return createTrainerListFromResultSet(rs);
 
@@ -77,9 +83,13 @@ public class TrainersInCoursesDAO {
     public static boolean trainerExistsInCourse(Trainer trainer, Course course) {
         int courseID = course.getId();
         int trainerID = trainer.getId();
-        String query = String.format("SELECT count(1) FROM `PrivateSchool`.`trainers_in_courses`"
-                + "WHERE `PrivateSchool`.`trainers_in_courses`.`trainers_id` = '%s'"
-                + "AND `PrivateSchool`.`trainers_in_courses`.`courses_id` = '%s';", trainerID, courseID);
+        String query = String.format(""
+                + "SELECT count(1) "
+                + "FROM `PrivateSchool`.`trainers_in_courses`"
+                + "WHERE "
+                + "     `PrivateSchool`.`trainers_in_courses`.`trainers_id` = '%s'"
+                + "     AND `PrivateSchool`.`trainers_in_courses`.`courses_id` = '%s';", 
+                trainerID, courseID);
         return Database.tableIsNotEmpty(query);
     }
 

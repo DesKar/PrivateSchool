@@ -14,7 +14,7 @@ public class TrainerDAO {
 
     public static int createRecordInTrainers(Trainer trainer) {
         int result = 0;
-        String trainerData = String.format("\"%s\", \"%s\", \"%s\"", trainer.getFirstName(), trainer.getLastName(), trainer.getSubject());
+        String trainerData = String.format("'%s', '%s', '%s'", trainer.getFirstName(), trainer.getLastName(), trainer.getSubject());
         String query = String.format("INSERT INTO `PrivateSchool`.`trainers`(`first_name`, `last_name`, `subject`)" + "VALUES(%s);", trainerData);
         Database.setStatement();
         Statement st = Database.getStatement();
@@ -28,7 +28,7 @@ public class TrainerDAO {
     }
 
     public static ArrayList<Trainer> readAllTrainers() {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`trainers`");
+        String query = String.format("SELECT * FROM `PrivateSchool`.`trainers`;");
         ResultSet rs = Database.getResults(query);
         return createTrainerListFromResultSet(rs);
     }
@@ -51,7 +51,9 @@ public class TrainerDAO {
     }
 
     public static Trainer readTrainerWithID(int selectedTrainerID) {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`trainers` WHERE `id` = %s", selectedTrainerID);
+        String query = String.format(""
+                + "SELECT * FROM `PrivateSchool`.`trainers` "
+                + "WHERE `id` = %s;", selectedTrainerID);
         ResultSet rs = Database.getResults(query);
         try {
             rs.first();
@@ -68,7 +70,12 @@ public class TrainerDAO {
     }
 
     public static boolean trainerExists(Trainer trainer) {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`trainers` WHERE `first_name` = \"%s\" AND `last_name` = \"%s\" AND `subject` = \"%s\"", trainer.getFirstName(), trainer.getLastName(), trainer.getSubject());
+        String query = String.format(""
+                + "SELECT * FROM `PrivateSchool`.`trainers` "
+                + "WHERE `first_name` = '%s' "
+                + "     AND `last_name` = '%s' "
+                + "     AND `subject` = '%s';", 
+                trainer.getFirstName(), trainer.getLastName(), trainer.getSubject());
         return Database.recordExists(trainer, query);
     }
 

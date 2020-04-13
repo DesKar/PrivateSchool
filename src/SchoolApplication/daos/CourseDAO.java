@@ -15,7 +15,7 @@ public class CourseDAO {
 
     public static int createRecordInCourses(Course course) {
         int result = 0;
-        String CourseData = String.format("\"%s\", \"%s\", \"%s\", \"%s\", \"%s\"", course.getTitle(), course.getStream(), course.getType(), course.getStartDate(), course.getEndDate());
+        String CourseData = String.format("'%s', '%s', '%s', '%s', '%s'", course.getTitle(), course.getStream(), course.getType(), course.getStartDate(), course.getEndDate());
         String query = String.format("INSERT INTO `PrivateSchool`.`courses`(`title`, `stream`, `type`, `start_date`, `end_date`)" + "VALUES(%s);", CourseData);
         Database.setStatement();
         Statement st = Database.getStatement();
@@ -29,13 +29,13 @@ public class CourseDAO {
     }
 
     public static ArrayList<Course> readAllCourses() {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`courses`");
+        String query = String.format("SELECT * FROM `PrivateSchool`.`courses`;");
         ResultSet rs = Database.getResults(query);
         return createCourseListFromResultSet(rs);
     }
 
     public static Course readCourseWithID(int selectedCourseID) {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`courses` WHERE `id` = %s", selectedCourseID);
+        String query = String.format("SELECT * FROM `PrivateSchool`.`courses` WHERE `id` = '%s';", selectedCourseID);
         ResultSet rs = Database.getResults(query);
         try {
             rs.first();
@@ -71,7 +71,15 @@ public class CourseDAO {
     }
 
     public static boolean courseExists(Course course) {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`courses` WHERE `title` = \"%s\" AND `stream` = \"%s\" AND `type` = \"%s\" AND `start_date` = \"%s\" AND `end_date` = \"%s\"", course.getTitle(), course.getStream(), course.getType(), course.getStartDate(), course.getEndDate());
+        String query = String.format(""
+                + "SELECT * "
+                + "FROM `PrivateSchool`.`courses` "
+                + "WHERE `title` = '%s' "
+                + "     AND `stream` = '%s' "
+                + "     AND `type` = '%s' "
+                + "     AND `start_date` = '%s' "
+                + "     AND `end_date` = '%s';", 
+                course.getTitle(), course.getStream(), course.getType(), course.getStartDate(), course.getEndDate());
         return Database.recordExists(course, query);
     }
 
