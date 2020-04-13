@@ -5,6 +5,9 @@ import java.util.Scanner;
 public class MainClass {
 // TODO   the options appear twice in some cases
 // TODO   use synthetic data OR insert new data
+// TODO create tables in Javascript
+//    TODO if I have time, allow each student to have mark per assignment
+    
     
     static Scanner input = new Scanner(System.in);
     public static final Database db = new Database();

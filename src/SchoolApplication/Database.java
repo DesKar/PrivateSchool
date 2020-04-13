@@ -12,7 +12,6 @@ public class Database {
 
     private static final String DB_URL = "localhost:3306";
     private static final String FULL_DB_URL = "jdbc:mysql://" + DB_URL + "/PrivateSchool?zeroDateTimeBehavior=CONVERT_TO_NULL&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false";
-//    TODO change user
     private static final String DB_USER = "root";
     private static final String DB_PASSWD = "password";
 
