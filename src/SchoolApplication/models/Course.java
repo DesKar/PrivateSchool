@@ -1,7 +1,6 @@
 package SchoolApplication.models;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class Course {
 
@@ -77,47 +76,6 @@ public class Course {
     @Override
     public String toString() {
         return "Selected Course:" + "title=" + title + ", stream=" + stream + ", type=" + type + ", startDate=" + startDate + ", endDate=" + endDate;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 71 * hash + Objects.hashCode(this.title);
-        hash = 71 * hash + Objects.hashCode(this.stream);
-        hash = 71 * hash + Objects.hashCode(this.type);
-        hash = 71 * hash + Objects.hashCode(this.startDate);
-        hash = 71 * hash + Objects.hashCode(this.endDate);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Course other = (Course) obj;
-        if (!Objects.equals(this.title, other.title)) {
-            return false;
-        }
-        if (!Objects.equals(this.stream, other.stream)) {
-            return false;
-        }
-        if (!Objects.equals(this.type, other.type)) {
-            return false;
-        }
-        if (!Objects.equals(this.startDate, other.startDate)) {
-            return false;
-        }
-        if (!Objects.equals(this.endDate, other.endDate)) {
-            return false;
-        }
-        return true;
     }
     
     
