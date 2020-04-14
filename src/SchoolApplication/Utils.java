@@ -24,6 +24,7 @@ public class Utils {
                 MainClass.input.nextLine();
             }
             number = MainClass.input.nextInt();
+            MainClass.input.nextLine();
         } while (!ids.contains(number));
         return number;
     }
@@ -64,11 +65,11 @@ public class Utils {
             Assignment selectedAssignment = AssignmentDAO.readAssignmentWithID(selectedAssignmentID);
             if (selectedAssignments.contains(selectedAssignment)) {
                 System.out.println("Assignment is already selected. Please type any letter to choose another assignment or Q to exit.");
-                addAnotherAssignment = !"Q".equals(MainClass.input.next());
+                addAnotherAssignment = !"Q".equals(MainClass.input.nextLine());
             } else {
                 selectedAssignments.add(selectedAssignment);
                 System.out.println("Would you like to add another assignment? Y: Yes");
-                addAnotherAssignment = "Y".equals(MainClass.input.next());
+                addAnotherAssignment = "Y".equals(MainClass.input.nextLine());
             }
         } while (addAnotherAssignment);
         return selectedAssignments;
@@ -85,11 +86,11 @@ public class Utils {
             Trainer selectedTrainer = TrainerDAO.readTrainerWithID(selectedTrainerID);
             if (selectedTrainers.contains(selectedTrainer)) {
                 System.out.println("Trainer is already selected. Please type any letter to choose another trainer or Q to exit.");
-                addAnotherTrainer = !"Q".equals(MainClass.input.next());
+                addAnotherTrainer = !"Q".equals(MainClass.input.nextLine());
             } else {
                 selectedTrainers.add(selectedTrainer);
                 System.out.println("Would you like to add another trainer? Y: Yes");
-                addAnotherTrainer = "Y".equals(MainClass.input.next());
+                addAnotherTrainer = "Y".equals(MainClass.input.nextLine());
             }
         } while (addAnotherTrainer);
         return selectedTrainers;
@@ -106,11 +107,11 @@ public class Utils {
             Student selectedStudent = StudentDAO.readStudentWithID(selectedStudentID);
             if (selectedStudents.contains(selectedStudent)) {
                 System.out.println("Student is already selected. Please type any letter to choose another student or Q to exit.");
-                addAnotherStudent = !"Q".equals(MainClass.input.next());
+                addAnotherStudent = !"Q".equals(MainClass.input.nextLine());
             } else {
                 selectedStudents.add(selectedStudent);
                 System.out.println("Would you like to add another student? Y: Yes");
-                addAnotherStudent = "Y".equals(MainClass.input.next());
+                addAnotherStudent = "Y".equals(MainClass.input.nextLine());
             }
         } while (addAnotherStudent);
         return selectedStudents;
@@ -171,6 +172,7 @@ public class Utils {
                 MainClass.input.nextLine();
             }
             number = MainClass.input.nextInt();
+            MainClass.input.nextLine();
             if (number < lowerBound || number > upperBound) {
                 numberIsWithinBounds = false;
                 System.out.println(message2);
