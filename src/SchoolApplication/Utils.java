@@ -39,9 +39,9 @@ public class Utils {
         System.out.printf("Selected course: %s.\n", (selectedCourse.toString()));
         return selectedCourse;
     }
-    
-    public static Student selectStudent(Collection<Student> students){
-         System.out.println("Please choose a student from the list below: ");
+
+    public static Student selectStudent(Collection<Student> students) {
+        System.out.println("Please choose a student from the list below: ");
         Printing.printListOfStudents(students);
 
         ArrayList<Integer> studentIds = getStudentsIds(students);
@@ -60,15 +60,11 @@ public class Utils {
         do {
             ArrayList<Integer> assignmentIds = AssignmentDAO.readAllAssignmentsIds();
             int selectedAssignmentID = Utils.chooseElementWithID("You can choose an assignment using its ID.\nAssignment ID: ", assignmentIds);
-            
+
             Assignment selectedAssignment = AssignmentDAO.readAssignmentWithID(selectedAssignmentID);
-            if (selectedAssignments.contains(selectedAssignmentID)) {
+            if (selectedAssignments.contains(selectedAssignment)) {
                 System.out.println("Assignment is already selected. Please type any letter to choose another assignment or Q to exit.");
-                if ("Q".equals(MainClass.input.next())) {
-                    addAnotherAssignment = false;
-                } else {
-                    addAnotherAssignment = true;
-                }
+                addAnotherAssignment = !"Q".equals(MainClass.input.next());
             } else {
                 selectedAssignments.add(selectedAssignment);
                 System.out.println("Would you like to add another assignment? Y: Yes");
@@ -89,11 +85,7 @@ public class Utils {
             Trainer selectedTrainer = TrainerDAO.readTrainerWithID(selectedTrainerID);
             if (selectedTrainers.contains(selectedTrainer)) {
                 System.out.println("Trainer is already selected. Please type any letter to choose another trainer or Q to exit.");
-                if ("Q".equals(MainClass.input.next())) {
-                    addAnotherTrainer = false;
-                } else {
-                    addAnotherTrainer = true;
-                }
+                addAnotherTrainer = !"Q".equals(MainClass.input.next());
             } else {
                 selectedTrainers.add(selectedTrainer);
                 System.out.println("Would you like to add another trainer? Y: Yes");
@@ -114,11 +106,7 @@ public class Utils {
             Student selectedStudent = StudentDAO.readStudentWithID(selectedStudentID);
             if (selectedStudents.contains(selectedStudent)) {
                 System.out.println("Student is already selected. Please type any letter to choose another student or Q to exit.");
-                if ("Q".equals(MainClass.input.next())) {
-                    addAnotherStudent = false;
-                } else {
-                    addAnotherStudent = true;
-                }
+                addAnotherStudent = !"Q".equals(MainClass.input.next());
             } else {
                 selectedStudents.add(selectedStudent);
                 System.out.println("Would you like to add another student? Y: Yes");
@@ -200,8 +188,8 @@ public class Utils {
         }
         return coursesIds;
     }
-    
-        private static ArrayList<Integer> getStudentsIds(Collection<Student> students) {
+
+    private static ArrayList<Integer> getStudentsIds(Collection<Student> students) {
         ArrayList<Integer> studentsIds = new ArrayList();
         for (Student course : students) {
             studentsIds.add(course.getId());
