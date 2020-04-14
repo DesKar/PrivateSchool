@@ -1,7 +1,5 @@
 package SchoolApplication.models;
 
-import java.util.Objects;
-
 public class Trainer {
 
     private int id;
@@ -52,5 +50,4 @@ public class Trainer {
     public String toString() {
         return "\"" + firstName + " " + lastName + "\"";
     }
-
 }
