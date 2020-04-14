@@ -1,6 +1,5 @@
 package SchoolApplication.daos;
 
-import SchoolApplication.Database;
 import SchoolApplication.MainClass;
 import SchoolApplication.models.Trainer;
 import java.sql.ResultSet;
@@ -15,9 +14,9 @@ public class TrainerDAO {
     public static int createRecordInTrainers(Trainer trainer) {
         int result = 0;
         String trainerData = String.format("'%s', '%s', '%s'", trainer.getFirstName(), trainer.getLastName(), trainer.getSubject());
-        String query = String.format("INSERT INTO `PrivateSchool`.`trainers`(`first_name`, `last_name`, `subject`)" + "VALUES(%s);", trainerData);
-        Database.setStatement();
-        Statement st = Database.getStatement();
+        String query = String.format("INSERT INTO `trainers`(`first_name`, `last_name`, `subject`)" + "VALUES(%s);", trainerData);
+        MainClass.db.setStatement();
+        Statement st = MainClass.db.getStatement();
         try {
             result = st.executeUpdate(query);
             return result;
@@ -28,14 +27,14 @@ public class TrainerDAO {
     }
 
     public static ArrayList<Trainer> readAllTrainers() {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`trainers`;");
-        ResultSet rs = Database.getResults(query);
+        String query = String.format("SELECT * FROM `trainers`;");
+        ResultSet rs = MainClass.db.getResults(query);
         return createTrainerListFromResultSet(rs);
     }
 
     public static ArrayList<Integer> readAllTrainersIds() {
-        String query = String.format("SELECT `id` FROM `PrivateSchool`.`trainers`;");
-        ResultSet rs = Database.getResults(query);
+        String query = String.format("SELECT `id` FROM `trainers`;");
+        ResultSet rs = MainClass.db.getResults(query);
         ArrayList<Integer> trainersIds = new ArrayList();
         try {
             rs.first();
@@ -52,9 +51,9 @@ public class TrainerDAO {
 
     public static Trainer readTrainerWithID(int selectedTrainerID) {
         String query = String.format(""
-                + "SELECT * FROM `PrivateSchool`.`trainers` "
+                + "SELECT * FROM `trainers` "
                 + "WHERE `id` = %s;", selectedTrainerID);
-        ResultSet rs = Database.getResults(query);
+        ResultSet rs = MainClass.db.getResults(query);
         try {
             rs.first();
             int id = rs.getInt("id");
@@ -71,17 +70,17 @@ public class TrainerDAO {
 
     public static boolean trainerExists(Trainer trainer) {
         String query = String.format(""
-                + "SELECT * FROM `PrivateSchool`.`trainers` "
+                + "SELECT * FROM `trainers` "
                 + "WHERE `first_name` = '%s' "
                 + "     AND `last_name` = '%s' "
                 + "     AND `subject` = '%s';", 
                 trainer.getFirstName(), trainer.getLastName(), trainer.getSubject());
-        return Database.recordExists(trainer, query);
+        return MainClass.db.recordExists(trainer, query);
     }
 
     public static boolean trainersExist() {
-        String query = String.format("SELECT count(1) FROM `PrivateSchool`.`trainers`;");
-        return Database.tableIsNotEmpty(query);
+        String query = String.format("SELECT count(1) FROM `trainers`;");
+        return MainClass.db.tableIsNotEmpty(query);
     }
 
     public static ArrayList<Trainer> createTrainerListFromResultSet(ResultSet rs) {

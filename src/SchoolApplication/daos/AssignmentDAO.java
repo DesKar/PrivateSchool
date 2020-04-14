@@ -1,6 +1,5 @@
 package SchoolApplication.daos;
 
-import SchoolApplication.Database;
 import SchoolApplication.MainClass;
 import SchoolApplication.models.Assignment;
 import java.sql.ResultSet;
@@ -16,9 +15,9 @@ public class AssignmentDAO {
     public static int createRecordInAssignments(Assignment assignment) {
         int result = 0;
         String assingmentData = String.format("'%s', '%s', '%s', '%s', '%s'", assignment.getTitle(), assignment.getDescription(), assignment.getSubDateTime(), assignment.getOralMark(), assignment.getLocalMark());
-        String query = String.format("INSERT INTO `PrivateSchool`.`assignments`(`title`, `description`, `sub_date`, `oral_mark`, `local_mark`)" + "VALUES(%s);", assingmentData);
-        Database.setStatement();
-        Statement st = Database.getStatement();
+        String query = String.format("INSERT INTO `assignments`(`title`, `description`, `sub_date`, `oral_mark`, `local_mark`)" + "VALUES(%s);", assingmentData);
+        MainClass.db.setStatement();
+        Statement st = MainClass.db.getStatement();
         try {
             result = st.executeUpdate(query);
             return result;
@@ -29,8 +28,8 @@ public class AssignmentDAO {
     }
 
     public static ArrayList<Assignment> readAllAssignments() {
-        String query = String.format("SELECT * FROM `PrivateSchool`.`assignments`;");
-        ResultSet rs = Database.getResults(query);
+        String query = String.format("SELECT * FROM `assignments`;");
+        ResultSet rs = MainClass.db.getResults(query);
         return createAssignmentListFromResultSet(rs);
 
     }
@@ -40,10 +39,10 @@ public class AssignmentDAO {
                 +"SELECT "
                 + "     * " 
                 +"FROM "
-                +"      `PrivateSchool`.`assignments`" 
+                +"      `assignments`" 
                 +"WHERE "
                 + "     `id` = '%s';", selectedAssignmentID);
-        ResultSet rs = Database.getResults(query);
+        ResultSet rs = MainClass.db.getResults(query);
         try {
             rs.first();
             int id = rs.getInt("id");
@@ -61,8 +60,8 @@ public class AssignmentDAO {
     }
 
     public static ArrayList<Integer> readAllAssignmentsIds() {
-        String query = String.format("SELECT `id` FROM `PrivateSchool`.`assignments`;");
-        ResultSet rs = Database.getResults(query);
+        String query = String.format("SELECT `id` FROM `assignments`;");
+        ResultSet rs = MainClass.db.getResults(query);
         ArrayList<Integer> assignmentsIds = new ArrayList();
         try {
             rs.first();
@@ -82,15 +81,15 @@ public class AssignmentDAO {
                 + "SELECT " 
                 +"    * " 
                 +"FROM" 
-                +"    `PrivateSchool`.`assignments`" 
+                +"    `assignments`" 
                 +"WHERE" 
                 +"    `title` = '%s'AND `sub_date` = '%s';", assignment.getTitle(), assignment.getSubDateTime());
-        return Database.recordExists(assignment, query);
+        return MainClass.db.recordExists(assignment, query);
     }
 
     public static boolean assignmentsExist() {
-        String query = String.format("SELECT count(1) FROM `PrivateSchool`.`assignments`;");
-        return Database.tableIsNotEmpty(query);
+        String query = String.format("SELECT count(1) FROM `assignments`;");
+        return MainClass.db.tableIsNotEmpty(query);
     }
 
     public static ArrayList<Assignment> createAssignmentListFromResultSet(ResultSet rs) {

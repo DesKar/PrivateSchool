@@ -17,40 +17,64 @@ public class Printing {
                 + " \\/  \\/  \\___||_| \\___| \\___/ |_| |_| |_| \\___|\n"
                 + "                                               "
                 + "\nThis is the Private School Application!\n\n"
-                + "You can manage the students, trainers, courses and assingments of your school.\n"
-                + "If no data is entered, the demo data is available to allow you to explore the application.");
+                + "You can manage the students, trainers, courses and assingments of your school\n"
+                + "or use demo data to explore the application.");
     }
 
-    public static void printUserOptions() {
+    public static void printDbMenu() {
         System.out.println("");
-        System.out.println("Please type: ");
-        System.out.println("-as to add a student");
-        System.out.println("-at to add a trainer");
-        System.out.println("-aa to add an assignment");
-        System.out.println("-ac to add a course");
+        System.out.println("Would you like to load the demo database or the real data?");
         System.out.println("");
+        System.out.println("Select: ");
+        System.out.println(" 1:  Demo Database");
+        System.out.println(" 2:  Real Data");
+        System.out.println("-q:  Exit");
+    }
 
-        System.out.println("-ps to print all students");
-        System.out.println("-pt to print all trainers");
-        System.out.println("-pa to print all assignments");
-        System.out.println("-pc to print all courses");
+    public static void printOptionsL1() {
         System.out.println("");
+        System.out.println("Choose what you would like to do: ");
+        System.out.println(" 1: Add data");
+        System.out.println(" 2: Combine data");
+        System.out.println(" 3: Print data");
+        System.out.println("-q: Exit");
+    }
 
-        System.out.println("-asc to add a student to a course");
-        System.out.println("-atc to add a trainer to a course");
-        System.out.println("-aac to add an assignment to a course");
+    public static void printUserOptionsAddData() {
         System.out.println("");
-
-        System.out.println("-psc to print all students in a course");
-        System.out.println("-ptc to print all trainers in a course");
-        System.out.println("-pac to print all assignments in a course");
+        System.out.println("Select: ");
+        System.out.println(" 1:  Add a student");
+        System.out.println(" 2:  Add a trainer");
+        System.out.println(" 3:  Add an assignment");
+        System.out.println(" 4:  Add a course");
+        System.out.println("-1:  Go back to Main Menu");
         System.out.println("");
+    }
 
-        System.out.println("-paps to print all assignents per course per student");
-        System.out.println("-psmc to print all students that belong to more than one courses");
+    public static void printUserOptionsCombineData() {
         System.out.println("");
+        System.out.println("Select: ");
+        System.out.println(" 1:  Add a student to a course");
+        System.out.println(" 2:  Add a trainer to a course");
+        System.out.println(" 3:  Add an assignment to a course");
+        System.out.println("-1:  Go back to Main Menu");
+        System.out.println("");
+    }
 
-        System.out.println("-q to exit\n");
+    public static void printUserOptionsPrintData() {
+        System.out.println("");
+        System.out.println("Select: ");
+        System.out.println(" 1:  Print all students");
+        System.out.println(" 2:  Print all trainers");
+        System.out.println(" 3:  Print all assignments");
+        System.out.println(" 4:  Print all courses");
+        System.out.println(" 5:  Print all students in a course");
+        System.out.println(" 6:  Print all trainers in a course");
+        System.out.println(" 7:  Print all assignments in a course");
+        System.out.println(" 8:  Print all assignents per course per student");
+        System.out.println(" 9:  Print all students that belong to more than one courses");
+        System.out.println("-1:  Go back to Main Menu");
+        System.out.println("");
     }
 
     public static void printListOfStudents(Collection<Student> students) {

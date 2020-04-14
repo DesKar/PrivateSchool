@@ -1,6 +1,5 @@
 package SchoolApplication.daos;
 
-import SchoolApplication.Database;
 import SchoolApplication.MainClass;
 import static SchoolApplication.daos.CourseDAO.createCourseListFromResultSet;
 import static SchoolApplication.daos.TrainerDAO.createTrainerListFromResultSet;
@@ -18,9 +17,9 @@ public class TrainersInCoursesDAO {
     public static int addTrainerInCourse(Course selectedCourse, Trainer trainer) {
         int result = 0;
         String trainerInCourseData = String.format("'%s', '%s'", trainer.getId(), selectedCourse.getId());
-        String query = String.format("INSERT INTO `PrivateSchool`.`trainers_in_courses`(`trainers_id`, `courses_id`)" + "VALUES(%s);", trainerInCourseData);
-        Database.setStatement();
-        Statement st = Database.getStatement();
+        String query = String.format("INSERT INTO `trainers_in_courses`(`trainers_id`, `courses_id`)" + "VALUES(%s);", trainerInCourseData);
+        MainClass.db.setStatement();
+        Statement st = MainClass.db.getStatement();
         try {
             result = st.executeUpdate(query);
             return result;
@@ -32,8 +31,8 @@ public class TrainersInCoursesDAO {
 
     public static int readNumberOfCoursesWithAssignedTrainers() {
         int result = 0;
-        String query = String.format("SELECT count(1) FROM `PrivateSchool`.`trainers_in_courses`;");
-        ResultSet rs = Database.getResults(query);
+        String query = String.format("SELECT count(1) FROM `trainers_in_courses`;");
+        ResultSet rs = MainClass.db.getResults(query);
         try {
             rs.first();
             do {
@@ -55,10 +54,10 @@ public class TrainersInCoursesDAO {
                 + "                 `courses`.`start_date`, "
                 + "                 `courses`.`end_date`  "
                 + "FROM "
-                + "         `PrivateSchool`.`courses`, `PrivateSchool`.`trainers_in_courses`"
+                + "         `courses`, `trainers_in_courses`"
                 + "WHERE"
-                + "         `PrivateSchool`.`courses`.`id` = `PrivateSchool`.`trainers_in_courses`.`courses_id`;");
-        ResultSet rs = Database.getResults(query);
+                + "         `courses`.`id` = `trainers_in_courses`.`courses_id`;");
+        ResultSet rs = MainClass.db.getResults(query);
         return createCourseListFromResultSet(rs);
     }
 
@@ -66,16 +65,16 @@ public class TrainersInCoursesDAO {
         int courseId = course.getId();
         String query = String.format(""
                 + "SELECT *" 
-                + "FROM `PrivateSchool`.`trainers`"
+                + "FROM `trainers`"
                 + "JOIN" 
-                + "    `PrivateSchool`.`trainers_in_courses` "
-                + " ON `PrivateSchool`.`trainers`.`id` = `PrivateSchool`.`trainers_in_courses`.`trainers_id`" 
+                + "    `trainers_in_courses` "
+                + " ON `trainers`.`id` = `trainers_in_courses`.`trainers_id`" 
                 + "JOIN" 
-                + "    `PrivateSchool`.`courses` "
-                + " ON `PrivateSchool`.`courses`.`id` = `PrivateSchool`.`trainers_in_courses`.`courses_id`" 
+                + "    `courses` "
+                + " ON `courses`.`id` = `trainers_in_courses`.`courses_id`" 
                 +"WHERE" 
-                +"    `PrivateSchool`.`courses`.`id` = '%s';", courseId);
-        ResultSet rs = Database.getResults(query);
+                +"    `courses`.`id` = '%s';", courseId);
+        ResultSet rs = MainClass.db.getResults(query);
         return createTrainerListFromResultSet(rs);
 
     }
@@ -85,12 +84,12 @@ public class TrainersInCoursesDAO {
         int trainerID = trainer.getId();
         String query = String.format(""
                 + "SELECT count(1) "
-                + "FROM `PrivateSchool`.`trainers_in_courses`"
+                + "FROM `trainers_in_courses`"
                 + "WHERE "
-                + "     `PrivateSchool`.`trainers_in_courses`.`trainers_id` = '%s'"
-                + "     AND `PrivateSchool`.`trainers_in_courses`.`courses_id` = '%s';", 
+                + "     `trainers_in_courses`.`trainers_id` = '%s'"
+                + "     AND `trainers_in_courses`.`courses_id` = '%s';", 
                 trainerID, courseID);
-        return Database.tableIsNotEmpty(query);
+        return MainClass.db.tableIsNotEmpty(query);
     }
 
 }

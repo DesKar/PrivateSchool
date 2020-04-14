@@ -10,22 +10,27 @@ import java.util.logging.Logger;
 
 public class Database {
 
-    private static final String DB_URL = "localhost:3306";
-    private static final String FULL_DB_URL = "jdbc:mysql://" + DB_URL + "/PrivateSchool?zeroDateTimeBehavior=CONVERT_TO_NULL&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWD = "password";
+    private final String DB_URL = "localhost:3306";
+    private String DB_NAME = "";
+    private String FULL_DB_URL = String.format("jdbc:mysql://%s/%s?zeroDateTimeBehavior=CONVERT_TO_NULL&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false", DB_URL, DB_NAME);
+    private String DB_USER = "";
+    private String DB_PASSWD = "";
 
-    private static Connection connection = null;
-    private static Statement statement = null;
-    private static ResultSet resultSet = null;
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultSet = null;
 
-    public Database() {
+    public Database(String dbName, String username, String password) {
+        this.DB_NAME = dbName;
+        this.DB_USER = username;
+        this.DB_PASSWD = password;
         getConnection();
     }
 
-    public static Connection getConnection() {
+    public Connection getConnection() {
         try {
             connection = DriverManager.getConnection(FULL_DB_URL, DB_USER, DB_PASSWD);
+            connection.setCatalog(this.DB_NAME);
             return connection;
         } catch (SQLException ex) {
             System.out.println("Could not connect");
@@ -34,11 +39,11 @@ public class Database {
         return null;
     }
 
-    public static Statement getStatement() {
+    public Statement getStatement() {
         return statement;
     }
 
-    public static void setStatement() {
+    public void setStatement() {
         try {
             statement = connection.createStatement();
         } catch (SQLException ex) {
@@ -46,11 +51,11 @@ public class Database {
         }
     }
 
-    public static ResultSet getResultSet() {
+    public ResultSet getResultSet() {
         return resultSet;
     }
 
-    public static void setResultSet(ResultSet aResultSet) {
+    public void setResultSet(ResultSet aResultSet) {
         resultSet = aResultSet;
     }
 
@@ -58,7 +63,7 @@ public class Database {
         this.connection = connection;
     }
 
-    public static ResultSet getResults(String query) {
+    public ResultSet getResults(String query) {
         try {
             setStatement();
             ResultSet rs = statement.executeQuery(query);
@@ -71,7 +76,7 @@ public class Database {
 
     }
 
-    public static boolean recordExists(Object o, String query) {
+    public boolean recordExists(Object o, String query) {
         ResultSet rs = getResults(query);
         try {
             return rs.next();
@@ -81,8 +86,8 @@ public class Database {
         }
     }
 
-    public static boolean tableIsNotEmpty(String query) {
-        ResultSet rs = Database.getResults(query);
+    public boolean tableIsNotEmpty(String query) {
+        ResultSet rs = this.getResults(query);
         try {
             rs.first();
             int counter = rs.getInt("count(1)");
@@ -93,27 +98,6 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
-    }
-
-    public static void emptyDatabase() {
-        try {
-            String query = "DELETE FROM `PrivateSchool`.`students_in_courses`;";
-            int rs = statement.executeUpdate(query);
-            query = "DELETE FROM `PrivateSchool`.`assignments_in_courses`;";
-            rs = statement.executeUpdate(query);
-            query = "DELETE FROM `PrivateSchool`.`trainers_in_courses`;";
-            rs = statement.executeUpdate(query);
-            query = "DELETE FROM `PrivateSchool`.`students`;`;";
-            rs = statement.executeUpdate(query);
-            query = "DELETE FROM `PrivateSchool`.`assignments`;";
-            rs = statement.executeUpdate(query);
-            query = "DELETE FROM `PrivateSchool`.`assignments_in_courses`;";
-            rs = statement.executeUpdate(query);
-            query = "DELETE FROM `PrivateSchool`.`courses`;";    
-            rs = statement.executeUpdate(query);
-        } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
 }
