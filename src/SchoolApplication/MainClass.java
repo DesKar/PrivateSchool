@@ -3,9 +3,8 @@ package SchoolApplication;
 import java.util.Scanner;
 
 public class MainClass {
-// TODO   the options appear twice in some cases
 // TODO   use synthetic data OR insert new data
-    
+
     
     static Scanner input = new Scanner(System.in);
     public static final Database db = new Database();
