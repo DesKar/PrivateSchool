@@ -115,3 +115,4 @@ INSERT INTO  `PrivateSchool`.`assignments_in_courses`(`assignments_id`, `courses
 VALUES("5","2");
 INSERT INTO  `PrivateSchool`.`assignments_in_courses`(`assignments_id`, `courses_id`)
 VALUES("6","3");
+
