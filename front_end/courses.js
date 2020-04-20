@@ -59,6 +59,7 @@ formElement.addEventListener("submit", function (e) {
         const course = getCourseFromForm();
         course.id = Number(formElement.courseId.value);
         setRowContent(tableRef.rows[course.id], course);
+        formElement.reset();
     }
     hideForm();
 
