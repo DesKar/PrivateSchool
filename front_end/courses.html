@@ -41,7 +41,29 @@
 
     <main>
         <div class="container mt-4">
-            <div class="card">
+            <table id="courses" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Steam</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Starting date</th>
+                        <th scope="col">Ending date</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="container my-3">
+                <td><a id="newCourse" class="btn btn-secondary btn-sm" href="#form" role="button">New Course</a></td>
+            </div>
+
+            <div id="form" class="card">
                 <div class="card-header">
                     New Course
                 </div>
@@ -60,23 +82,24 @@
                                 <label for="type">Course type</label>
                                 <select class="custom-select" id="type" required>
                                     <option value="" selected>Choose...</option>
-                                    <option value="lab">Lab</option>
+                                    <option value="Lab">Lab</option>
                                     <option value="Seminar">Seminar</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="start_date">Starting date</label>
-                                <input type="date" class="form-control" id="start_date" required>
+                                <label for="startDate">Starting date</label>
+                                <input type="date" class="form-control" id="startDate" required>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="end_date">Ending date</label>
-                                <input type="date" class="form-control" id="end_date" required>
+                                <label for="endDate">Ending date</label>
+                                <input type="date" class="form-control" id="endDate" required>
                             </div>
                         </div>
                         <div id="alert"></div>
                         <button type="submit" class="btn btn-primary">Submit</button>
+                        <input type="reset" class="btn btn-primary"  value="Cancel">
                     </form>
                 </div>
             </div>
@@ -85,9 +108,8 @@
     </main>
 
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"
+        integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
