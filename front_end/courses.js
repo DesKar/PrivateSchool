@@ -1,9 +1,10 @@
-const courses = [];
-addDemoData();
-
 const formElement = document.querySelector("form");
-const formContainer = document.getElementById("form");
+const formContainer = document.getElementById("form-container");
 const newCourseButton = document.getElementById("newCourse");
+const tableRef = document.getElementById("courses");
+
+addDemoData();
+hideForm();
 
 function addDemoData() {
     const demoData = [
@@ -30,8 +31,7 @@ function addDemoData() {
         }
     ]
 
-    for(let i = 0; i < demoData.length; i++){
-        courses.push(demoData[i]);
+    for (let i = 0; i < demoData.length; i++) {
         addRow(demoData[i]);
 
     }
@@ -39,50 +39,60 @@ function addDemoData() {
 
 formElement.addEventListener("submit", function (e) {
     e.preventDefault();
-    const form = this;
 
-    validateStartEndDates(form);
-    addCourse(form);
+    if(!validateStartEndDates()){
+        return;
+    }
 
-    newCourseButton.style.display = "";
+    if (formElement.courseId.value === "new") {
+        const newCourse = getCourseFromForm();
+        addRow(newCourse);
+        formElement.reset();
+    } else {
+        const course = getCourseFromForm();
+        course.id = Number(formElement.courseId.value);
+        setRowContent(tableRef.rows[course.id], course);
+    }
+    hideForm();
 
 })
 
 formElement.addEventListener("reset", function (e) {
-    formContainer.style.display = "none";
-    newCourseButton.style.display = "";
+    hideForm();
 })
 
-function addCourse(form) {
-    const title = form.title.value;
-    const stream = form.stream.value;
-    const type = form.type.value;
-    const startDate = form.startDate.value;
-    const endDate = form.endDate.value;
+function getCourseFromForm() {
+    const title = formElement.title.value;
+    const stream = formElement.stream.value;
+    const type = formElement.type.value;
+    const startDate = formElement.startDate.value;
+    const endDate = formElement.endDate.value;
 
-    const newCourse = {
+    return {
         title,
         stream,
         type,
         startDate,
         endDate,
     }
-    courses.push(newCourse);
-    addRow(newCourse);
-    form.reset();
 }
 
+
 function addRow(newCourse) {
-    const tableRef = document.getElementById("courses");
-    const lastRowIndex = tableRef.rows.length - 1;
+    const lastRowIndex = tableRef.rows.length;
     const newRow = tableRef.insertRow(-1);
-    newRow.innerHTML =
-        `<th scope="row">${lastRowIndex}</th>
-         <td>${newCourse.title}</td>
-         <td>${newCourse.stream}</td>
-         <td>${newCourse.type}</td>
-         <td>${newCourse.startDate}</td>
-         <td>${newCourse.endDate}</td>
+    newCourse.id = lastRowIndex;
+    setRowContent(newRow, newCourse)
+}
+
+function setRowContent(row, course) {
+    row.innerHTML =
+        `<th scope="row">${course.id + 1}</th>
+         <td>${course.title}</td>
+         <td>${course.stream}</td>
+         <td>${course.type}</td>
+         <td>${course.startDate}</td>
+         <td>${course.endDate}</td>
          <td>
             <button class="btn btn-secondary btn-sm edit-button">Edit</button>
          </td>
@@ -90,46 +100,48 @@ function addRow(newCourse) {
          <button class="btn btn-secondary btn-sm update-button">Update</button>
       </td>`
 
-    newRow.querySelector(".edit-button").addEventListener("click", function (e) {
-        editCourse(newCourse);
+    row.querySelector(".edit-button").addEventListener("click", function (e) {
+        fillUpdateForm(course, "Edit Course");
     })
 
-    newRow.querySelector(".update-button").addEventListener("click", function (e) {
-        updateCourse(newCourse);
+    row.querySelector(".update-button").addEventListener("click", function (e) {
+        fillUpdateForm(course, "Update Course");
     })
 
-    form.style.display = "none";
 }
 
-function editCourse(newCourse) {
-    formContainer.style.display = "";
-    formElement.title.value = newCourse.title;
-    formElement.stream.value = newCourse.stream;
-    formElement.type.value = newCourse.type;
-    formElement.startDate.value = newCourse.startDate;
-    formElement.endDate.value = newCourse.endDate;
+function fillUpdateForm(course, title) {
+    showForm();
+    document.getElementById("form-title").innerText = title;
+    formElement.courseId.value = course.id;
+    formElement.title.value = course.title;
+    formElement.stream.value = course.stream;
+    formElement.type.value = course.type;
+    formElement.startDate.value = course.startDate;
+    formElement.endDate.value = course.endDate;
 }
 
-function updateCourse(newCourse) {
-    console.log(newCourse.title)
-}
 
 newCourseButton.addEventListener("click", function (e) {
 
-    formContainer.style.display = "";
-    newCourseButton.style.display = "none";
+    document.getElementById("form-title").innerText = "New Course";
+    formElement.courseId.value = "new";
+    showForm();
 })
 
-function validateStartEndDates(form) {
-    const startDate = form.startDate.value;
-    const endDate = form.endDate.value;
+function validateStartEndDates() {
+    document.getElementById("alert").innerHTML = "";
+    const startDate = formElement.startDate.value;
+    const endDate = formElement.endDate.value;
 
     if (startDate > endDate) {
-        addAlert("Starting date should be before ending date.")
+        setAlert("Starting date should be before ending date.")
+        return false;
     };
+    return true;
 }
 
-function addAlert(message) {
+function setAlert(message) {
     document.getElementById("alert").innerHTML =
         `<div class="alert alert-warning alert-dismissible fade show" role="alert">
         ${message}
@@ -137,4 +149,14 @@ function addAlert(message) {
             <span aria-hidden="true">&times;</span>
         </button>
     </div>`;
+}
+
+function showForm() {
+    newCourseButton.style.display = "none";
+    formContainer.style.display = "";
+}
+
+function hideForm() {
+    newCourseButton.style.display = "";
+    formContainer.style.display = "none";
 }

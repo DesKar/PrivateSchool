@@ -41,7 +41,7 @@
 
     <main>
         <div class="container mt-4">
-            <table id="courses" class="table table-striped">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -54,21 +54,21 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                    </tr>
+                <tbody id="courses">
+                    <!-- <tr>
+                    </tr> -->
                 </tbody>
             </table>
             <div class="container my-3">
                 <td><a id="newCourse" class="btn btn-secondary btn-sm" href="#form" role="button">New Course</a></td>
             </div>
 
-            <div id="form" class="card">
-                <div class="card-header">
-                    New Course
+            <div id="form-container" class="card">
+                <div id="form-title" class="card-header">
                 </div>
                 <div class="card-body">
                     <form>
+                        <input type="hidden" id="courseId">
                         <div class="form-group">
                             <label for="title">Title</label>
                             <input type="text" class="form-control" id="title" maxlength="50" required>
@@ -99,7 +99,7 @@
                         </div>
                         <div id="alert"></div>
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <input type="reset" class="btn btn-primary"  value="Cancel">
+                        <input type="reset" class="btn btn-primary" value="Cancel">
                     </form>
                 </div>
             </div>
