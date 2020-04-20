@@ -28,6 +28,13 @@ function addDemoData() {
             type: "Seminar",
             startDate: "2020-05-10",
             endDate: "2020-06-15",
+        },
+        {
+            title: "Cooking",
+            stream: "Home Economics",
+            type: "Lab",
+            startDate: "2020-05-01",
+            endDate: "2020-05-15",
         }
     ]
 
