@@ -1,6 +1,6 @@
 const formElement = document.querySelector("form");
 const formContainer = document.getElementById("form-container");
-const newCourseButton = document.getElementById("newStudent");
+const newStudentButton = document.getElementById("newStudent");
 const tableRef = document.getElementById("students");
 
 addDemoData();
@@ -152,7 +152,7 @@ function fillUpdateForm(student, title) {
 }
 
 
-newCourseButton.addEventListener("click", function (e) {
+newStudentButton.addEventListener("click", function (e) {
 
     document.getElementById("form-title").innerText = "New Student";
     formElement.studentId.value = "new";
@@ -186,11 +186,11 @@ function setAlert(message) {
 }
 
 function showForm() {
-    newCourseButton.style.display = "none";
+    newStudentButton.style.display = "none";
     formContainer.style.display = "";
 }
 
 function hideForm() {
-    newCourseButton.style.display = "";
+    newStudentButton.style.display = "";
     formContainer.style.display = "none";
 }

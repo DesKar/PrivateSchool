@@ -1,6 +1,6 @@
 const formElement = document.querySelector("form");
 const formContainer = document.getElementById("form-container");
-const newCourseButton = document.getElementById("newTrainer");
+const newTrainerButton = document.getElementById("newTrainer");
 const tableRef = document.getElementById("trainers");
 
 addDemoData();
@@ -115,7 +115,7 @@ function fillUpdateForm(trainer, title) {
 }
 
 
-newCourseButton.addEventListener("click", function (e) {
+newTrainerButton.addEventListener("click", function (e) {
 
     document.getElementById("form-title").innerText = "New Trainer";
     formElement.trainerId.value = "new";
@@ -123,11 +123,11 @@ newCourseButton.addEventListener("click", function (e) {
 })
 
 function showForm() {
-    newCourseButton.style.display = "none";
+    newTrainerButton.style.display = "none";
     formContainer.style.display = "";
 }
 
 function hideForm() {
-    newCourseButton.style.display = "";
+    newTrainerButton.style.display = "";
     formContainer.style.display = "none";
 }
