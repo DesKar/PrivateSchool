@@ -1,0 +1,5 @@
+.resizable-select{
+    resize: vertical;
+    height: 150px;
+    overflow-y: auto;
+}
