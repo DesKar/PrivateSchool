@@ -87,6 +87,7 @@ formElement.addEventListener("submit", function (e) {
 })
 
 formElement.addEventListener("reset", function (e) {
+    document.getElementById("alert").innerHTML = "";
     hideForm();
 })
 
@@ -152,22 +153,20 @@ function fillUpdateForm(assignment, title) {
 
 
 newAssignmentButton.addEventListener("click", function (e) {
-
     document.getElementById("form-title").innerText = "New Assignment";
     formElement.assignmentId.value = "new";
     showForm();
 })
 
-// TODO add check for subdate
 function validateSubDate() {
     document.getElementById("alert").innerHTML = "";
     const subDate = formElement.subDate.value;
-    // const endDate = formElement.endDate.value;
+    const today = new Date().toISOString().substring(0,10);
 
-    // if (startDate > endDate) {
-    //     setAlert("Starting date should be before ending date.")
-    //     return false;
-    // };
+    if (today > subDate) { 
+        setAlert("The submission date should be in the future.")
+        return false;
+    };
     return true;
 }
 
