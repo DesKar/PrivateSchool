@@ -66,6 +66,7 @@ formElement.addEventListener("submit", function (e) {
 })
 
 formElement.addEventListener("reset", function (e) {
+    document.getElementById("alert").innerHTML = "";
     hideForm();
 })
 
