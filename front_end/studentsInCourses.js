@@ -1,7 +1,7 @@
 const formElement = document.querySelector("form");
 const formContainer = document.getElementById("form-container");
-const newStudentsInCourseButton = document.getElementById("newStudentInCourse");
-const cards = document.getElementById("studentsInCourse");
+const newStudentsInCourseButton = document.getElementById("newStudentsInCourse");
+const cards = document.getElementById("studentsInCourses");
 const courses = [];
 
 addDemoData();
@@ -87,7 +87,7 @@ function addCard(studentsInCourse) {
         </div>
 
         <div id="row-content-${index}" class="collapse" aria-labelledby="row-heading-${index}"
-            data-parent="#studentsInCourse">
+            data-parent="#studentsInCourses">
             <div class="card-body">
                 <table class="table table-striped">
                     <thead>
