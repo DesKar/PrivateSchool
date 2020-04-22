@@ -54,6 +54,7 @@ formElement.addEventListener("submit", function (e) {
         addTable(assignmentsInCourse.assignments, table);
     }
     formElement.reset();
+    document.getElementById("course").disabled = false;
     hideForm();
 })
 
@@ -139,6 +140,7 @@ newAssignmentsInCourseButton.addEventListener("click", function (e) {
 
 formElement.addEventListener("reset", function (e) {
     document.getElementById("alert").innerHTML = "";
+    document.getElementById("course").disabled = false;
     hideForm();
 })
 

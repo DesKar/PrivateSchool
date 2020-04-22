@@ -53,6 +53,7 @@ formElement.addEventListener("submit", function (e) {
         addTable(trainersInCourse.trainers, table);
     }
     formElement.reset();
+    document.getElementById("course").disabled = false;
     hideForm();
 })
 
@@ -117,8 +118,7 @@ function fillUpdateForm(trainersInCourse, title) {
     showForm();
     document.getElementById("form-title").innerText = title;
     formElement.course.value = trainersInCourse.course;
-    const inputCourse = document.getElementById("course");
-    inputCourse.disabled = true;
+    document.getElementById("course").disabled = true;
 }
 
 function addTable(trainers, table) {
@@ -138,6 +138,7 @@ newTrainersInCourseButton.addEventListener("click", function (e) {
 
 formElement.addEventListener("reset", function (e) {
     document.getElementById("alert").innerHTML = "";
+    document.getElementById("course").disabled = false;
     hideForm();
 })
 
