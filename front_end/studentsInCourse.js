@@ -81,8 +81,8 @@ function addCard(studentsInCourse) {
                     aria-expanded="false" aria-controls="collapseOne">
                     ${studentsInCourse.course}
                 </button>
-                <button class="btn btn-secondary btn-sm update-button float-right" style="margin-left:1em">Update</button>
-                <button class="btn btn-secondary btn-sm edit-button float-right" style="margin-left:1em">Edit</button>
+                <button class="btn btn-secondary btn-sm update-button right-bt">Update</button>
+                <button class="btn btn-secondary btn-sm edit-button right-bt">Edit</button>
             </h2>
         </div>
 

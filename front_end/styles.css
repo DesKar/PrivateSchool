@@ -3,3 +3,8 @@
     height: 150px;
     overflow-y: auto;
 }
+
+.right-bt{
+    margin-left:1em;
+    float: right;
+}
