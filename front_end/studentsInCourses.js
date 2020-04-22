@@ -45,18 +45,22 @@ function addDemoData() {
 formElement.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const newStudentsInCourse = getDataFromForm();
-    const course = newStudentsInCourse.course;
+    const studentsInCourse = getDataFromForm();
+    const course = studentsInCourse.course;
 
     if (courses.indexOf(course) === -1) {
-        addCard(newStudentsInCourse);
+        addCard(studentsInCourse);
         formElement.reset();
         hideForm();
     } else {
-        setAlert("The course already has students. Please edit the existing course.")
-        return false;
+        studentsInCourse.courseIndex = courses.indexOf(course);
+        const card = document.getElementById("row-content-" + studentsInCourse.courseIndex);
+        const table = card.querySelector(".students");
+        table.innerHTML = "";
+        addTable(studentsInCourse.students, table);
     }
 })
+
 
 function getDataFromForm() {
     const course = formElement.course.value;
@@ -70,14 +74,14 @@ function getDataFromForm() {
 
 function addCard(studentsInCourse) {
 
-    const index = cards.children.length;
+    studentsInCourse.courseIndex = cards.children.length;
 
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML =
-        `<div class="card-header" id="row-heading-${index}">
+        `<div class="card-header" id="row-heading-${studentsInCourse.courseIndex}">
             <h2 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#row-content-${index}"
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#row-content-${studentsInCourse.courseIndex}"
                     aria-expanded="false" aria-controls="collapseOne">
                     ${studentsInCourse.course}
                 </button>
@@ -86,7 +90,7 @@ function addCard(studentsInCourse) {
             </h2>
         </div>
 
-        <div id="row-content-${index}" class="collapse" aria-labelledby="row-heading-${index}"
+        <div id="row-content-${studentsInCourse.courseIndex}" class="collapse" aria-labelledby="row-heading-${studentsInCourse.courseIndex}"
             data-parent="#studentsInCourses">
             <div class="card-body">
                 <table class="table table-striped">
@@ -118,6 +122,7 @@ function fillUpdateForm(studentsInCourse, title) {
     showForm();
     document.getElementById("form-title").innerText = title;
     formElement.course.value = studentsInCourse.course;
+    // TODO disable selection of courses
 }
 
 function addTable(students, table) {
