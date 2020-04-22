@@ -9,7 +9,7 @@ hideForm();
 function addDemoData() {
     const demoData = [
         {
-            title: "Linear Algebra",
+            title: "Linear Algebra 1",
             description: "Individual assingment",
             subDate: "2020-03-06",
             oralMark: "10",
@@ -51,7 +51,7 @@ function addDemoData() {
             localMark: "5",
         },
         {
-            title: "Linear Algebra",
+            title: "Linear Algebra 2",
             description: "Individual assignment",
             subDate: "2020-03-15",
             oralMark: "10",
