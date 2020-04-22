@@ -47,7 +47,7 @@ VALUES("Martin","Nusli","House Economics");
 
 -- Assignments
 INSERT INTO `assignments`(`title`, `description`, `sub_date`, `oral_mark`, `local_mark`)
-VALUES("Linear Algebra","Individual assingment","2020-03-06","10","10");
+VALUES("Linear Algebra 1","Individual assingment","2020-03-06","10","10");
 INSERT INTO `assignments`(`title`, `description`, `sub_date`, `oral_mark`, `local_mark`)
 VALUES("Essay on El Greco","Bibliographic research","2020-12-12","5","5");
 INSERT INTO `assignments`(`title`, `description`, `sub_date`, `oral_mark`, `local_mark`)
@@ -59,7 +59,7 @@ VALUES("Buchberger's algorithm","Implementation in Java","2020-04-28","10","10")
 INSERT INTO `assignments`(`title`, `description`, `sub_date`, `oral_mark`, `local_mark`)
 VALUES("Marc Chagall","Summary of life and work","2020-11-25","5","5");
 INSERT INTO `assignments`(`title`, `description`, `sub_date`, `oral_mark`, `local_mark`)
-VALUES("Linear Algebra","Individual assignment","2020-03-15","10","10");
+VALUES("Linear Algebra 2","Individual assignment","2020-03-15","10","10");
 
 
 -- Register students to courses
