@@ -8,3 +8,17 @@
     margin-left:1em;
     float: right;
 }
+
+.image-container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.centered {
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-shadow: 2px 2px grey;
+}
