@@ -1,6 +1,6 @@
 const formElement = document.querySelector("form");
 const formContainer = document.getElementById("form-container");
-const newStudentsInCourseButton = document.getElementById("newAssignmentsInCourse");
+const newAssignmentsInCourseButton = document.getElementById("newAssignmentsInCourse");
 const cards = document.getElementById("assignmentsInCourses");
 const courses = [];
 
@@ -92,7 +92,7 @@ function addCard(assignmentsInCourse) {
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">Student name</th>
+                            <th scope="col">Assignment</th>
                         </tr>
                     </thead>
                     <tbody class="assignments">
@@ -131,7 +131,7 @@ function addTable(assignments, table) {
     }
 }
 
-newStudentsInCourseButton.addEventListener("click", function (e) {
+newAssignmentsInCourseButton.addEventListener("click", function (e) {
 
     document.getElementById("form-title").innerText = "Add assignments to course";
     showForm();
@@ -153,11 +153,11 @@ function setAlert(message) {
 }
 
 function showForm() {
-    newStudentsInCourseButton.style.display = "none";
+    newAssignmentsInCourseButton.style.display = "none";
     formContainer.style.display = "";
 }
 
 function hideForm() {
-    newStudentsInCourseButton.style.display = "";
+    newAssignmentsInCourseButton.style.display = "";
     formContainer.style.display = "none";
 }

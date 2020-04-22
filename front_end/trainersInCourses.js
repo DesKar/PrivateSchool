@@ -91,7 +91,7 @@ function addCard(trainersInCourse) {
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">Trainers name</th>
+                            <th scope="col">Trainer name</th>
                         </tr>
                     </thead>
                     <tbody class="trainers">
