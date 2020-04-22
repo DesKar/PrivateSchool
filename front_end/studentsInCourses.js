@@ -50,8 +50,6 @@ formElement.addEventListener("submit", function (e) {
 
     if (courses.indexOf(course) === -1) {
         addCard(studentsInCourse);
-        formElement.reset();
-        hideForm();
     } else {
         studentsInCourse.courseIndex = courses.indexOf(course);
         const card = document.getElementById("row-content-" + studentsInCourse.courseIndex);
@@ -59,6 +57,8 @@ formElement.addEventListener("submit", function (e) {
         table.innerHTML = "";
         addTable(studentsInCourse.students, table);
     }
+    formElement.reset();
+    hideForm();
 })
 
 
@@ -122,7 +122,8 @@ function fillUpdateForm(studentsInCourse, title) {
     showForm();
     document.getElementById("form-title").innerText = title;
     formElement.course.value = studentsInCourse.course;
-    // TODO disable selection of courses
+    const inputCourse = document.getElementById("course");
+    inputCourse.disabled = true;
 }
 
 function addTable(students, table) {
