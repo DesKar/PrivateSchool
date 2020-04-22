@@ -60,7 +60,7 @@ formElement.addEventListener("submit", function (e) {
 
 function getDataFromForm() {
     const course = formElement.course.value;
-    const students = formElement.students.value;
+    const students = $(formElement.students).val();
 
     return {
         course,
